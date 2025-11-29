@@ -1,263 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Yireh AI — Remote Jobs & Smart Matches</title>
-  <meta name="description" content="Yireh AI — Powerful AI matching for remote jobs. Tailored CVs, smart discovery, and an integrated assistant." />
-  <style>
-    :root{
-      --bg:#071029; --card:#0f1724; --muted:#9aa6b2; --accent:#00b4d8; --glass:rgba(255,255,255,0.04);
-      --max:1100px; --radius:12px;
+<meta charset="UTF-8" />
+<title>Yireh AI — Remote Jobs Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        color: #333;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,#021024 0%, #071029 100%);color:#e6eef6}
-    .wrap{max-width:var(--max);margin:36px auto;padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:64px;height:64px;border-radius:12px;background:var(--glass);padding:6px}
-    .brand h1{margin:0;font-size:20px}
-    .tagline{font-size:12px;color:var(--muted)}
-    nav a{color:#cfeefb;margin-left:16px;text-decoration:none;font-weight:600}
-    main{display:grid;grid-template-columns:1fr 360px;gap:20px;margin-top:20px}
-    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;border-radius:12px}
-    .hero h2{margin:0 0 8px 0;font-size:28px}
-    .hero p{margin:0 0 16px;color:var(--muted)}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{background:var(--accent);border:none;color:#00202a;padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:700}
-    .mutebtn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px 14px;border-radius:10px;cursor:pointer}
-    .search{display:flex;gap:10px;margin-top:16px}
-    .search input{flex:1;padding:12px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);color:inherit}
-    .search select{padding:12px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);color:inherit}
-
-    .jobs{display:grid;gap:12px}
-    .job{background:var(--card);padding:12px;border-radius:10px}
-    .job h3{margin:0;font-size:16px}
-    .job .meta{font-size:12px;color:var(--muted);margin-top:6px}
-    .job .desc{margin-top:8px;color:#cbd7df}
-    .job .cta{margin-top:12px;display:flex;justify-content:space-between;align-items:center}
-
-    aside{position:relative}
-    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));padding:16px;border-radius:12px}
-    .small{font-size:13px;color:var(--muted)}
-    .chat-btn{position:fixed;right:22px;bottom:22px;background:var(--accent);border:none;width:60px;height:60px;border-radius:30px;font-weight:700;cursor:pointer;color:#00202a}
-    .chat-window{position:fixed;right:22px;bottom:92px;width:420px;height:560px;background:#fff;color:#001;box-shadow:0 18px 40px rgba(2,6,23,0.6);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-    .chat-head{padding:12px;background:linear-gradient(90deg,#e6f7ff,#cfeefb);font-weight:700}
-    .chat-body{flex:1;padding:12px;overflow:auto;background:#f6fbff}
-    .chat-input{display:flex;gap:8px;padding:10px;background:#fff;border-top:1px solid #eee}
-    .chip{display:inline-block;padding:6px 10px;background:rgba(0,0,0,0.04);border-radius:999px;margin:4px;font-size:13px}
-
-    footer{margin-top:26px;padding:16px;text-align:center;color:var(--muted);font-size:13px}
-    .tag{font-weight:700;color:var(--accent)}
-    .badge{display:inline-block;background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
-
-    @media (max-width:990px){main{grid-template-columns:1fr}aside{order:2}.chat-window{right:12px;width:92%;} header{flex-direction:column;gap:12px;align-items:flex-start} nav{align-self:flex-end}}
-  </style>
+    header {
+        background: #222;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 22px;
+        letter-spacing: 1px;
+    }
+    h1 {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 34px;
+        font-weight: 700;
+    }
+    p {
+        text-align: center;
+        font-size: 18px;
+        opacity: 0.8;
+        max-width: 600px;
+        margin: auto;
+        line-height: 1.6;
+    }
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 3px 12px rgba(0,0,0,0.10);
+    }
+    footer {
+        margin-top: 40px;
+        text-align: center;
+        padding: 20px;
+        background: #111;
+        color: white;
+        font-size: 14px;
+    }
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <!-- Embedded logo -->
-        <img id="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB49GkhAAAAQElEQVR42u3OMQ0AIAwDsN7/6b4gS2kQgnc+Lw1AI1QGg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg2gPoJH7qG0G3QAAAAASUVORK5CYII=" alt="Yireh Logo" />
-        <div>
-          <h1>Yireh AI</h1>
-          <div class="tagline">Empowering Every Talent, Everywhere.</div>
-          <div class="tagline" style="margin-top:6px">yireh.remotejobs@gmail.com</div>
-        </div>
-      </div>
-      <nav>
-        <a href="#" onclick="scrollToTop()">Home</a>
-        <a href="#" onclick="showJobs()">Jobs</a>
-        <a href="#" onclick="openAdmin()">Admin</a>
-        <a href="#" onclick="openAuth()">Sign in</a>
-      </nav>
-    </header>
 
-    <main>
-      <section>
-        <div class="hero">
-          <h2>Find remote work that fits your life — faster.</h2>
-          <p>Yireh AI helps you discover curated remote roles, writes tailored cover letters, and improves your CV with AI guidance.</p>
+<header>
+    YIREH AI — SMART REMOTE JOBS PLATFORM
+</header>
 
-          <div class="actions">
-            <button class="btn" onclick="openAuth()">Get Started — It's Free</button>
-            <button class="mutebtn" onclick="downloadProject()">Download Project ZIP</button>
-            <div style="flex:1"></div>
-            <div class="badge">Global • Remote-first • AI-assisted</div>
-          </div>
+<h1>Welcome to Yireh AI</h1>
+<p>Your intelligent global platform for Work-from-Home & Remote jobs.</p>
 
-          <div class="search" style="margin-top:18px">
-            <input id="q" placeholder="Search jobs, skills, companies..." oninput="renderJobs()" />
-            <select id="loc" onchange="renderJobs()">
-              <option value="">All locations</option>
-              <option>Remote</option>
-              <option>Europe</option>
-              <option>Americas</option>
-              <option>Asia</option>
-            </select>
-            <button class="btn" onclick="renderJobs()">Search</button>
-          </div>
-        </div>
+<div class="container">
+    <h2>Site Under Development</h2>
+    <p>
+        The Yireh AI platform is being prepared with advanced tools,
+        beautiful interface, and AI-powered job matching.
+    </p>
 
-        <h3 style="margin-top:18px;color:var(--muted)">Available remote roles</h3>
-        <div id="jobs" class="jobs" style="margin-top:10px"></div>
-      </section>
+    <p><b>Email:</b> yireh.remotejobs@gmail.com</p>
+</div>
 
-      <aside>
-        <div class="panel">
-          <h4 style="margin:0">AI Onboarding</h4>
-          <div class="small" style="margin-top:8px">Tell us about your skills and get a short CV intro written by our AI demo.</div>
+<footer>
+    © 2025 Yireh AI — All Rights Reserved
+</footer>
 
-          <div style="margin-top:12px">
-            <input id="on_name" placeholder="Your name" style="width:100%;padding:8px;border-radius:8px;border:0;background:#071a2a;color:#fff" />
-            <input id="on_skills" placeholder="Key skills (comma separated)" style="width:100%;margin-top:8px;padding:8px;border-radius:8px;border:0;background:#071a2a;color:#fff" />
-            <button class="btn" style="width:100%;margin-top:10px" onclick="generateProfile()">Generate Profile</button>
-          </div>
-
-          <div id="on_result" style="margin-top:12px;background:rgba(255,255,255,0.02);padding:8px;border-radius:8px"></div>
-        </div>
-
-        <div style="height:12px"></div>
-
-        <div class="panel">
-          <h4 style="margin:0">Helpful Links</h4>
-          <div class="small" style="margin-top:8px">
-            <div class="chip" onclick="openLink('https://www.linkedin.com')">LinkedIn</div>
-            <div class="chip" onclick="openLink('https://remote.co')">Remote.co</div>
-            <div class="chip" onclick="openLink('https://weworkremotely.com')">WeWorkRemotely</div>
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <footer>
-      Yireh AI — Smart remote jobs • <span style="color:#8fd8ef">yireh.remotejobs@gmail.com</span> • © 2025
-    </footer>
-  </div>
-
-  <button class="chat-btn" id="chatToggle" title="Open Yireh AI" onclick="toggleChat()">AI</button>
-
-  <!-- Chat window (hidden by default) -->
-  <div id="chatWin" class="chat-window" style="display:none">
-    <div class="chat-head">Yireh AI Assistant</div>
-    <div id="chatBody" class="chat-body"></div>
-    <div class="chat-input">
-      <input id="chatInput" placeholder="Ask Yireh (try: 'Help me apply to frontend jobs')" style="flex:1;padding:8px;border:0" onkeydown="if(event.key==='Enter') sendChat()" />
-      <button onclick="sendChat()">Send</button>
-    </div>
-  </div>
-
-  <!-- Sign-in modal (demo) -->
-  <div id="modal" style="position:fixed;left:0;top:0;right:0;bottom:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6)">
-    <div style="background:#021129;padding:18px;border-radius:12px;min-width:360px">
-      <h3 style="margin:0">Sign in to Yireh</h3>
-      <p style="color:var(--muted);margin:6px 0 12px 0">Demo sign-in (no real auth)</p>
-      <input id="email" placeholder="you@example.com" style="width:100%;padding:8px;border-radius:8px;border:0;background:#071a2a;color:#fff" />
-      <div style="display:flex;gap:8px;margin-top:12px">
-        <button class="btn" onclick="doSignIn()">Send magic link</button>
-        <button class="mutebtn" onclick="closeAuth()">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Enhanced sample jobs
-    const jobsData = [
-      { id:'j1', title:'Frontend Developer (Remote)', company:'Yireh Labs', location:'Remote', posted_at:'2025-11-01', description:'Work on UI, React, and polished UX.' },
-      { id:'j2', title:'Remote Content Writer', company:'Global Media', location:'Americas', posted_at:'2025-10-15', description:'Write engaging technical blog posts.' },
-      { id:'j3', title:'HSE Consultant (Remote)', company:'SafeWorks', location:'Europe', posted_at:'2025-09-28', description:'HSE policies and scaffolding specialist.' },
-      { id:'j4', title:'Remote Customer Success', company:'ClientFirst', location:'Americas', posted_at:'2025-10-05', description:'Manage customer relationships remotely.' },
-      { id:'j5', title:'React Native Engineer', company:'MobileFlow', location:'Remote', posted_at:'2025-10-20', description:'Build cross-platform apps.' }
-    ];
-
-    function renderJobs(){
-      const q = (document.getElementById('q').value||'').toLowerCase();
-      const loc = (document.getElementById('loc').value||'').toLowerCase();
-      const out = document.getElementById('jobs');
-      out.innerHTML='';
-      const filtered = jobsData.filter(j=>{
-        return (q==='' || (j.title+j.company+j.description).toLowerCase().includes(q))
-          && (loc==='' || j.location.toLowerCase().includes(loc));
-      });
-      if(filtered.length===0) out.innerHTML='<div class="small">No jobs found. Try different keywords.</div>';
-      filtered.forEach(j=>{
-        const div = document.createElement('div'); div.className='job';
-        div.innerHTML = '<h3>'+escapeHtml(j.title)+'</h3><div class="meta">'+escapeHtml(j.company)+' • '+escapeHtml(j.location)+' • '+(new Date(j.posted_at)).toLocaleDateString()+'</div><div class="desc">'+escapeHtml(j.description)+'</div><div class="cta"><div class="small">ID: '+j.id+'</div><div><button class="btn apply-btn" data-id="'+j.id+'">Apply</button></div></div>';
-        out.appendChild(div);
-      });
-      // attach handlers
-      document.querySelectorAll('.apply-btn').forEach(b=>b.onclick=(e)=>applyJob(e.target.dataset.id));
-    }
-
-    function applyJob(id){
-      const job = jobsData.find(j=>j.id===id);
-      if(!job) return alert('Job not found');
-      const subj = encodeURIComponent('Application: '+job.title+' at '+job.company);
-      const body = encodeURIComponent('Hello,%0D%0A%0D%0AI would like to apply for the position '+job.title+' at '+job.company+'. Please find my CV attached.%0D%0A%0D%0ARegards,');
-      window.location.href = 'mailto:yireh.remotejobs@gmail.com?subject='+subj+'&body='+body;
-    }
-
-    function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
-
-    // Chat simulator (demo)
-    let chatOpen=false;
-    function toggleChat(){ chatOpen=!chatOpen; document.getElementById('chatWin').style.display=chatOpen?'flex':'none'; }
-    function sendChat(){
-      const input = document.getElementById('chatInput');
-      const txt = input.value.trim(); if(!txt) return;
-      appendMessage('You', txt); input.value='';
-      appendMessage('Yireh', 'Thinking…');
-      setTimeout(()=> {
-        const lower = txt.toLowerCase();
-        let reply = "I can help with job matching, tailored CVs, and writing cover letters. Try: 'Match my skills' or 'Write cover letter for frontend developer'.";
-        if(lower.includes('cover')) reply = "Sure — paste your CV / job link and I'll draft a short cover letter.";
-        if(lower.includes('match')) reply = "Tell me your main skills and preferred location — I'll find best matches.";
-        if(lower.includes('hse')) reply = "I can highlight HSE experience and scaffolding certifications in your CV.";
-        replaceLastAI(reply);
-      }, 900);
-    }
-    function appendMessage(who, text){
-      const body = document.getElementById('chatBody');
-      const p = document.createElement('div'); p.style.marginBottom='8px';
-      if(who==='You') p.style.textAlign='right';
-      p.innerHTML = '<div style="display:inline-block;padding:8px;border-radius:8px;background:'+(who==='You'? '#dff7ff':'#eef3f7')+'">'+escapeHtml(text)+'</div>';
-      body.appendChild(p); body.scrollTop = body.scrollHeight;
-    }
-    function replaceLastAI(text){
-      const body = document.getElementById('chatBody');
-      for(let i=body.children.length-1;i>=0;i--){
-        const el = body.children[i];
-        if(el && el.innerText && el.innerText.indexOf('Thinking')!==-1){
-          el.innerHTML = '<div style="display:inline-block;padding:8px;border-radius:8px;background:#eef3f7">'+escapeHtml(text)+'</div>';
-          break;
-        }
-      }
-    }
-
-    // onboarding: create profile using internal simple generator (demo)
-    function generateProfile(){
-      const name = document.getElementById('on_name').value.trim() || 'Candidate';
-      const skills = document.getElementById('on_skills').value.trim() || 'skills';
-      const headline = name + ' — ' + (skills.split(',')[0]||'Remote') + ' specialist';
-      const summary = name + ' is an experienced professional with skills: ' + skills + '. Ready for remote work opportunities.';
-      document.getElementById('on_result').innerHTML = '<strong>'+escapeHtml(headline)+'</strong><div style="margin-top:6px;color:var(--muted)">'+escapeHtml(summary)+'</div>';
-    }
-
-    // small utilities
-    function openAuth(){ document.getElementById('modal').style.display='flex'; }
-    function closeAuth(){ document.getElementById('modal').style.display='none'; }
-    function doSignIn(){ alert('Demo: sign-in email sent (not real).'); closeAuth(); }
-    function openAdmin(){ alert('Admin is protected in the real app.'); }
-    function openLink(u){ window.open(u,'_blank'); }
-    function scrollToTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
-    function showJobs(){ document.getElementById('q').focus(); renderJobs(); }
-
-    // download project helper (in case you have server)
-    function downloadProject(){ alert('Download the full project ZIP from your developer or run the build script provided.'); }
-
-    // On load
-    renderJobs();
-  </script>
 </body>
 </html>
