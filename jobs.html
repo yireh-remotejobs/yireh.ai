@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Yireh — Jobs</title>
+<style>
+/* keep styles minimal and consistent; reuse from index or copy paste */
+:root{--bg:#071029;--accent:#1e90ff;--text:#e6eef6;--muted:#9aa6b2;--card:rgba(255,255,255,0.02);--max:1100px}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#022138,#071029);color:var(--text)}
+.container{max-width:1100px;margin:28px auto;padding:18px}
+.header{display:flex;justify-content:space-between;align-items:center}
+.nav a{color:var(--text);margin-left:14px;text-decoration:none}
+.controls{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.input{padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.03);color:inherit}
+.jobs{display:grid;gap:12px;margin-top:18px}
+.card{background:var(--card);padding:14px;border-radius:12px}
+.small{color:var(--muted);font-size:13px}
+.btn{background:var(--accent);color:#022;border:none;padding:10px 14px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div><a href="index.html" style="color:var(--text);text-decoration:none;font-weight:800">Yireh AI</a></div>
+    <nav class="nav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="contact.html">Contact</a></nav>
+  </div>
+
+  <h1>Remote Jobs</h1>
+  <div class="controls">
+    <input id="q" class="input" placeholder="Search jobs..." />
+    <select id="loc" class="input"><option value="">All locations</option><option>Remote</option><option>Europe</option><option>Americas</option><option>Asia</option></select>
+    <button class="btn" onclick="render()">Search</button>
+    <div style="margin-left:auto"><a class="btn" href="services.html#postjob">Post a job (Paid)</a></div>
+  </div>
+
+  <div id="list" class="jobs"></div>
+</div>
+
+<script>
+const jobs = [
+ {id:'j1',title:'Frontend Developer (Remote)',company:'Yireh Labs',location:'Remote',posted:'2025-11-01',desc:'Build modern UIs with React.'},
+ {id:'j2',title:'HSE Consultant (Remote)',company:'SafeWorks',location:'Europe',posted:'2025-10-10',desc:'HSE policies.'},
+ {id:'j3',title:'Content Writer (Remote)',company:'Global Media',location:'Americas',posted:'2025-09-20',desc:'Technical writing.'},
+ {id:'j4',title:'React Native Engineer',company:'MobileFlow',location:'Remote',posted:'2025-10-20',desc:'Cross-platform apps.'}
+];
+
+function render(){
+ const q=(document.getElementById('q').value||'').toLowerCase();
+ const loc=(document.getElementById('loc').value||'').toLowerCase();
+ const el=document.getElementById('list');el.innerHTML='';
+ const filtered=jobs.filter(j=> (q===''|| (j.title+j.company+j.desc).toLowerCase().includes(q)) && (loc===''|| j.location.toLowerCase().includes(loc)));
+ if(filtered.length===0){el.innerHTML='<div class="card small">No jobs found</div>';return;}
+ filtered.forEach(j=>{
+  const d=document.createElement('div');d.className='card';
+  d.innerHTML=`<h3>${j.title}</h3><div class="small">${j.company} • ${j.location} • ${j.posted}</div><div style="margin-top:10px">${j.desc}</div><div style="margin-top:12px"><button class="btn" onclick="apply('${j.id}')">Apply</button> <button style="margin-left:8px" onclick="share('${j.id}')">Share</button></div>`;
+  el.appendChild(d);
+ });
+}
+function apply(id){const j=jobs.find(x=>x.id===id);location.href='mailto:yireh.remotejobs@gmail.com?subject='+encodeURIComponent('Apply: '+j.title)+'&body='+encodeURIComponent('Hi, I would like to apply for '+j.title);}
+function share(id){alert('Share link copied (demo)');}
+render();
+</script>
+</body></html>
