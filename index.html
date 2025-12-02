@@ -1,79 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Yireh AI — Remote Jobs Platform</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Yireh Portal — Remote Jobs & Services</title>
+<meta name="description" content="Yireh Portal — AI-assisted remote job search, CV services, and global remote opportunities." />
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB49GkhAAAAQElEQVR42u3OMQ0AIAwDsN7/6b4gS2kQgnc+Lw1AI1QGg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg2gPoJH7qG0G3QAAAAASUVORK5CYII=" />
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f5f7fa;
-        color: #333;
-    }
-    header {
-        background: #222;
-        color: white;
-        padding: 20px;
-        text-align: center;
-        font-size: 22px;
-        letter-spacing: 1px;
-    }
-    h1 {
-        margin-top: 40px;
-        text-align: center;
-        font-size: 34px;
-        font-weight: 700;
-    }
-    p {
-        text-align: center;
-        font-size: 18px;
-        opacity: 0.8;
-        max-width: 600px;
-        margin: auto;
-        line-height: 1.6;
-    }
-    .container {
-        max-width: 900px;
-        margin: 40px auto;
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0px 3px 12px rgba(0,0,0,0.10);
-    }
-    footer {
-        margin-top: 40px;
-        text-align: center;
-        padding: 20px;
-        background: #111;
-        color: white;
-        font-size: 14px;
-    }
+:root{--bg:#071029;--accent:#1e90ff;--text:#e6eef6;--muted:#9aa6b2;--card:rgba(255,255,255,0.02);--max:1100px}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;color:var(--text);background:linear-gradient(180deg,#022138,#071029);-webkit-font-smoothing:antialiased}
+.container{max-width:var(--max);margin:28px auto;padding:18px}
+.header{display:flex;justify-content:space-between;align-items:center;background:transparent;padding:10px 6px}
+.brand{display:flex;gap:12px;align-items:center}
+.brand img{width:56px;height:56px;border-radius:10px}
+.brand .title{font-weight:800;font-size:18px}
+.nav a{color:var(--text);margin-left:16px;text-decoration:none;font-weight:600}
+.hero{display:flex;gap:20px;align-items:center;margin-top:14px;padding:28px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))}
+.hero-left{flex:1}
+.hero h1{margin:0;font-size:32px;line-height:1.04}
+.hero p{color:var(--muted);max-width:680px}
+.actions{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{background:var(--accent);color:#022;border:none;padding:12px 18px;border-radius:10px;font-weight:800;cursor:pointer}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:10px;color:var(--text)}
+.section{margin-top:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+.card h3{margin:0;color:#dff4ff}
+.small{color:var(--muted);font-size:13px;margin-top:8px}
+.footer{margin-top:28px;text-align:center;color:var(--muted);font-size:14px;padding-bottom:30px}
+
+/* chat FAB */
+.chat-fab{position:fixed;right:18px;bottom:18px;width:64px;height:64px;border-radius:999px;background:var(--accent);color:#022;border:none;font-weight:900;cursor:pointer;box-shadow:0 12px 36px rgba(2,36,80,0.5)}
+/* responsive */
+@media(max-width:880px){.hero{flex-direction:column;align-items:flex-start}.header{padding:8px}}
 </style>
 </head>
-
 <body>
-
-<header>
-    YIREH AI — SMART REMOTE JOBS PLATFORM
-</header>
-
-<h1>Welcome to Yireh AI</h1>
-<p>Your intelligent global platform for Work-from-Home & Remote jobs.</p>
-
 <div class="container">
-    <h2>Site Under Development</h2>
-    <p>
-        The Yireh AI platform is being prepared with advanced tools,
-        beautiful interface, and AI-powered job matching.
-    </p>
+  <header class="header">
+    <div class="brand">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB49GkhAAAAQElEQVR42u3OMQ0AIAwDsN7/6b4gS2kQgnc+Lw1AI1QGg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg2gPoJH7qG0G3QAAAAASUVORK5CYII=" alt="Yireh" />
+      <div><div class="title">Yireh AI</div><div class="small" style="color:var(--muted)">Empowering Every Talent, Everywhere</div></div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="jobs.html">Jobs</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-    <p><b>Email:</b> yireh.remotejobs@gmail.com</p>
+  <section class="hero" role="region" aria-label="Hero">
+    <div class="hero-left">
+      <h1>Find remote work that fits your life — faster.</h1>
+      <p>Yireh Portal matches your skills with curated remote jobs, helps you apply with tailored CVs & cover letters, and provides trusted remote-hiring services worldwide.</p>
+      <div class="actions">
+        <a class="btn" href="jobs.html">Find Jobs</a>
+        <a class="ghost" href="services.html">Hire Me / Post Job</a>
+      </div>
+
+      <div style="margin-top:16px">
+        <input id="homeSearch" style="padding:12px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);width:60%" placeholder="Search jobs, skills, companies..." />
+        <button class="btn" onclick="location.href='jobs.html?q='+encodeURIComponent(document.getElementById('homeSearch').value)">Search</button>
+      </div>
+    </div>
+
+    <div style="width:320px;min-width:240px">
+      <div class="card">
+        <h3>AI Onboarding (Demo)</h3>
+        <div class="small">Short profile generator to help you apply quickly</div>
+        <input id="name" placeholder="Your name" class="small" style="width:100%;margin-top:10px;padding:8px;border-radius:8px;border:0;background:rgba(255,255,255,0.02)" />
+        <input id="skills" placeholder="Skills (comma separated)" class="small" style="width:100%;margin-top:8px;padding:8px;border-radius:8px;border:0;background:rgba(255,255,255,0.02)" />
+        <button class="btn" style="width:100%;margin-top:12px" onclick="generateProfileHome()">Generate Profile</button>
+        <div id="profileResult" class="small" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h2>Featured jobs</h2>
+      <a class="ghost" href="jobs.html">See all jobs</a>
+    </div>
+
+    <div class="cards" id="featuredJobs">
+      <!-- injected -->
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card">
+      <h3>Why Yireh?</h3>
+      <p class="small">We focus on remote-first roles, support international applicants, and provide tailored application help. Start for free — upgrade for premium CV & featured job posting.</p>
+    </div>
+  </section>
+
+  <div class="footer">© 2025 Yireh Portal — yireh.remotejobs@gmail.com</div>
 </div>
 
-<footer>
-    © 2025 Yireh AI — All Rights Reserved
-</footer>
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">AI</button>
 
+<!-- chat window -->
+<div id="chatWin" style="display:none;position:fixed;right:18px;bottom:96px;width:380px;height:520px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.5);color:#001">
+  <div style="padding:12px;background:linear-gradient(90deg,#e6f7ff,#cfeefb);font-weight:800">Yireh AI Assistant</div>
+  <div id="chatBody" style="padding:12px;overflow:auto;height:360px;background:#f6fbff"></div>
+  <div style="display:flex;padding:10px;gap:8px;background:#fff">
+    <input id="chatInput" style="flex:1;padding:8px;border-radius:8px;border:1px solid #eee" placeholder="Ask about jobs, CV, or cover letters..." onkeydown="if(event.key==='Enter') sendChat()" />
+    <button class="btn" onclick="sendChat()">Send</button>
+  </div>
+</div>
+
+<script>
+// small dataset for demo
+const jobs = [
+ {id:'j1',title:'Frontend Developer (Remote)',company:'Yireh Labs',location:'Remote',posted:'2025-11-01',desc:'Build modern UIs with React.'},
+ {id:'j2',title:'HSE Consultant (Remote)',company:'SafeWorks',location:'Europe',posted:'2025-10-10',desc:'HSE policies and scaffolding expertise.'},
+ {id:'j3',title:'Content Writer (Remote)',company:'Global Media',location:'Americas',posted:'2025-09-20',desc:'Technical and marketing writing.'}
+];
+
+function renderFeatured(){
+ const el=document.getElementById('featuredJobs');
+ el.innerHTML='';
+ jobs.slice(0,3).forEach(j=>{
+  const d=document.createElement('div');d.className='card';
+  d.innerHTML=`<h3>${j.title}</h3><div class="small">${j.company} • ${j.location}</div><div class="small" style="margin-top:8px">${j.desc}</div><div style="margin-top:10px;display:flex;justify-content:space-between"><button class="btn" onclick="location.href='jobs.html#${j.id}'">View</button><button class="ghost" onclick="applyMail('${j.title}','${j.company}')">Apply</button></div>`;
+  el.appendChild(d);
+ });
+}
+function applyMail(title,company){
+ const subj=encodeURIComponent('Application: '+title+' at '+company);
+ const body=encodeURIComponent('Hello,%0D%0A%0D%0AI would like to apply for '+title+' at '+company+'.%0D%0A%0D%0ARegards,');
+ window.location.href='mailto:yireh.remotejobs@gmail.com?subject='+subj+'&body='+body;
+}
+function generateProfileHome(){
+ const n=document.getElementById('name').value||'Candidate';
+ const s=document.getElementById('skills').value||'skills';
+ document.getElementById('profileResult').innerHTML=`<strong>${n} — ${s.split(',')[0]||'Remote'}</strong><div class="small">Summary: ${n} has skills: ${s} — ready for remote roles.</div>`;
+}
+
+// Chat (simulated)
+let open=false;
+function toggleChat(){open=!open;document.getElementById('chatWin').style.display=open?'block':'none';if(open)document.getElementById('chatInput').focus();}
+function appendMsg(author,text){const b=document.getElementById('chatBody');const p=document.createElement('div');p.style.marginBottom='8px';p.innerHTML=`<div style="display:inline-block;padding:8px;border-radius:8px;background:${author==='You'?'#dff7ff':'#eef3f7'}">${text}</div>`;if(author==='You')p.style.textAlign='right';b.appendChild(p);b.scrollTop=b.scrollHeight;}
+function sendChat(){const t=document.getElementById('chatInput').value.trim();if(!t)return;appendMsg('You',t);document.getElementById('chatInput').value='';appendMsg('Yireh','Thinking...');setTimeout(()=>{const r=simAI(t);replaceLast(r);},700);}
+function replaceLast(txt){const b=document.getElementById('chatBody');for(let i=b.children.length-1;i>=0;i--){if(b.children[i].innerText.indexOf('Thinking')!==-1){b.children[i].innerHTML=`<div style="display:inline-block;padding:8px;border-radius:8px;background:#eef3f7">${txt}</div>`;break;}}}
+function simAI(q){q=q.toLowerCase();if(q.includes('cv'))return 'I can help rewrite your CV. Tell me your top 3 achievements.'; if(q.includes('cover'))return 'I can draft a tailored cover letter — paste job description or tell me the role.';const g=['Great — I can help with interview prep.','Tell me your key skill and I will match jobs.'];return g[Math.floor(Math.random()*g.length)];}
+
+// init
+renderFeatured();
+</script>
 </body>
 </html>
+
