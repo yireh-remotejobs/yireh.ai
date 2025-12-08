@@ -1,23 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Yireh Portal — Remote Jobs & Services</title>
-<meta name="description" content="Yireh Portal — AI-assisted remote job search, CV services, and global remote opportunities." />
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB49GkhAAAAQElEQVR42u3OMQ0AIAwDsN7/6b4gS2kQgnc+Lw1AI1QGg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg2gPoJH7qG0G3QAAAAASUVORK5CYII=" />
-<style>
-:root{--bg:#071029;--accent:#1e90ff;--text:#e6eef6;--muted:#9aa6b2;--card:rgba(255,255,255,0.02);--max:1100px}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;color:var(--text);background:linear-gradient(180deg,#022138,#071029);-webkit-font-smoothing:antialiased}
+# build_yireh_zip.ps1
+# Creates a professional static website for "Yireh" and packages it into Yireh_Professional_B.zip
+# Usage: powershell -ExecutionPolicy Bypass -File .\build_yireh_zip.ps1
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+$root = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$out = Join-Path $root "yireh_professional_site_b"
+$zip = Join-Path $root "Yireh_Professional_B.zip"
+
+if (Test-Path $out) { Remove-Item -Recurse -Force $out }
+if (Test-Path $zip) { Remove-Item -Force $zip }
+
+New-Item -ItemType Directory -Path $out | Out-Null
+
+# Site settings - change here if needed
+$SiteName = "Yireh – Remote Jobs, CV Writing & Career Support"
+$PayPalEmail = "yireh.remotejobs@gmail.com"
+$WhatsAppNumber = "+919080581547"
+$WhatsAppLink = "https://wa.me/919080581547"
+$UPIPlaceholder = "yireh@upi"
+
+# Write styles.css
+$styles = @"
+:root{--bg:#071029;--accent:#1e90ff;--text:#e6eef6;--muted:#9aa6b2;--card:rgba(255,255,255,0.03);--max:1100px}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;color:var(--text);background:linear-gradient(180deg,#021428,#061733);-webkit-font-smoothing:antialiased}
 .container{max-width:var(--max);margin:28px auto;padding:18px}
-.header{display:flex;justify-content:space-between;align-items:center;background:transparent;padding:10px 6px}
+.header{display:flex;justify-content:space-between;align-items:center;padding:12px 6px}
 .brand{display:flex;gap:12px;align-items:center}
-.brand img{width:56px;height:56px;border-radius:10px}
+.brand img{width:56px;height:56px;border-radius:8px;object-fit:cover}
 .brand .title{font-weight:800;font-size:18px}
 .nav a{color:var(--text);margin-left:16px;text-decoration:none;font-weight:600}
 .hero{display:flex;gap:20px;align-items:center;margin-top:14px;padding:28px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))}
 .hero-left{flex:1}
-.hero h1{margin:0;font-size:32px;line-height:1.04}
+.hero h1{margin:0;font-size:34px;line-height:1.02}
 .hero p{color:var(--muted);max-width:680px}
 .actions{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
 .btn{background:var(--accent);color:#022;border:none;padding:12px 18px;border-radius:10px;font-weight:800;cursor:pointer}
@@ -28,128 +44,410 @@
 .card h3{margin:0;color:#dff4ff}
 .small{color:var(--muted);font-size:13px;margin-top:8px}
 .footer{margin-top:28px;text-align:center;color:var(--muted);font-size:14px;padding-bottom:30px}
-
-/* chat FAB */
-.chat-fab{position:fixed;right:18px;bottom:18px;width:64px;height:64px;border-radius:999px;background:var(--accent);color:#022;border:none;font-weight:900;cursor:pointer;box-shadow:0 12px 36px rgba(2,36,80,0.5)}
-/* responsive */
+.yw-wa { position: fixed; right: 18px; bottom: 88px; z-index: 9999; }
+.yw-wa a { display:flex; align-items:center; gap:10px; background:#25D366; color:#022; padding:10px 14px; border-radius:999px; text-decoration:none; box-shadow:0 12px 30px rgba(2,36,80,0.2); font-weight:700; }
+.pay-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.input{padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.03);color:inherit}
+.scam{background:#fff3cd;color:#522b00;padding:12px;border-radius:8px;margin-top:12px;color:#3b2b00}
 @media(max-width:880px){.hero{flex-direction:column;align-items:flex-start}.header{padding:8px}}
-</style>
+"@
+$stylesPath = Join-Path $out "styles.css"
+$styles | Out-File -FilePath $stylesPath -Encoding utf8
+
+# Write script.js
+$script = @"
+function openWhatsApp(){ window.open('$WhatsAppLink', '_blank'); }
+function applyMail(title,company){ const subj=encodeURIComponent('Application: '+title+' at '+company); const body=encodeURIComponent('Hello,%0D%0A%0D%0AI would like to apply for '+title+' at '+company+'.%0D%0A%0D%0ARegards,'); window.location.href='mailto:$PayPalEmail?subject='+subj+'&body='+body; }
+function toggleChat(){ const el=document.getElementById('chatWin'); if(!el) return; el.style.display = el.style.display === 'block' ? 'none' : 'block'; }
+function simAI(q){ q=(q||'').toLowerCase(); if(q.includes('cv')) return 'I can help rewrite your CV. Tell me your top 3 achievements.'; if(q.includes('cover')) return 'I can draft a tailored cover letter — paste job description or tell me the role.'; return 'Tell me your key skill and I will match jobs.'; }
+function sendChat(){ const input=document.getElementById('chatInput'); if(!input) return; const t=input.value.trim(); if(!t) return; const body=document.getElementById('chatBody'); const p=document.createElement('div'); p.style.marginBottom='8px'; p.innerHTML=`<div style=""display:inline-block;padding:8px;border-radius:8px;background:#dff7ff"">${t}</div>`; p.style.textAlign='right'; body.appendChild(p); input.value=''; const bot=document.createElement('div'); bot.style.marginBottom='8px'; bot.innerHTML=`<div style=""display:inline-block;padding:8px;border-radius:8px;background:#eef3f7"">${simAI(t)}</div>`; body.appendChild(bot); body.scrollTop = body.scrollHeight; }
+"@
+$scriptPath = Join-Path $out "script.js"
+$script | Out-File -FilePath $scriptPath -Encoding utf8
+
+# CNAME
+"CNAME content" > $null
+"yireh.site" | Out-File -FilePath (Join-Path $out "CNAME") -Encoding ascii
+
+# README
+$readme = @"
+Yireh Professional Static Site (Option B)
+
+Files included:
+- index.html
+- jobs.html
+- services.html
+- about.html
+- contact.html
+- styles.css
+- script.js
+- CNAME
+- favicon.ico
+Upload these files to your GitHub repo root (branch main / root) to publish on GitHub Pages.
+"@
+$readme | Out-File -FilePath (Join-Path $out "README.md") -Encoding utf8
+
+# favicon placeholder
+$fav = [System.IO.Path]::Combine($out, "favicon.ico")
+[byte[]] (0) | Set-Content -Path $fav -Encoding Byte
+
+# index.html
+$index = @"
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<meta name='viewport' content='width=device-width,initial-scale=1' />
+<title>$SiteName</title>
+<meta name='description' content='Yireh Portal — AI-assisted remote job search, CV services, and global remote opportunities.' />
+<link rel='stylesheet' href='styles.css'>
 </head>
 <body>
-<div class="container">
-  <header class="header">
-    <div class="brand">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB49GkhAAAAQElEQVR42u3OMQ0AIAwDsN7/6b4gS2kQgnc+Lw1AI1QGg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg2gPoJH7qG0G3QAAAAASUVORK5CYII=" alt="Yireh" />
-      <div><div class="title">Yireh AI</div><div class="small" style="color:var(--muted)">Empowering Every Talent, Everywhere</div></div>
+<div class='container'>
+  <header class='header'>
+    <div class='brand'>
+      <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB49GkhAAAAQElEQVR42u3OMQ0AIAwDsN7/6b4gS2kQgnc+Lw1AI1QGg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg0Gg2gPoJH7qG0G3QAAAAASUVORK5CYII=' alt='Yireh' style='width:56px;height:56px;border-radius:8px' />
+      <div>
+        <div class='title'>$SiteName</div>
+        <div class='small' style='color:var(--muted)'>Empowering Every Talent, Everywhere</div>
+      </div>
     </div>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="jobs.html">Jobs</a>
-      <a href="services.html">Services</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+    <nav class='nav'>
+      <a href='index.html'>Home</a>
+      <a href='jobs.html'>Jobs</a>
+      <a href='services.html'>Services</a>
+      <a href='about.html'>About</a>
+      <a href='contact.html'>Contact</a>
     </nav>
   </header>
 
-  <section class="hero" role="region" aria-label="Hero">
-    <div class="hero-left">
+  <section class='hero' role='region' aria-label='Hero'>
+    <div class='hero-left'>
       <h1>Find remote work that fits your life — faster.</h1>
       <p>Yireh Portal matches your skills with curated remote jobs, helps you apply with tailored CVs & cover letters, and provides trusted remote-hiring services worldwide.</p>
-      <div class="actions">
-        <a class="btn" href="jobs.html">Find Jobs</a>
-        <a class="ghost" href="services.html">Hire Me / Post Job</a>
+      <div class='actions'>
+        <a class='btn' href='jobs.html'>Find Jobs</a>
+        <a class='ghost' href='services.html'>Hire / Post Job</a>
       </div>
 
-      <div style="margin-top:16px">
-        <input id="homeSearch" style="padding:12px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);width:60%" placeholder="Search jobs, skills, companies..." />
-        <button class="btn" onclick="location.href='jobs.html?q='+encodeURIComponent(document.getElementById('homeSearch').value)">Search</button>
+      <div style='margin-top:16px'>
+        <input id='homeSearch' class='input' placeholder='Search jobs, skills, companies...' />
+        <button class='btn' onclick=""location.href='jobs.html?q='+encodeURIComponent(document.getElementById('homeSearch').value)"">Search</button>
       </div>
+
+      <div class='scam'>
+        <strong>⚠ Scam Awareness — Stay Safe</strong>
+        <ul style='margin:8px 0 0 18px;color:#4b2b00'>
+          <li>We never ask for money over WhatsApp to guarantee jobs.</li>
+          <li>Payments are only accepted through the official PayPal or Razorpay buttons on this site.</li>
+          <li>Verify company details before sending personal documents.</li>
+          <li>If someone demands money claiming to be Yireh, report it immediately via WhatsApp or email.</li>
+        </ul>
+      </div>
+
     </div>
 
-    <div style="width:320px;min-width:240px">
-      <div class="card">
-        <h3>AI Onboarding (Demo)</h3>
-        <div class="small">Short profile generator to help you apply quickly</div>
-        <input id="name" placeholder="Your name" class="small" style="width:100%;margin-top:10px;padding:8px;border-radius:8px;border:0;background:rgba(255,255,255,0.02)" />
-        <input id="skills" placeholder="Skills (comma separated)" class="small" style="width:100%;margin-top:8px;padding:8px;border-radius:8px;border:0;background:rgba(255,255,255,0.02)" />
-        <button class="btn" style="width:100%;margin-top:12px" onclick="generateProfileHome()">Generate Profile</button>
-        <div id="profileResult" class="small" style="margin-top:10px"></div>
+    <div style='width:320px;min-width:240px'>
+      <div class='card'>
+        <h3>Quick service pricing</h3>
+        <div class='small'>Resume Writing: <strong>$1 per page</strong></div>
+        <div class='small'>Cover Letter: <strong>$1</strong></div>
+        <div class='small'>Job Posting Fee: <strong>$2 per post</strong></div>
+        <div class='small'>Career Counselling: <strong>$5–$10</strong></div>
+        <div style='margin-top:12px' class='pay-grid'>
+          <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_blank'>
+            <input type='hidden' name='cmd' value='_xclick'>
+            <input type='hidden' name='business' value='$PayPalEmail'>
+            <input type='hidden' name='item_name' value='Donation - $1'>
+            <input type='hidden' name='amount' value='1.00'>
+            <input type='hidden' name='currency_code' value='USD'>
+            <button class='btn' type='submit'>Donate $1</button>
+          </form>
+
+          <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_blank'>
+            <input type='hidden' name='cmd' value='_xclick'>
+            <input type='hidden' name='business' value='$PayPalEmail'>
+            <input type='hidden' name='item_name' value='Donation - $3'>
+            <input type='hidden' name='amount' value='3.00'>
+            <input type='hidden' name='currency_code' value='USD'>
+            <button class='ghost' type='submit'>Donate $3</button>
+          </form>
+
+          <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_blank'>
+            <input type='hidden' name='cmd' value='_xclick'>
+            <input type='hidden' name='business' value='$PayPalEmail'>
+            <input type='hidden' name='item_name' value='Donation - $5'>
+            <input type='hidden' name='amount' value='5.00'>
+            <input type='hidden' name='currency_code' value='USD'>
+            <button class='ghost' type='submit'>Donate $5</button>
+          </form>
+        </div>
+
+        <div style='margin-top:10px' class='small'>Or contact us on WhatsApp for custom packages.</div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div style="display:flex;justify-content:space-between;align-items:center">
+  <section class='section'>
+    <div style='display:flex;justify-content:space-between;align-items:center'>
       <h2>Featured jobs</h2>
-      <a class="ghost" href="jobs.html">See all jobs</a>
+      <a class='ghost' href='jobs.html'>See all jobs</a>
     </div>
 
-    <div class="cards" id="featuredJobs">
-      <!-- injected -->
-    </div>
+    <div class='cards' id='featuredJobs'></div>
   </section>
 
-  <section class="section">
-    <div class="card">
+  <section class='section'>
+    <div class='card'>
       <h3>Why Yireh?</h3>
-      <p class="small">We focus on remote-first roles, support international applicants, and provide tailored application help. Start for free — upgrade for premium CV & featured job posting.</p>
+      <p class='small'>We focus on remote-first roles, support international applicants, and provide tailored application help. Start for free — upgrade for premium CV & featured job posting.</p>
     </div>
   </section>
 
-  <div class="footer">© 2025 Yireh Portal — yireh.remotejobs@gmail.com</div>
+  <div class='footer'>© 2025 {0} — {1}</div>
 </div>
 
-<button class="chat-fab" id="chatFab" onclick="toggleChat()">AI</button>
+<div class='yw-wa' aria-hidden='false'>
+  <a href='{2}' target='_blank' rel='noopener'>Chat on WhatsApp</a>
+</div>
 
-<!-- chat window -->
-<div id="chatWin" style="display:none;position:fixed;right:18px;bottom:96px;width:380px;height:520px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.5);color:#001">
-  <div style="padding:12px;background:linear-gradient(90deg,#e6f7ff,#cfeefb);font-weight:800">Yireh AI Assistant</div>
-  <div id="chatBody" style="padding:12px;overflow:auto;height:360px;background:#f6fbff"></div>
-  <div style="display:flex;padding:10px;gap:8px;background:#fff">
-    <input id="chatInput" style="flex:1;padding:8px;border-radius:8px;border:1px solid #eee" placeholder="Ask about jobs, CV, or cover letters..." onkeydown="if(event.key==='Enter') sendChat()" />
-    <button class="btn" onclick="sendChat()">Send</button>
+<!-- AI Chat widget (client-side demo) -->
+<div id='chatWin' style='display:none;position:fixed;right:18px;bottom:96px;width:360px;height:480px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.5);color:#001'>
+  <div style='padding:12px;background:linear-gradient(90deg,#e6f7ff,#cfeefb);font-weight:800'>Yireh AI Assistant</div>
+  <div id='chatBody' style='padding:12px;overflow:auto;height:320px;background:#f6fbff'></div>
+  <div style='display:flex;padding:10px;gap:8px;background:#fff'>
+    <input id='chatInput' style='flex:1;padding:8px;border-radius:8px;border:1px solid #eee' placeholder='Ask about jobs, CV, or cover letters...' />
+    <button class='btn' onclick='sendChat()'>Send</button>
   </div>
 </div>
+<button onclick='toggleChat()' class='btn' style='position:fixed;right:18px;bottom:18px;border-radius:999px;width:56px;height:56px'>AI</button>
 
+<script src='script.js'></script>
+</body>
+</html>
+"@ -f $SiteName, $PayPalEmail, $WhatsAppLink
+
+$index | Out-File -FilePath (Join-Path $out "index.html") -Encoding utf8
+
+# jobs.html
+$jobs = @"
+<!doctype html>
+<html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Yireh — Jobs</title><link rel='stylesheet' href='styles.css'></head><body>
+<div class='container'>
+  <div class='header'><div><a href='index.html' style='color:var(--text);text-decoration:none;font-weight:800'>Yireh</a></div><nav class='nav'><a href='index.html'>Home</a><a href='services.html'>Services</a><a href='contact.html'>Contact</a></nav></div>
+  <h1>Remote Jobs</h1>
+  <div class='controls' style='display:flex;gap:10px;flex-wrap:wrap;margin-top:12px'>
+    <input id='q' class='input' placeholder='Search jobs...' />
+    <select id='loc' class='input'><option value=''>All locations</option><option>Remote</option><option>Europe</option><option>Americas</option><option>Asia</option></select>
+    <button class='btn' onclick='renderJobs()'>Search</button>
+    <div style='margin-left:auto'><a class='btn' href='services.html#postjob'>Post a job (Paid)</a></div>
+  </div>
+
+  <div id='list' class='jobs' style='margin-top:18px'></div>
+
+  <div style='margin-top:18px'>
+    <h3>Submit a job (Employers)</h3>
+    <p class='small'>Create a Google Form to accept job submissions and publish the sheet. Paste the published CSV/JSON URL below and click 'Load Jobs'. We will display rows where <code>approved</code> = <code>yes</code>.</p>
+    <input id='gf' placeholder='Paste Google Sheet published CSV/JSON link here' style='width:100%;padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.02)' />
+    <button class='btn' onclick='loadFromSheet()'>Load Jobs from Sheet</button>
+  </div>
+</div>
+<script src='script.js'></script>
 <script>
-// small dataset for demo
 const jobs = [
  {id:'j1',title:'Frontend Developer (Remote)',company:'Yireh Labs',location:'Remote',posted:'2025-11-01',desc:'Build modern UIs with React.'},
- {id:'j2',title:'HSE Consultant (Remote)',company:'SafeWorks',location:'Europe',posted:'2025-10-10',desc:'HSE policies and scaffolding expertise.'},
- {id:'j3',title:'Content Writer (Remote)',company:'Global Media',location:'Americas',posted:'2025-09-20',desc:'Technical and marketing writing.'}
+ {id:'j2',title:'HSE Consultant (Remote)',company:'SafeWorks',location:'Europe',posted:'2025-10-10',desc:'HSE policies.'},
+ {id:'j3',title:'Content Writer (Remote)',company:'Global Media',location:'Americas',posted:'2025-09-20',desc:'Technical writing.'}
 ];
 
-function renderFeatured(){
- const el=document.getElementById('featuredJobs');
- el.innerHTML='';
- jobs.slice(0,3).forEach(j=>{
-  const d=document.createElement('div');d.className='card';
-  d.innerHTML=`<h3>${j.title}</h3><div class="small">${j.company} • ${j.location}</div><div class="small" style="margin-top:8px">${j.desc}</div><div style="margin-top:10px;display:flex;justify-content:space-between"><button class="btn" onclick="location.href='jobs.html#${j.id}'">View</button><button class="ghost" onclick="applyMail('${j.title}','${j.company}')">Apply</button></div>`;
+function renderJobs(){
+ const q=(document.getElementById('q').value||'').toLowerCase();
+ const loc=(document.getElementById('loc').value||'').toLowerCase();
+ const el=document.getElementById('list'); el.innerHTML='';
+ const filtered=jobs.filter(j=> (q===''|| (j.title+j.company+j.desc).toLowerCase().includes(q)) && (loc===''|| j.location.toLowerCase().includes(loc)));
+ if(filtered.length===0){ el.innerHTML='<div class="card small">No jobs found</div>'; return; }
+ filtered.forEach(j=>{
+  const d=document.createElement('div'); d.className='card';
+  d.innerHTML=`<h3>${j.title}</h3><div class="small">${j.company} • ${j.location} • ${j.posted}</div><div style="margin-top:10px">${j.desc}</div><div style="margin-top:12px"><button class="btn" onclick="applyMail('${"'+j.title+'"}','${"'+j.company+'"}')">Apply</button></div>`;
   el.appendChild(d);
  });
 }
-function applyMail(title,company){
- const subj=encodeURIComponent('Application: '+title+' at '+company);
- const body=encodeURIComponent('Hello,%0D%0A%0D%0AI would like to apply for '+title+' at '+company+'.%0D%0A%0D%0ARegards,');
- window.location.href='mailto:yireh.remotejobs@gmail.com?subject='+subj+'&body='+body;
-}
-function generateProfileHome(){
- const n=document.getElementById('name').value||'Candidate';
- const s=document.getElementById('skills').value||'skills';
- document.getElementById('profileResult').innerHTML=`<strong>${n} — ${s.split(',')[0]||'Remote'}</strong><div class="small">Summary: ${n} has skills: ${s} — ready for remote roles.</div>`;
+
+async function loadFromSheet(){
+  const url = document.getElementById('gf').value.trim();
+  if(!url) return alert('Paste your published Google Sheet CSV/JSON link first');
+  try{
+    const res = await fetch(url);
+    const txt = await res.text();
+    const lines = txt.trim().split('\\n');
+    const header = lines.shift().split(',');
+    const rows = lines.map(l=>{ const cols = l.split(','); const obj = {}; header.forEach((h,i)=> obj[h.trim()] = cols[i] ? cols[i].trim() : ''); return obj; });
+    const approved = rows.filter(r=> (r.approved||'').toLowerCase() === 'yes');
+    if(approved.length === 0) return alert('No approved jobs found in the sheet');
+    const el = document.getElementById('list'); el.innerHTML = '';
+    approved.forEach(r=>{
+      const d=document.createElement('div'); d.className='card';
+      d.innerHTML = `<h3>${r.title}</h3><div class="small">${r.company} • ${r.location} • ${r.posted}</div><div style="margin-top:8px">${r.desc}</div><div style="margin-top:10px"><button class="btn" onclick="applyMail('${"'+r.title+'"}','${"'+r.company+'"}')">Apply</button></div>`;
+      el.appendChild(d);
+    });
+  }catch(e){
+    alert('Failed to load sheet: '+e.message);
+  }
 }
 
-// Chat (simulated)
-let open=false;
-function toggleChat(){open=!open;document.getElementById('chatWin').style.display=open?'block':'none';if(open)document.getElementById('chatInput').focus();}
-function appendMsg(author,text){const b=document.getElementById('chatBody');const p=document.createElement('div');p.style.marginBottom='8px';p.innerHTML=`<div style="display:inline-block;padding:8px;border-radius:8px;background:${author==='You'?'#dff7ff':'#eef3f7'}">${text}</div>`;if(author==='You')p.style.textAlign='right';b.appendChild(p);b.scrollTop=b.scrollHeight;}
-function sendChat(){const t=document.getElementById('chatInput').value.trim();if(!t)return;appendMsg('You',t);document.getElementById('chatInput').value='';appendMsg('Yireh','Thinking...');setTimeout(()=>{const r=simAI(t);replaceLast(r);},700);}
-function replaceLast(txt){const b=document.getElementById('chatBody');for(let i=b.children.length-1;i>=0;i--){if(b.children[i].innerText.indexOf('Thinking')!==-1){b.children[i].innerHTML=`<div style="display:inline-block;padding:8px;border-radius:8px;background:#eef3f7">${txt}</div>`;break;}}}
-function simAI(q){q=q.toLowerCase();if(q.includes('cv'))return 'I can help rewrite your CV. Tell me your top 3 achievements.'; if(q.includes('cover'))return 'I can draft a tailored cover letter — paste job description or tell me the role.';const g=['Great — I can help with interview prep.','Tell me your key skill and I will match jobs.'];return g[Math.floor(Math.random()*g.length)];}
-
-// init
-renderFeatured();
+renderJobs();
 </script>
-</body>
-</html>
+</body></html>
+"@
+$jobs | Out-File -FilePath (Join-Path $out "jobs.html") -Encoding utf8
 
+# services.html
+$services = @"
+<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Yireh — Services</title><link rel='stylesheet' href='styles.css'></head><body>
+<div class='container'>
+  <a href='index.html' style='color:var(--text)'>← Home</a>
+  <h1>Services & Pricing</h1>
+
+  <div class='card'>
+    <h3>Resume Writing</h3>
+    <div class='small'>Price: <strong>$1 per page</strong></div>
+    <p class='small'>We craft ATS-friendly resumes targeted for remote roles.</p>
+    <div class='pay-grid'>
+      <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_blank'>
+        <input type='hidden' name='cmd' value='_xclick'>
+        <input type='hidden' name='business' value='$PayPalEmail'>
+        <input type='hidden' name='item_name' value='Resume Writing - $1 per page'>
+        <input type='hidden' name='amount' value='1.00'>
+        <input type='hidden' name='currency_code' value='USD'>
+        <button class='btn' type='submit'>Pay $1 (Resume)</button>
+      </form>
+
+      <button class='ghost' onclick=""window.location.href='upi://pay?pa=$UPIPlaceholder&pn=Yireh'"">Pay with Google Pay</button>
+
+      <button class='ghost' onclick='alert(\"Razorpay placeholder — configure keys in README\")'>Pay with Razorpay</button>
+    </div>
+  </div>
+
+  <div style='height:12px'></div>
+
+  <div class='card'>
+    <h3>Cover Letter</h3>
+    <div class='small'>Price: <strong>$1</strong></div>
+    <p class='small'>We write a short tailored cover letter for the job.</p>
+    <div class='pay-grid'>
+      <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_blank'>
+        <input type='hidden' name='cmd' value='_xclick'>
+        <input type='hidden' name='business' value='$PayPalEmail'>
+        <input type='hidden' name='item_name' value='Cover Letter - $1'>
+        <input type='hidden' name='amount' value='1.00'>
+        <input type='hidden' name='currency_code' value='USD'>
+        <button class='btn' type='submit'>Pay $1 (Cover)</button>
+      </form>
+      <button class='ghost' onclick=""window.location.href='upi://pay?pa=$UPIPlaceholder&pn=Yireh'"">Pay with Google Pay</button>
+    </div>
+  </div>
+
+  <div style='height:12px'></div>
+
+  <div class='card' id='postjob'>
+    <h3>Job Posting</h3>
+    <div class='small'>Price: <strong>$2 per post</strong></div>
+    <p class='small'>Post your remote job and reach global candidates. Jobs are reviewed before publishing.</p>
+    <div class='pay-grid'>
+      <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_blank'>
+        <input type='hidden' name='cmd' value='_xclick'>
+        <input type='hidden' name='business' value='$PayPalEmail'>
+        <input type='hidden' name='item_name' value='Job Posting Fee - $2'>
+        <input type='hidden' name='amount' value='2.00'>
+        <input type='hidden' name='currency_code' value='USD'>
+        <button class='btn' type='submit'>Pay $2 (Post Job)</button>
+      </form>
+      <a class='ghost' href='jobs.html'>How to submit a job</a>
+    </div>
+  </div>
+
+  <div style='height:12px'></div>
+
+  <div class='card'>
+    <h3>Career Counselling</h3>
+    <div class='small'>Price: <strong>$5–$10</strong></div>
+    <p class='small'>One-on-one sessions to prepare for remote roles, CV reviews, and interview prep.</p>
+    <div class='pay-grid'>
+      <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_blank'>
+        <input type='hidden' name='cmd' value='_xclick'>
+        <input type='hidden' name='business' value='$PayPalEmail'>
+        <input type='hidden' name='item_name' value='Career Counselling - $5'>
+        <input type='hidden' name='amount' value='5.00'>
+        <input type='hidden' name='currency_code' value='USD'>
+        <button class='btn' type='submit'>Pay $5 (Session)</button>
+      </form>
+    </div>
+  </div>
+
+  <div style='height:18px'></div>
+
+  <div class='card'>
+    <h3>Safety & Scam Awareness</h3>
+    <div class='small'>We never ask for money outside the official payment buttons or via unknown contacts. If you receive suspicious messages, contact us immediately on WhatsApp.</div>
+  </div>
+
+  <div style='margin-top:18px' class='small'>Payments: PayPal (live). For Razorpay or Google Pay integration, edit this file and replace placeholders as explained in README.md.</div>
+
+</div>
+<script src='script.js'></script>
+</body></html>
+"@
+$services | Out-File -FilePath (Join-Path $out "services.html") -Encoding utf8
+
+# about.html
+$about = @"
+<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>About — Yireh</title><link rel='stylesheet' href='styles.css'></head><body>
+<div class='container'>
+  <a href='index.html' style='color:var(--text)'>← Home</a>
+  <h1>About Yireh</h1>
+  <div class='card'>
+    <p class='small'>Yireh Portal is created to help global talent find remote work and to provide trusted HSE & technical services. Founder: Shanmugavelu Velayachamy.</p>
+    <h3>Skills & Services</h3>
+    <ul><li>Remote Job Matching</li><li>CV & Cover Letter Services</li><li>HSE Consultation & Scaffolding</li></ul>
+    <h3>Mission</h3>
+    <p class='small'>To empower talent worldwide with practical job-matching tools and honest services.</p>
+  </div>
+</div>
+<script src='script.js'></script>
+</body></html>
+"@
+$about | Out-File -FilePath (Join-Path $out "about.html") -Encoding utf8
+
+# contact.html
+$contact = @"
+<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Contact — Yireh</title><link rel='stylesheet' href='styles.css'></head><body>
+<div class='container'>
+  <a href='index.html' style='color:var(--text)'>← Home</a>
+  <h1>Contact</h1>
+  <p class='small'>Send us a message — we reply to inquiries about job posts, services, and partnerships.</p>
+
+  <form action='https://formsubmit.co/$PayPalEmail' method='POST' target='_blank'>
+    <input type='hidden' name='_subject' value='Yireh Contact' />
+    <input class='input' name='name' placeholder='Your name' required />
+    <input class='input' name='email' placeholder='Your email' type='email' required />
+    <textarea class='input' name='message' placeholder='Message' style='height:140px'></textarea>
+    <div style='margin-top:10px'><button style='background:#1e90ff;color:#022;padding:10px 14px;border-radius:8px;border:none'>Send Message</button></div>
+  </form>
+
+  <div style='margin-top:12px'>
+    <a class='btn' href='$WhatsAppLink' target='_blank'>Chat on WhatsApp</a>
+    <a class='ghost' href='mailto:$PayPalEmail'>Email Us</a>
+  </div>
+
+  <div style='margin-top:12px' class='small'>Address: Porayar, Tamil Nadu, India</div>
+</div>
+<script src='script.js'></script>
+</body></html>
+"@
+$contact | Out-File -FilePath (Join-Path $out "contact.html") -Encoding utf8
+
+# create ZIP
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::CreateFromDirectory($out, $zip)
+
+Write-Host "Done. ZIP created at: $zip"
