@@ -1,26 +1,69 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Yireh — Services</title>
-<style>
-:root{--bg:#071029;--accent:#1e90ff;--text:#e6eef6;--card:rgba(255,255,255,0.02)}
-body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#022138,#071029);color:var(--text)}
-.container{max-width:1100px;margin:28px auto;padding:18px}
-.card{background:var(--card);padding:14px;border-radius:12px}
-.btn{background:var(--accent);padding:10px 14px;border-radius:10px;border:none;color:#022}
-.small{color:#9aa6b2}
-</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yireh – Services</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
 <div class="container">
-  <a href="index.html" style="color:var(--text)">← Home</a>
-  <h1>Services</h1>
+  <a href="index.html" class="title">← Home</a>
+  <h1>Services & Pricing</h1>
 
-  <div class="card"><h3>CV Writing (Premium)</h3><p class="small">Professional CV, ATS-friendly, tailored for remote roles.</p><div style="margin-top:12px"><a class="btn" href="https://www.paypal.com/paypalme/YOURPAYPAL">Pay & Order</a></div></div>
+  <div class="section">
+    <h3>Resume Writing</h3>
+    <p class="small">Price: $1 per page</p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="yireh.remotejobs@gmail.com">
+      <input type="hidden" name="item_name" value="Resume Writing">
+      <input type="hidden" name="amount" value="1.00">
+      <input type="hidden" name="currency_code" value="USD">
+      <button class="btn">Pay $1</button>
+    </form>
+  </div>
 
-  <div style="height:14px"></div>
+  <div class="section">
+    <h3>Cover Letter</h3>
+    <p class="small">Price: $1</p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="yireh.remotejobs@gmail.com">
+      <input type="hidden" name="item_name" value="Cover Letter">
+      <input type="hidden" name="amount" value="1.00">
+      <input type="hidden" name="currency_code" value="USD">
+      <button class="btn">Pay $1</button>
+    </form>
+  </div>
 
-  <div class="card" id="postjob"><h3>Post a Job (Paid)</h3><p class="small">Feature your job on Yireh Portal and reach global remote talent.</p>
-    <ol class="small"><li>Fill the job form (email below)</li><li>Pay via PayPal / bank transfer</li><li>We post & promote</li></ol>
-    <div style="margin-top:12px"><a class="btn" href="https://www.paypal.com/paypalme/YOURPAYPAL">Post a Job (PayPal)</a></div></div>
+  <div class="section">
+    <h3>Job Posting</h3>
+    <p class="small">Price: $2 per post</p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="yireh.remotejobs@gmail.com">
+      <input type="hidden" name="item_name" value="Job Posting">
+      <input type="hidden" name="amount" value="2.00">
+      <input type="hidden" name="currency_code" value="USD">
+      <button class="btn">Pay $2</button>
+    </form>
+  </div>
 
-  <div style="height:14px"></div>
+  <div class="section">
+    <h3>Career Counselling</h3>
+    <p class="small">Price: $5–$10</p>
+    <button class="btn" onclick="openWhatsApp()">Contact on WhatsApp</button>
+  </div>
 
-  <div class="card"><h3>Consulting & HSE</h3><p class="small">Scaffolding, HSE management, scaffolding training — get a quote.</p><a class="btn" href="mailto:yireh.remotejobs@gmail.com?subject=Consulting Quote">Request Quote</a></div>
+  <div class="scam">
+    <strong>⚠ Safety Notice</strong>  
+    Payments NEVER taken via unknown phone numbers.  
+    Only pay through the buttons here or contact WhatsApp directly.
+  </div>
+
 </div>
-</body></html>
+
+</body>
+</html>
