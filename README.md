@@ -1,2 +1,17 @@
-# yireh.ai
-Yireh AI helps you discover curated remote roles, writes tailored cover letters, and improves your CV with AI guidance.
+# Yireh – Remote Jobs, CV Writing & Career Support
+
+This is the full static website (Version B).
+
+Upload the following files to the GitHub repo root:
+
+- index.html
+- jobs.html
+- services.html
+- about.html
+- contact.html
+- styles.css
+- script.js
+- CNAME
+- favicon.ico
+
+Custom domain: yireh.site
