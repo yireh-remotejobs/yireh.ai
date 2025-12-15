@@ -1,6 +1,89 @@
-<h1>Job Description Builder</h1>
-<input placeholder='Job Title'><br>
-<input type='file'><br>
-<textarea></textarea><br>
-<button>Create</button>
-<p>Free or $0.20 donation</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Description Builder – Yireh</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .job-box {max-width:900px;margin:auto;padding:20px;background:#ffffff10;border-radius:10px}
+    .job-box input, .job-box textarea {
+      width:100%; padding:10px; margin:6px 0; border-radius:6px; border:none;
+    }
+    .preview {background:#fff;color:#000;padding:20px;border-radius:10px;margin-top:20px}
+    .logo {width:120px;object-fit:contain;margin-bottom:10px}
+    .btn {padding:10px 15px;background:#1e90ff;color:#fff;border:none;border-radius:6px;cursor:pointer}
+    .note {background:#fff3cd;padding:10px;border-radius:6px;margin-top:10px;color:#333}
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" height="60">
+  <h1>Job Description Builder</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="job-box">
+  <h2>Create Job Description (FREE)</h2>
+
+  <label>Job Title</label>
+  <input id="jobTitle">
+
+  <label>Company Name</label>
+  <input id="company">
+
+  <label>Location</label>
+  <input id="location">
+
+  <label>Job Responsibilities</label>
+  <textarea id="responsibilities"></textarea>
+
+  <label>Required Skills</label>
+  <textarea id="skills"></textarea>
+
+  <label>Upload Company Logo / Image (optional)</label>
+  <input type="file" accept="image/*" onchange="loadLogo(event)">
+
+  <button class="btn" onclick="generateJob()">Generate Job Description</button>
+  <button class="btn" onclick="window.print()">Print / Save PDF</button>
+
+  <div class="note">
+    🔹 Advanced optimized job descriptions are available for a small donation of <strong>$0.20</strong>.
+    Contact us via WhatsApp or email for assistance.
+  </div>
+
+  <div class="preview" id="jobPreview"></div>
+</section>
+
+<footer>
+  © 2025 Yireh.site — Ethical hiring support
+</footer>
+
+<script>
+function loadLogo(e){
+  const img = document.createElement('img');
+  img.src = URL.createObjectURL(e.target.files[0]);
+  img.className = 'logo';
+  img.id = 'logoImg';
+  document.getElementById('jobPreview').prepend(img);
+}
+
+function generateJob(){
+  const html = `
+    <h2>${jobTitle.value}</h2>
+    <h4>${company.value} — ${location.value}</h4>
+    <p><strong>Responsibilities</strong><br>${responsibilities.value}</p>
+    <p><strong>Required Skills</strong><br>${skills.value}</p>
+    <p><strong>How to Apply</strong><br>Please apply with your updated CV.</p>
+  `;
+  document.getElementById('jobPreview').innerHTML = html;
+}
+</script>
+
+</body>
+</html>
