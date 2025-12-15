@@ -13,5 +13,5 @@ Upload the following files to the GitHub repo root:
 - script.js
 - CNAME
 - favicon.ico
-
+- logo.png
 Custom domain: yireh.site
