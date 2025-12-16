@@ -1,12 +1,29 @@
-body{font-family:Arial;background:#0b1c2d;color:#fff} a{color:#00c2ff}
-.scam-box {
-  background: #fff3cd;
-  border: 1px solid #ffecb5;
-  padding: 14px;
-  border-radius: 8px;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #06162e, #0b2b4a);
+  color: #ffffff;
+}
+
+a {
+  color: #4da3ff;
+  text-decoration: none;
+}
+
+header, footer {
+  background: rgba(0,0,0,0.4);
+  padding: 15px;
+}
+
+section {
+  padding: 30px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
   margin: 15px 0;
-  color: #3b2b00;
-  font-size: 14px;
+  border-radius: 10px;
 }
 
 .scam-box input {
