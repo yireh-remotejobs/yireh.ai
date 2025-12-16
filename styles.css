@@ -49,3 +49,14 @@ body{font-family:Arial;background:#0b1c2d;color:#fff} a{color:#00c2ff}
   background: transparent;
   border: 2px solid #1e90ff;
 }
+.scam-warning{
+  background:#fff3cd;
+  color:#000;
+  padding:15px;
+  border-radius:8px;
+  margin:20px 0;
+}
+.scam-warning input{
+  margin-right:8px;
+}
+
