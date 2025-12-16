@@ -13,3 +13,39 @@ body{font-family:Arial;background:#0b1c2d;color:#fff} a{color:#00c2ff}
   accent-color: #d39e00;
   margin-right: 8px;
 }
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #0a1a3a, #102a55);
+  color: #ffffff;
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.hero-actions {
+  margin-top: 25px;
+}
+
+.btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 22px;
+  background: #1e90ff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 2px solid #1e90ff;
+}
