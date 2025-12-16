@@ -8,69 +8,43 @@
 <body>
 
 <header>
-  <img src="logo.png" height="50">
-  <h2>Remote Jobs</h2>
+  <h1>Remote Jobs</h1>
   <nav>
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
-    <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Job Builder</a>
-    <a href="contact.html">Contact</a>
   </nav>
 </header>
 
-<section>
-  <h3>🌍 Free Remote Job Board (Growing)</h3>
-  <p>
-    Yireh is building a **trusted remote job space** for global talent.
-    Right now, we accept **FREE job postings** while the platform grows.
-  </p>
+<section class="cards">
 
-  <h4>👨‍💻 For Job Seekers</h4>
-  <ul>
-    <li>✔ No registration required</li>
-    <li>✔ No fake guarantees</li>
-    <li>✔ Ethical & transparent listings</li>
-  </ul>
+  <div class="card">
+    <h3>Frontend Developer (Remote)</h3>
+    <p>Company: Global Tech</p>
+    <p>Skills: HTML, CSS, JavaScript</p>
+    <button onclick="applyJob()">Apply</button>
+  </div>
 
-  <h4>🏢 For Employers</h4>
-  <ul>
-    <li>✔ Free job posting (limited period)</li>
-    <li>✔ Paid option later for featured jobs</li>
-    <li>✔ Job descriptions can be created using our free tool</li>
-  </ul>
+  <div class="card">
+    <h3>Content Writer (Remote)</h3>
+    <p>Company: Media Hub</p>
+    <p>Skills: Writing, SEO</p>
+    <button onclick="applyJob()">Apply</button>
+  </div>
 
-  <p>
-    📧 To post a job now, email:
-    <b>yireh.remotejobs@gmail.com</b>
-  </p>
+  <div class="card">
+    <h3>HSE Consultant (Remote)</h3>
+    <p>Company: SafeWorks</p>
+    <p>Skills: HSE, ISO, Audits</p>
+    <button onclick="applyJob()">Apply</button>
+  </div>
 
-  <p>
-    Or create a professional job description first →
-    <a href="job-builder.html"><b>Job Description Builder</b></a>
-  </p>
 </section>
 
-<footer>
-  © 2025 Yireh.site – Honest Remote Careers
-</footer>
-
-</body>
-</html>
-<div style="margin:15px 0; padding:10px; background:#f8f9fa; border:1px solid #ccc;">
-  <label>
-    <input type="checkbox" id="scamCheck" required>
-    I understand scam risks and confirm no one from Yireh asked me money privately.
-  </label>
-</div>
-
 <script>
-function checkScamConsent() {
-  if (!document.getElementById('scamCheck').checked) {
-    alert("Please confirm scam awareness before proceeding.");
-    return false;
-  }
-  return true;
+function applyJob(){
+  alert("Please sign in to apply.");
 }
 </script>
 
+</body>
+</html>
