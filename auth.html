@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sign In – Yireh</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h2>Sign In / Sign Up</h2>
+
+<input id="name" placeholder="Your Name"><br><br>
+<input id="email" placeholder="Email"><br><br>
+
+<button onclick="login()">Continue</button>
+
+<script>
+function login() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  if (!name || !email) {
+    alert("Please enter name and email");
+    return;
+  }
+  localStorage.setItem("yirehUser", name);
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
