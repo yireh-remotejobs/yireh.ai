@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Yireh – Remote Jobs, CV Writing & Career Support</title>
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+<section class="hero">
+  <h1>Empowering Talent Worldwide 🌍</h1>
+  <p>
+    Free remote jobs • Professional CV & cover letter tools • Ethical career support  
+    <br><b>No scams. No fake promises.</b>
+  </p>
 
-<span id="userBox"></span>
+  <div class="hero-actions">
+    <a class="btn" href="jobs.html">Browse Remote Jobs</a>
+    <a class="btn ghost" href="cv-builder.html">Build Your CV</a>
+  </div>
+</section>
 
-<script>
-const user = localStorage.getItem("yirehUser");
-if (user) {
-  document.getElementById("userBox").innerHTML =
-    "Welcome, <b>" + user + "</b> | <a href="javascript:void(0)" onclick="logout()">Logout</a>
-}
-
-function logout() {
-  localStorage.removeItem("yirehUser");
-  location.reload();
-}
-</script>
-<header>
-  <img src="logo.png" height="60">
-  <h1>Yireh – Remote Jobs, CV Writing & Career Support</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="cv-builder.html">CV Builder</
