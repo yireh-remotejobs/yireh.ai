@@ -57,3 +57,20 @@
 
 </body>
 </html>
+<div style="margin:15px 0; padding:10px; background:#f8f9fa; border:1px solid #ccc;">
+  <label>
+    <input type="checkbox" id="scamCheck" required>
+    I understand scam risks and confirm no one from Yireh asked me money privately.
+  </label>
+</div>
+
+<script>
+function checkScamConsent() {
+  if (!document.getElementById('scamCheck').checked) {
+    alert("Please confirm scam awareness before proceeding.");
+    return false;
+  }
+  return true;
+}
+</script>
+
