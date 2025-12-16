@@ -21,6 +21,33 @@
     <a href="contact.html">Contact</a>
   </nav>
 </header>
+<div id="authBox">
+  <input id="username" placeholder="Enter your name">
+  <button onclick="login()">Sign In</button>
+</div>
+
+<span id="userBox"></span>
+
+<script>
+function login(){
+  const name = document.getElementById("username").value;
+  if(!name){ alert("Enter name"); return; }
+  localStorage.setItem("yirehUser", name);
+  location.reload();
+}
+
+const user = localStorage.getItem("yirehUser");
+if(user){
+  document.getElementById("authBox").style.display="none";
+  document.getElementById("userBox").innerHTML =
+    "Welcome, <b>"+user+"</b> | <a href='#' onclick='logout()'>Logout</a>";
+}
+
+function logout(){
+  localStorage.removeItem("yirehUser");
+  location.reload();
+}
+</script>
 
 <!-- HERO SECTION (this is where your code goes) -->
 <section class="hero">
@@ -55,3 +82,10 @@
     I understand the scam risks
   </label>
 </div>
+<section class="donate">
+  <h2>Support Yireh ❤️</h2>
+
+  <a class="btn" href="https://www.paypal.me/yireh/1" target="_blank">$1</a>
+  <a class="btn" href="https://www.paypal.me/yireh/3" target="_blank">$3</a>
+  <a class="btn" href="https://www.paypal.me/yireh/5" target="_blank">$5</a>
+</section>
