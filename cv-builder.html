@@ -1,133 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CV & Cover Letter Builder – Yireh</title>
-  <link rel="icon" href="favicon.ico">
+  <title>CV Builder – Yireh</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .cv-box {max-width:900px;margin:auto;padding:20px;background:#ffffff10;border-radius:10px}
-    .cv-box input, .cv-box textarea, .cv-box select {
-      width:100%; padding:10px; margin:6px 0; border-radius:6px; border:none;
-    }
-    .preview {background:#fff;color:#000;padding:20px;border-radius:10px;margin-top:20px}
-    .photo {width:120px;height:120px;border-radius:50%;object-fit:cover}
-    .btn {padding:10px 15px;background:#1e90ff;color:#fff;border:none;border-radius:6px;cursor:pointer}
-  </style>
 </head>
+
 <body>
+<h2>CV Builder</h2>
 
-<header>
-  <img src="logo.png" height="60">
-  <h1>CV & Cover Letter Builder</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="job-builder.html">Job Builder</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<input class="input" id="name" placeholder="Full Name"><br><br>
+<textarea class="input" id="skills" placeholder="Skills"></textarea><br><br>
 
-<section class="cv-box">
-  <h2>Create Your CV (Free)</h2>
+<button class="btn" onclick="build()">Generate CV</button>
 
-  <label>Full Name</label>
-  <input id="name">
-
-  <label>Job Title</label>
-  <input id="title">
-
-  <label>Profile Summary</label>
-  <textarea id="summary"></textarea>
-
-  <label>Skills</label>
-  <textarea id="skills"></textarea>
-
-  <label>Experience</label>
-  <textarea id="experience"></textarea>
-
-  <label>Education</label>
-  <textarea id="education"></textarea>
-
-  <label>Upload Photo (optional)</label>
-  <input type="file" accept="image/*" onchange="loadPhoto(event)">
-
-  <label>Select Template</label>
-  <select id="template">
-    <option>Professional</option>
-    <option>Modern</option>
-    <option>Minimal</option>
-  </select>
-
-  <button class="btn" onclick="generateCV()">Generate CV</button>
-  <button class="btn" onclick="window.print()">Download / Print PDF</button>
-
-  <div class="preview" id="cvPreview"></div>
-</section>
-
-<footer>
-  © 2025 Yireh.site — Free CV tools for everyone
-</footer>
+<div id="cv" class="card"></div>
 
 <script>
-function loadPhoto(e){
-  const img = document.createElement('img');
-  img.src = URL.createObjectURL(e.target.files[0]);
-  img.className = 'photo';
-  img.id = 'photo';
-  document.getElementById('cvPreview').prepend(img);
-}
-
-function generateCV(){
-  const html = `
-    <h2>${name.value}</h2>
-    <h4>${title.value}</h4>
-    <p><strong>Profile</strong><br>${summary.value}</p>
-    <p><strong>Skills</strong><br>${skills.value}</p>
-    <p><strong>Experience</strong><br>${experience.value}</p>
-    <p><strong>Education</strong><br>${education.value}</p>
-  `;
-  document.getElementById('cvPreview').innerHTML = html;
+function build() {
+  cv.innerHTML = "<h3>" + name.value + "</h3><p>" + skills.value + "</p>";
 }
 </script>
 
 </body>
 </html>
-<div style="margin:15px 0; padding:10px; background:#f8f9fa; border:1px solid #ccc;">
-  <label>
-    <input type="checkbox" id="scamCheck" required>
-    I understand scam risks and confirm no one from Yireh asked me money privately.
-  </label>
-</div>
-
-<script>
-function checkScamConsent() {
-  if (!document.getElementById('scamCheck').checked) {
-    alert("Please confirm scam awareness before proceeding.");
-    return false;
-  }
-  return true;
-}
-</script>
-<h2>CV Builder</h2>
-
-<input id="cvName" placeholder="Full Name" class="input"><br><br>
-<textarea id="cvSkills" placeholder="Skills" class="input"></textarea><br><br>
-
-<select id="template">
-  <option>Template 1 – Classic</option>
-  <option>Template 2 – Modern</option>
-</select><br><br>
-
-<button onclick="buildCV()" class="btn">Generate CV</button>
-
-<div id="cvPreview" class="card"></div>
-
-<script>
-function buildCV(){
-  const n = cvName.value;
-  const s = cvSkills.value;
-  cvPreview.innerHTML =
-    "<h3>"+n+"</h3><p><b>Skills:</b><br>"+s+"</p>";
-}
-</script>
-
