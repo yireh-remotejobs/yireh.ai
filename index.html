@@ -65,6 +65,28 @@ function logout(){
     I understand scam risks
   </label>
 </div>
+<div class="card">
+  <h3>Sign In / Sign Up</h3>
+
+  <input id="username" placeholder="Enter your name" class="input"><br><br>
+
+  <button onclick="login()" class="btn">Continue</button>
+
+  <p id="loginMsg"></p>
+</div>
+
+<script>
+function login() {
+  if (!document.getElementById("scamAgree").checked) {
+    alert("Please accept scam awareness");
+    return;
+  }
+  const name = document.getElementById("username").value.trim();
+  if (!name) return alert("Enter name");
+  localStorage.setItem("yirehUser", name);
+  location.reload();
+}
+</script>
 
   <p>
     Free remote jobs • Professional CV & cover letter tools • Ethical career support  
