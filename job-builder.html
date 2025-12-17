@@ -103,4 +103,19 @@ function checkScamConsent() {
   return true;
 }
 </script>
+<h2>Job Description Generator</h2>
+
+<input id="jobTitle" placeholder="Job Title" class="input"><br><br>
+<textarea id="jobSkills" placeholder="Required Skills" class="input"></textarea><br><br>
+
+<button onclick="genJD()" class="btn">Generate</button>
+
+<div id="jdOut" class="card"></div>
+
+<script>
+function genJD(){
+  jdOut.innerHTML =
+    "<h3>"+jobTitle.value+"</h3><p>Required skills:<br>"+jobSkills.value+"</p>";
+}
+</script>
 
