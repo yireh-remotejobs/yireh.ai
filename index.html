@@ -2,23 +2,13 @@
 <html>
 <head>
   <title>Yireh – Remote Jobs, CV Writing & Career Support</title>
-
-  <!-- CSS goes ONLY here -->
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<header><span id="userBox"></span>
-<script>
-const u = localStorage.getItem("yirehUser");
-if (u) {
-  document.getElementById("userBox").innerHTML =
-    "Welcome, <b>"+u+"</b> | <a href='#' onclick='localStorage.clear();location.reload()'>Logout</a>";
-}
-</script>
-
+<header>
   <img src="logo.png" height="60">
   <h1>Yireh – Remote Jobs, CV Writing & Career Support</h1>
   <nav>
@@ -26,64 +16,66 @@ if (u) {
     <a href="jobs.html">Jobs</a>
     <a href="services.html">Services</a>
     <a href="cv-builder.html">CV Builder</a>
+    <a href="job-builder.html">Job Builder</a>
     <a href="contact.html">Contact</a>
   </nav>
+  <span id="userBox"></span>
 </header>
-<div id="authBox">
-  <input id="username" placeholder="Enter your name">
-  <button onclick="login()">Sign In</button>
-</div>
 
-<span id="userBox"></span>
-
-<script>
-function login(){
-  const name = document.getElementById("username").value;
-  if(!name){ alert("Enter name"); return; }
-  localStorage.setItem("yirehUser", name);
-  location.reload();
-}
-
-const user = localStorage.getItem("yirehUser");
-if(user){
-  document.getElementById("authBox").style.display="none";
-  document.getElementById("userBox").innerHTML =
-    "Welcome, <b>"+user+"</b> | <a href='#' onclick='logout()'>Logout</a>";
-}
-
-function logout(){
-  localStorage.removeItem("yirehUser");
-  location.reload();
-}
-</script>
-
-<!-- HERO SECTION (this is where your code goes) -->
 <section class="hero">
   <h1>Empowering Talent Worldwide 🌍</h1>
-  <div class="card" style="background:#3b2b00;color:#fff;">
+  <p>
+    Free remote jobs • CV & Cover Letter tools • Ethical career support  
+    <br><b>No scams. No fake promises.</b>
+  </p>
+
+  <div class="hero-actions">
+    <a class="btn" href="jobs.html">Browse Jobs</a>
+    <a class="btn ghost" href="cv-builder.html">Build CV</a>
+  </div>
+</section>
+
+<section class="card">
   <h3>⚠ Scam Awareness</h3>
   <ul>
-    <li>Yireh never guarantees jobs</li>
-    <li>No payments via WhatsApp or personal calls</li>
-    <li>Payments only via official buttons on this site</li>
+    <li>We never guarantee jobs</li>
+    <li>No payments via WhatsApp or calls</li>
+    <li>Payments only via this website</li>
   </ul>
 
   <label>
-    <input type="checkbox" id="scamAgree">
-    I understand scam risks
+    <input type="checkbox" id="scamAgree"> I understand scam risks
   </label>
-</div>
-<div class="card">
+</section>
+
+<section class="card" id="authBox">
   <h3>Sign In / Sign Up</h3>
+  <input id="username" class="input" placeholder="Your name">
+  <br><br>
+  <button class="btn" onclick="login()">Continue</button>
+</section>
 
-  <input id="username" placeholder="Enter your name" class="input"><br><br>
+<section class="card">
+  <h3>Support Yireh ❤️</h3>
+  <a class="btn" href="https://paypal.me/yirehremotejobs/1" target="_blank">Donate $1</a>
+  <a class="btn" href="https://paypal.me/yirehremotejobs/3" target="_blank">Donate $3</a>
+  <a class="btn" href="https://paypal.me/yirehremotejobs/5" target="_blank">Donate $5</a>
+  <br><br>
+  <a class="btn" href="upi://pay?pa=yourupi@upi&pn=Yireh" target="_blank">Google Pay</a>
+</section>
 
-  <button onclick="login()" class="btn">Continue</button>
-
-  <p id="loginMsg"></p>
-</div>
+<footer>
+  © 2025 Yireh.site — Helping people, ethically.
+</footer>
 
 <script>
+const user = localStorage.getItem("yirehUser");
+if (user) {
+  document.getElementById("authBox").style.display = "none";
+  document.getElementById("userBox").innerHTML =
+    "Welcome, <b>" + user + "</b> | <a href='#' onclick='logout()'>Logout</a>";
+}
+
 function login() {
   if (!document.getElementById("scamAgree").checked) {
     alert("Please accept scam awareness");
@@ -94,46 +86,12 @@ function login() {
   localStorage.setItem("yirehUser", name);
   location.reload();
 }
+
+function logout() {
+  localStorage.clear();
+  location.reload();
+}
 </script>
-
-  <p>
-    Free remote jobs • Professional CV & cover letter tools • Ethical career support  
-    <br><b>No scams. No fake promises.</b>
-  </p>
-
-  <div class="hero-actions">
-    <a class="btn" href="jobs.html">Browse Remote Jobs</a>
-    <a class="btn ghost" href="cv-builder.html">Build Your CV</a>
-  </div>
-</section>
-
-<footer>
-  © 2025 Yireh.site
-</footer>
 
 </body>
 </html>
-<div class="scam-warning">
-  <h3>⚠ Scam Awareness</h3>
-  <p>
-    We never guarantee jobs.  
-    Payments are accepted only on this website.  
-    Never send money to anyone claiming to be Yireh on WhatsApp.
-  </p>
-
-  <label>
-    <input type="checkbox" id="scamCheck">
-    I understand the scam risks
-  </label>
-</div>
-<section class="donate">
-  <h2>Support Yireh ❤️</h2>
-
- <h3>Support Yireh</h3>
-<a class="btn" href="https://paypal.me/YOURPAYPAL/1">Donate $1</a>
-<a class="btn" href="https://paypal.me/YOURPAYPAL/3">Donate $3</a>
-<a class="btn" href="https://paypal.me/YOURPAYPAL/5">Donate $5</a>
-
-<a class="btn" href="upi://pay?pa=yourupi@upi&pn=Yireh">Google Pay</a>
-
-</section>
