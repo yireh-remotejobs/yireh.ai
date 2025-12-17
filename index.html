@@ -10,7 +10,15 @@
 
 <body>
 
-<header>
+<header><span id="userBox"></span>
+<script>
+const u = localStorage.getItem("yirehUser");
+if (u) {
+  document.getElementById("userBox").innerHTML =
+    "Welcome, <b>"+u+"</b> | <a href='#' onclick='localStorage.clear();location.reload()'>Logout</a>";
+}
+</script>
+
   <img src="logo.png" height="60">
   <h1>Yireh – Remote Jobs, CV Writing & Career Support</h1>
   <nav>
