@@ -1,93 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Remote Jobs – Yireh</title>
-  <link rel="icon" href="favicon.ico">
+  <title>Jobs – Yireh</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
+<body>
 <header>
   <h1>Remote Jobs</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-  </nav>
+  <a href="index.html">← Home</a>
 </header>
 
-<section class="cards">
-
-  <div class="card">
-    <h3>Frontend Developer (Remote)</h3>
-    <p>Company: Global Tech</p>
-    <p>Skills: HTML, CSS, JavaScript</p>
-    <button onclick="applyJob()">Apply</button>
-  </div>
-
-  <div class="card">
-    <h3>Content Writer (Remote)</h3>
-    <p>Company: Media Hub</p>
-    <p>Skills: Writing, SEO</p>
-    <button onclick="applyJob()">Apply</button>
-  </div>
-
-  <div class="card">
-    <h3>HSE Consultant (Remote)</h3>
-    <p>Company: SafeWorks</p>
-    <p>Skills: HSE, ISO, Audits</p>
-    <button onclick="applyJob()">Apply</button>
-  </div>
-
-</section>
+<section id="jobs"></section>
 
 <script>
-function applyJob(){
-  alert("Please sign in to apply.");
+const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+const box = document.getElementById("jobs");
+
+if (jobs.length === 0) {
+  box.innerHTML = "<p>No jobs yet. Create one using Job Builder.</p>";
 }
+
+jobs.forEach(j => {
+  box.innerHTML += `
+    <div class="card">
+      <h3>${j.title}</h3>
+      <p>${j.desc}</p>
+    </div>
+  `;
+});
 </script>
 
+<footer>© 2025 Yireh.site</footer>
 </body>
-  <h2>Remote Jobs</h2>
-
-<div class="card">
-  <h3>Frontend Developer (Remote)</h3>
-  <p>Company: Yireh Labs</p>
-  <p>Skills: HTML, CSS, JavaScript</p>
-  <button onclick="alert('Apply via email')" class="btn">Apply</button>
-</div>
-
-<div class="card">
-  <h3>HSE Consultant</h3>
-  <p>Company: SafeWorks</p>
-  <p>Location: Europe / Remote</p>
-  <button class="btn">Apply</button>
-</div>
-
 </html>
-<div class="scam-warning">
-  <h3>⚠ Scam Awareness</h3>
-  <p>
-    We never guarantee jobs.  
-    Payments are accepted only on this website.  
-    Never send money to anyone claiming to be Yireh on WhatsApp.
-  </p>
-
-  <label>
-    <input type="checkbox" id="scamCheck">
-    I understand the scam risks
-  </label>
-</div>
-<div class="card" style="background:#3b2b00;color:#fff;">
-  <h3>⚠ Scam Awareness</h3>
-  <ul>
-    <li>Yireh never guarantees jobs</li>
-    <li>No payments via WhatsApp or personal calls</li>
-    <li>Payments only via official buttons on this site</li>
-  </ul>
-
-  <label>
-    <input type="checkbox" id="scamAgree">
-    I understand scam risks
-  </label>
-</div>
-
