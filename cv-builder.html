@@ -108,4 +108,26 @@ function checkScamConsent() {
   return true;
 }
 </script>
+<h2>CV Builder</h2>
+
+<input id="cvName" placeholder="Full Name" class="input"><br><br>
+<textarea id="cvSkills" placeholder="Skills" class="input"></textarea><br><br>
+
+<select id="template">
+  <option>Template 1 – Classic</option>
+  <option>Template 2 – Modern</option>
+</select><br><br>
+
+<button onclick="buildCV()" class="btn">Generate CV</button>
+
+<div id="cvPreview" class="card"></div>
+
+<script>
+function buildCV(){
+  const n = cvName.value;
+  const s = cvSkills.value;
+  cvPreview.innerHTML =
+    "<h3>"+n+"</h3><p><b>Skills:</b><br>"+s+"</p>";
+}
+</script>
 
