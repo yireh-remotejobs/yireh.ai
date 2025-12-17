@@ -1,121 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Job Description Builder – Yireh</title>
-  <link rel="icon" href="favicon.ico">
+  <title>Job Builder – Yireh</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .job-box {max-width:900px;margin:auto;padding:20px;background:#ffffff10;border-radius:10px}
-    .job-box input, .job-box textarea {
-      width:100%; padding:10px; margin:6px 0; border-radius:6px; border:none;
-    }
-    .preview {background:#fff;color:#000;padding:20px;border-radius:10px;margin-top:20px}
-    .logo {width:120px;object-fit:contain;margin-bottom:10px}
-    .btn {padding:10px 15px;background:#1e90ff;color:#fff;border:none;border-radius:6px;cursor:pointer}
-    .note {background:#fff3cd;padding:10px;border-radius:6px;margin-top:10px;color:#333}
-  </style>
 </head>
+
 <body>
+<h2>Create Job Description</h2>
 
-<header>
-  <img src="logo.png" height="60">
-  <h1>Job Description Builder</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<input id="title" class="input" placeholder="Job Title"><br><br>
+<textarea id="desc" class="input" placeholder="Job Description"></textarea><br><br>
 
-<section class="job-box">
-  <h2>Create Job Description (FREE)</h2>
-
-  <label>Job Title</label>
-  <input id="jobTitle">
-
-  <label>Company Name</label>
-  <input id="company">
-
-  <label>Location</label>
-  <input id="location">
-
-  <label>Job Responsibilities</label>
-  <textarea id="responsibilities"></textarea>
-
-  <label>Required Skills</label>
-  <textarea id="skills"></textarea>
-
-  <label>Upload Company Logo / Image (optional)</label>
-  <input type="file" accept="image/*" onchange="loadLogo(event)">
-
-  <button class="btn" onclick="generateJob()">Generate Job Description</button>
-  <button class="btn" onclick="window.print()">Print / Save PDF</button>
-
-  <div class="note">
-    🔹 Advanced optimized job descriptions are available for a small donation of <strong>$0.20</strong>.
-    Contact us via WhatsApp or email for assistance.
-  </div>
-
-  <div class="preview" id="jobPreview"></div>
-</section>
-
-<footer>
-  © 2025 Yireh.site — Ethical hiring support
-</footer>
+<button class="btn" onclick="saveJob()">Publish Job</button>
 
 <script>
-function loadLogo(e){
-  const img = document.createElement('img');
-  img.src = URL.createObjectURL(e.target.files[0]);
-  img.className = 'logo';
-  img.id = 'logoImg';
-  document.getElementById('jobPreview').prepend(img);
-}
-
-function generateJob(){
-  const html = `
-    <h2>${jobTitle.value}</h2>
-    <h4>${company.value} — ${location.value}</h4>
-    <p><strong>Responsibilities</strong><br>${responsibilities.value}</p>
-    <p><strong>Required Skills</strong><br>${skills.value}</p>
-    <p><strong>How to Apply</strong><br>Please apply with your updated CV.</p>
-  `;
-  document.getElementById('jobPreview').innerHTML = html;
+function saveJob() {
+  const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+  jobs.push({
+    title: title.value,
+    desc: desc.value
+  });
+  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
+  alert("Job published!");
 }
 </script>
 
 </body>
 </html>
-<div style="margin:15px 0; padding:10px; background:#f8f9fa; border:1px solid #ccc;">
-  <label>
-    <input type="checkbox" id="scamCheck" required>
-    I understand scam risks and confirm no one from Yireh asked me money privately.
-  </label>
-</div>
-
-<script>
-function checkScamConsent() {
-  if (!document.getElementById('scamCheck').checked) {
-    alert("Please confirm scam awareness before proceeding.");
-    return false;
-  }
-  return true;
-}
-</script>
-<h2>Job Description Generator</h2>
-
-<input id="jobTitle" placeholder="Job Title" class="input"><br><br>
-<textarea id="jobSkills" placeholder="Required Skills" class="input"></textarea><br><br>
-
-<button onclick="genJD()" class="btn">Generate</button>
-
-<div id="jdOut" class="card"></div>
-
-<script>
-function genJD(){
-  jdOut.innerHTML =
-    "<h3>"+jobTitle.value+"</h3><p>Required skills:<br>"+jobSkills.value+"</p>";
-}
-</script>
-
