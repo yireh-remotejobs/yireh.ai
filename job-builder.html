@@ -1,27 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Job Description Generator – Yireh</title>
+<meta charset="UTF-8">
+<title>Job Description Builder – Yireh</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="icon" href="favicon.ico">
+<style>
+body{background:#071029;color:#e6eef6;font-family:Arial}
+.container{max-width:900px;margin:auto;padding:20px}
+.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:12px}
+input,textarea{
+  width:100%;padding:10px;margin:6px 0;
+  background:#0b1e3a;color:#fff;border:none;border-radius:6px
+}
+button{background:#1e90ff;color:#022;padding:10px 16px;border:none;border-radius:8px;font-weight:bold}
+.note{color:#9aa6b2;font-size:13px}
+</style>
 </head>
+
 <body>
 
-<header class="header">
-  <h1>Job Description Builder</h1>
-  <a href="index.html">← Home</a>
+<header style="text-align:center;padding:20px">
+<img src="logo.png" height="50">
+<h2>Job Description Builder</h2>
+<p>Create real job listings for Yireh</p>
 </header>
 
-<section class="card">
-  <h3>Free Job Description</h3>
-  <textarea class="input" placeholder="Role, skills, location"></textarea>
-  <button class="btn">Generate (Free)</button>
-</section>
+<div class="container">
+<div class="card">
 
-<section class="card">
-  <h3>Professional Job Description – $0.20</h3>
-  <p>Includes formatting, responsibilities & requirements</p>
-  <a class="btn" href="services.html">Pay $0.20</a>
-</section>
+<h3>Job Details</h3>
+<input id="title" placeholder="Job Title">
+<input id="company" placeholder="Company Name">
+<input id="location" placeholder="Location / Remote">
+<textarea id="desc" placeholder="Job Description"></textarea>
+
+<label>Optional Image</label>
+<input type="file" id="img">
+
+<label>
+<input type="checkbox" id="scamAgree">
+ I confirm this is a real job and understand scam rules
+</label>
+
+<br><br>
+<button onclick="saveJob()">Create Job (FREE)</button>
+
+<p class="note">
+Creating job descriptions is FREE.  
+Featured listings may be paid later.
+</p>
+
+</div>
+</div>
+
+<script>
+function saveJob(){
+  if(!scamAgree.checked){
+    alert("Please accept scam awareness");
+    return;
+  }
+
+  const job = {
+    title: title.value,
+    company: company.value,
+    location: location.value,
+    desc: desc.value,
+    date: new Date().toLocaleDateString()
+  };
+
+  let jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+  jobs.unshift(job);
+  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
+
+  alert("Job created successfully!");
+  location.href="jobs.html";
+}
+</script>
+
+<footer style="text-align:center;margin:30px;color:#9aa6b2">
+© 2025 Yireh.site
+</footer>
 
 </body>
 </html>
