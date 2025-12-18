@@ -1,22 +1,27 @@
-<script>
-function submitJob(){
-  const title = document.getElementById("jobTitle").value;
-  const desc = document.getElementById("jobDesc").value;
+<!DOCTYPE html>
+<html>
+<head>
+<title>Job Description Generator – Yireh</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-  if(!title || !desc){
-    alert("Fill all fields");
-    return;
-  }
+<header class="header">
+  <h1>Job Description Builder</h1>
+  <a href="index.html">← Home</a>
+</header>
 
-  let jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+<section class="card">
+  <h3>Free Job Description</h3>
+  <textarea class="input" placeholder="Role, skills, location"></textarea>
+  <button class="btn">Generate (Free)</button>
+</section>
 
-  jobs.push({
-    title:title,
-    desc:desc,
-    status:"pending"
-  });
+<section class="card">
+  <h3>Professional Job Description – $0.20</h3>
+  <p>Includes formatting, responsibilities & requirements</p>
+  <a class="btn" href="services.html">Pay $0.20</a>
+</section>
 
-  localStorage.setItem("jobs", JSON.stringify(jobs));
-  alert("Job submitted for admin approval");
-}
-</script>
+</body>
+</html>
