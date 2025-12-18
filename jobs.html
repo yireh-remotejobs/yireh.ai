@@ -1,44 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <title>Jobs – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.css">
-
-<style>
-body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-.header{padding:16px;background:#021428}
-.container{max-width:1100px;margin:auto;padding:20px}
-.card{background:rgba(255,255,255,0.05);padding:16px;border-radius:12px;margin-bottom:12px}
-</style>
 </head>
 
 <body>
 
 <header class="header">
-<b>Yireh – Remote Jobs</b>
+<h2>Remote Jobs</h2>
+<nav class="nav">
+<a href="index.html">Home</a>
+<a href="cv-builder.html">CV Builder</a>
+</nav>
 </header>
 
-<div class="container" id="jobList">
-<i>No jobs yet</i>
-</div>
+<section class="container">
+<div id="jobs"></div>
+</section>
 
 <script>
-const jobs=JSON.parse(localStorage.getItem("yirehJobs")||"[]");
-const list=document.getElementById("jobList");
-list.innerHTML="";
+const SHEET_URL = "PASTE_YOUR_CSV_LINK_HERE";
 
-jobs.filter(j=>j.approved).forEach(j=>{
-  const d=document.createElement("div");
-  d.className="card";
-  d.innerHTML=`
-    <h3>${j.title}</h3>
-    <p>${j.company} • ${j.location}</p>
-    <p>Apply: ${j.email}</p>
-  `;
-  list.appendChild(d);
+fetch(SHEET_URL)
+.then(r=>r.text())
+.then(t=>{
+  const rows = t.split("\n").slice(1);
+  const box = document.getElementById("jobs");
+
+  rows.forEach(r=>{
+    const c = r.split(",");
+    if (c[6]?.trim() !== "yes") return;
+
+    box.innerHTML += `
+    <div class="card">
+      <h3>${c[2]}</h3>
+      <b>${c[0]}</b>
+      <p>${c[3]} • ${c[4]}</p>
+      <p class="small">Skills: ${c[5]}</p>
+      <a class="btn" href="mailto:${c[1]}">Apply</a>
+    </div>
+    `;
+  });
 });
 </script>
 
