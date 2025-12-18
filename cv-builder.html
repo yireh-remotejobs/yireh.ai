@@ -54,11 +54,25 @@ button { background:#1e90ff; color:#022; padding:10px 16px; border:none; border-
 <label>Photo</label>
 <input type="file" accept="image/*" onchange="loadPhoto(event)">
 
-<input id="name" placeholder="Full Name" oninput="renderCV()">
-<input id="title" placeholder="Job Title" oninput="renderCV()">
-<textarea id="summary" placeholder="Profile Summary" oninput="renderCV()"></textarea>
-<textarea id="skills" placeholder="Skills (comma separated)" oninput="renderCV()"></textarea>
-<textarea id="experience" placeholder="Experience" oninput="renderCV()"></textarea>
+<h2>Create Your CV</h2>
+
+<label>Your Full Name</label><br>
+<input class="input" placeholder="John Doe"><br><br>
+
+<label>Email Address</label><br>
+<input class="input" type="email" placeholder="you@email.com" required><br><br>
+
+<label>Upload Photo</label><br>
+<input type="file" accept="image/*"><br><br>
+
+<label>Professional Summary</label><br>
+<textarea class="input" rows="5" placeholder="Brief profile summary"></textarea><br><br>
+
+<button class="btn">Generate CV</button>
+
+<p class="note">
+Your email is used only to send your CV or contact you for support.
+</p>
 
 <button onclick="window.print()">Download PDF</button>
 </div>
