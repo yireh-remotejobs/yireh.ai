@@ -5,27 +5,25 @@
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<header>
-  <img src="logo.png" height="60">
-  <h1>Yireh – Remote Jobs, CV Writing & Career Support</h1>
+<header class="header">
+  <img src="logo.png" height="55">
+  <h1>Yireh</h1>
   <nav>
     <a href="index.html">Home</a>
     <a href="jobs.html">Jobs</a>
     <a href="services.html">Services</a>
     <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Job Builder</a>
     <a href="contact.html">Contact</a>
   </nav>
   <span id="userBox"></span>
 </header>
 
 <section class="hero">
-  <h1>Empowering Talent Worldwide 🌍</h1>
+  <h2>Empowering Talent Worldwide 🌍</h2>
   <p>
-    Free remote jobs • CV & Cover Letter tools • Ethical career support  
+    Free remote jobs • Professional CV tools • Ethical career support  
     <br><b>No scams. No fake promises.</b>
   </p>
 
@@ -35,7 +33,7 @@
   </div>
 </section>
 
-<section class="card">
+<section class="card scam">
   <h3>⚠ Scam Awareness</h3>
   <ul>
     <li>We never guarantee jobs</li>
@@ -44,52 +42,29 @@
   </ul>
 
   <label>
-    <input type="checkbox" id="scamAgree"> I understand scam risks
+    <input type="checkbox" id="agree">
+    I understand the scam risks
   </label>
 </section>
 
-<section class="card" id="authBox">
-  <h3>Sign In / Sign Up</h3>
-  <input id="username" class="input" placeholder="Your name">
-  <br><br>
+<section class="card">
+  <h3>Sign In</h3>
+  <input id="username" class="input" placeholder="Enter your name">
   <button class="btn" onclick="login()">Continue</button>
 </section>
 
-<section class="card">
-  <h3>Support Yireh ❤️</h3>
-  <a class="btn" href="https://paypal.me/yirehremotejobs/1" target="_blank">Donate $1</a>
-  <a class="btn" href="https://paypal.me/yirehremotejobs/3" target="_blank">Donate $3</a>
-  <a class="btn" href="https://paypal.me/yirehremotejobs/5" target="_blank">Donate $5</a>
-  <br><br>
-  <a class="btn" href="upi://pay?pa=yourupi@upi&pn=Yireh" target="_blank">Google Pay</a>
-</section>
-
-<footer>
-  © 2025 Yireh.site — Helping people, ethically.
-</footer>
+<footer>© 2025 yireh.site</footer>
 
 <script>
-const user = localStorage.getItem("yirehUser");
-if (user) {
-  document.getElementById("authBox").style.display = "none";
-  document.getElementById("userBox").innerHTML =
-    "Welcome, <b>" + user + "</b> | <a href='#' onclick='logout()'>Logout</a>";
-}
-
-function login() {
-  if (!document.getElementById("scamAgree").checked) {
+function login(){
+  if(!document.getElementById("agree").checked){
     alert("Please accept scam awareness");
     return;
   }
-  const name = document.getElementById("username").value.trim();
-  if (!name) return alert("Enter name");
-  localStorage.setItem("yirehUser", name);
-  location.reload();
-}
-
-function logout() {
-  localStorage.clear();
-  location.reload();
+  const u=document.getElementById("username").value.trim();
+  if(!u) return alert("Enter name");
+  localStorage.setItem("yirehUser",u);
+  document.getElementById("userBox").innerHTML="Welcome, <b>"+u+"</b>";
 }
 </script>
 
