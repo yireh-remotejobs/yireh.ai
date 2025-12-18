@@ -1,149 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CV Builder – Yireh</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>CV Builder – Yireh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      background:#071029;
+      color:#e6eef6;
+      margin:0;
+      font-family:Arial, sans-serif;
+    }
+    .container{max-width:1100px;margin:auto;padding:20px}
+    .card{background:rgba(255,255,255,0.05);padding:16px;border-radius:12px;margin-bottom:16px}
+    .input{width:100%;padding:10px;margin-bottom:10px;border-radius:6px;border:none}
+    .btn{background:#1e90ff;color:#022;padding:10px 16px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+    .ghost{background:transparent;border:1px solid #1e90ff;color:#e6eef6}
+    .nav a{color:#e6eef6;margin-right:12px;text-decoration:none;font-weight:bold}
+    .payBox{border:2px dashed #ffaa00;background:#2b2200}
+    #cvPreview{background:#fff;color:#000;padding:20px;border-radius:8px}
+  </style>
 </head>
 
 <body>
 
 <!-- HEADER -->
-<header class="header">
-  <div class="brand">
-    <img src="logo.png" height="50">
-    <div>
-      <h2>Yireh</h2>
-      <small>Professional CV Builder</small>
-    </div>
-  </div>
-
+<header class="container">
+  <h2>Yireh – CV Builder</h2>
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="jobs.html">Jobs</a>
     <a href="services.html">Services</a>
-    <a href="cv-builder.html" class="active">CV Builder</a>
+    <a href="cv-builder.html">CV Builder</a>
     <a href="job-builder.html">Job Builder</a>
     <a href="contact.html">Contact</a>
   </nav>
 </header>
 
-<!-- MAIN -->
-<section class="container">
+<div class="container">
 
+<!-- USER INFO -->
 <div class="card">
-  <h2>Create Your CV</h2>
-  <p class="small">Free basic CV • Premium templates available</p>
+  <h3>Your Details</h3>
+  <input id="name" class="input" placeholder="Full Name">
+  <input id="email" class="input" placeholder="Email">
+  <input id="title" class="input" placeholder="Job Title">
+  <textarea id="summary" class="input" placeholder="Professional Summary"></textarea>
 
-  <div class="cards">
+  <label>Upload Photo</label>
+  <input type="file" id="photo" accept="image/*">
+</div>
 
-    <!-- FORM -->
-    <div class="card">
-      <h3>Your Details</h3>
+<!-- TEMPLATE SELECT -->
+<div class="card">
+  <h3>Select Template</h3>
+  <select id="template" class="input">
+    <option value="free">Free – Simple</option>
+    <option value="premium1">Premium – Modern</option>
+    <option value="premium2">Premium – Executive</option>
+  </select>
+</div>
 
-      <input id="name" class="input" placeholder="Full Name">
-      <input id="email" class="input" placeholder="Email">
-      <input id="role" class="input" placeholder="Job Title">
+<!-- PAYMENT BOX -->
+<div id="payBox" class="card payBox" style="display:none">
+  <h3>Unlock Premium Templates 🔓</h3>
+  <p>One-time payment unlocks premium templates on this device.</p>
 
-      <textarea id="summary" class="input" rows="4"
-        placeholder="Professional summary"></textarea>
+  <a class="btn"
+     href="https://paypal.me/yirehremotejobs/3"
+     target="_blank"
+     onclick="unlockPremium()">
+     Pay $3 via PayPal
+  </a>
 
-      <textarea id="skills" class="input" rows="4"
-        placeholder="Skills (comma separated)"></textarea>
+  <a class="btn ghost"
+     href="upi://pay?pa=yireh@upi&pn=Yireh"
+     onclick="unlockPremium()">
+     Google Pay
+  </a>
+</div>
 
-      <label class="small">Upload Photo</label>
-      <input type="file" id="photo" accept="image/*">
+<!-- ACTIONS -->
+<div class="card">
+  <button class="btn" onclick="buildCV()">Generate CV</button>
+  <button class="btn ghost" onclick="window.print()">Download PDF</button>
+</div>
 
-      <label class="small">Select Template</label>
-      <select id="template" class="input">
-        <option value="free">Free – Classic</option>
-        <option value="premium1">Premium – Modern</option>
-        <option value="premium2">Premium – Executive</option>
-      </select>
-
-      <button class="btn" onclick="buildCV()">Build CV</button>
-    </div>
-
-    <!-- PREVIEW -->
-    <div class="card">
-      <h3>CV Preview</h3>
-
-      <div id="photoPreview"></div>
-
-      <div id="cvPreview" class="cv-preview">
-        <p><i>Your CV will appear here</i></p>
-      </div>
-    </div>
-
+<!-- PREVIEW -->
+<div class="card">
+  <h3>CV Preview</h3>
+  <div id="cvPreview">
+    <i>Your CV will appear here</i>
   </div>
 </div>
 
-</section>
-
-<footer class="footer">
-  © 2025 Yireh.site • CV Builder v2
-</footer>
+</div>
 
 <!-- SCRIPT -->
 <script>
-let photoData = "";
-
-document.getElementById("photo").addEventListener("change", function () {
-  const file = this.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = e => photoData = e.target.result;
-  reader.readAsDataURL(file);
-});
-
-function buildCV() {
-  const name = nameEl().value.trim();
-  const email = emailEl().value.trim();
-  const role = roleEl().value.trim();
-  const summary = summaryEl().value.trim();
-  const skills = skillsEl().value.trim();
-  const template = templateEl().value;
-
-  if (!name || !email || !role) {
-    alert("Name, Email, and Job Title required");
-    return;
-  }
-
-  if (template !== "free") {
-    alert("Premium template selected — payment required");
-    return;
-  }
-
-  const cv = `
-    <div class="cv ${template}">
-      ${photoData ? `<img src="${photoData}" class="cv-photo">` : ""}
-      <h2>${name}</h2>
-      <h4>${role}</h4>
-      <p>${summary}</p>
-
-      <h4>Skills</h4>
-      <ul>
-        ${skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")}
-      </ul>
-
-      <p class="small">${email}</p>
-    </div>
-  `;
-
-  document.getElementById("cvPreview").innerHTML = cv;
+function unlockPremium(){
+  localStorage.setItem("yirehPremium","yes");
+  alert("Premium templates unlocked!");
 }
 
-function nameEl(){return document.getElementById("name")}
-function emailEl(){return document.getElementById("email")}
-function roleEl(){return document.getElementById("role")}
-function summaryEl(){return document.getElementById("summary")}
-function skillsEl(){return document.getElementById("skills")}
-function templateEl(){return document.getElementById("template")}
+function buildCV(){
+  const name=document.getElementById("name").value;
+  const email=document.getElementById("email").value;
+  const title=document.getElementById("title").value;
+  const summary=document.getElementById("summary").value;
+  const template=document.getElementById("template").value;
+  const premium=localStorage.getItem("yirehPremium");
+
+  if(!name||!email){alert("Name & email required");return;}
+
+  if(template!=="free" && !premium){
+    document.getElementById("payBox").style.display="block";
+    alert("Premium template locked");
+    return;
+  }
+
+  let html=`
+  <h2>${name}</h2>
+  <p><b>${title}</b></p>
+  <p>${email}</p>
+  <hr>
+  <p>${summary}</p>
+  `;
+
+  document.getElementById("cvPreview").innerHTML=html;
+}
 </script>
+
+<footer class="container" style="text-align:center;color:#9aa6b2">
+  © 2025 Yireh.site – Ethical Career Tools
+</footer>
 
 </body>
 </html>
