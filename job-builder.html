@@ -58,27 +58,46 @@ function unlock(){
   localStorage.setItem("jdPaid","yes");
 }
 
-function generateJD(){
-  if(localStorage.getItem("jdPaid")!=="yes"){
-    alert("Payment required");
+function generateJD() {
+  const title = document.getElementById("title").value;
+  const company = document.getElementById("company").value;
+  const skills = document.getElementById("skills").value;
+  const email = document.getElementById("email").value;
+
+  if (!title || !company || !email) {
+    alert("Required fields missing");
     return;
   }
 
-  const job={
-    company:company.value,
-    email:email.value,
-    title:title.value,
-    location:location.value,
-    skills:skills.value,
-    approved:false,
-    date:new Date().toISOString()
-  };
+  const jd = `
+<h3>${title}</h3>
+<p><b>Company:</b> ${company}</p>
 
-  const jobs=JSON.parse(localStorage.getItem("yirehJobs")||"[]");
-  jobs.push(job);
-  localStorage.setItem("yirehJobs",JSON.stringify(jobs));
+<h4>Role Overview</h4>
+<p>
+${company} is seeking a motivated ${title} to join our remote team.
+This role requires strong skills in ${skills}.
+</p>
 
-  preview.innerHTML="<b>Submitted for admin approval</b>";
+<h4>Responsibilities</h4>
+<ul>
+  <li>Deliver assigned tasks independently</li>
+  <li>Collaborate with distributed teams</li>
+  <li>Maintain quality and timelines</li>
+</ul>
+
+<h4>Required Skills</h4>
+<ul>
+${skills.split(",").map(s=>`<li>${s.trim()}</li>`).join("")}
+</ul>
+
+<h4>Apply</h4>
+<p>Email your CV to <b>${email}</b></p>
+`;
+
+  document.getElementById("jobPreview").innerHTML = jd;
+}
+
 }
 </script>
 
