@@ -3,118 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <title>CV Builder – Yireh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="styles.css">
 <link rel="icon" href="favicon.ico">
+
 <style>
-body { background:#071029; color:#e6eef6; font-family:Arial; }
-.container { max-width:1100px; margin:auto; padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-.card { background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; }
-input, textarea, select {
-  width:100%; padding:10px; margin:6px 0;
-  background:#0b1e3a; color:#fff; border:none; border-radius:6px;
+.cv-wrap { display:flex; gap:20px; flex-wrap:wrap; }
+.cv-form { flex:1; min-width:280px; }
+.cv-preview { flex:1; min-width:300px; background:#fff; color:#000; padding:20px; border-radius:10px; }
+.cv-preview img { width:120px; height:120px; border-radius:50%; object-fit:cover; }
+label { display:block; margin-top:10px; font-weight:600; }
+textarea, input, select { width:100%; padding:8px; border-radius:6px; border:none; }
+.template-modern { font-family:Arial; }
+.template-simple { font-family:Georgia; }
+.template-pro { font-family:"Segoe UI"; }
+.print-hide { margin-top:10px; }
+@media print {
+  body * { visibility:hidden; }
+  .cv-preview, .cv-preview * { visibility:visible; }
+  .cv-preview { position:absolute; left:0; top:0; width:100%; }
 }
-button { background:#1e90ff; color:#022; padding:10px 16px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; }
-.resume { background:#fff; color:#000; padding:20px; border-radius:8px; }
-.resume img { width:120px; border-radius:8px; }
-.template-modern { border-left:6px solid #1e90ff; padding-left:12px; }
-.template-simple { }
-.template-pro { border-top:4px solid #000; }
 </style>
 </head>
 
 <body>
 
-<header style="padding:20px;text-align:center">
-<img src="logo.png" height="50"><br>
-<h2>CV Builder</h2>
-<p>Create a professional CV in minutes</p>
+<header class="header">
+  <div class="brand">
+    <img src="logo.png" height="50">
+    <div>
+      <strong>Yireh CV Builder</strong>
+      <div class="small">Professional • Scam-Free</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="services.html">Services</a>
+  </nav>
 </header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="jobs.html">Jobs</a>
-  <a href="services.html">Services</a>
-  <a href="cv-builder.html">CV Builder</a>
-  <a href="job-builder.html">Job Builder</a>
-  <a href="contact.html">Contact</a>
-</nav>
 
-<div class="container">
+<section class="container">
+<h1>Build Your Professional CV</h1>
 
-<!-- INPUT PANEL -->
-<div class="card">
-<h3>Your Details</h3>
+<div class="cv-wrap">
 
-<label>Template</label>
-<select id="template" onchange="renderCV()">
-<option value="template-simple">Simple</option>
-<option value="template-pro">Professional</option>
-<option value="template-modern">Modern</option>
-</select>
+<!-- ================= FORM ================= -->
+<div class="card cv-form">
+  <label>Full Name</label>
+  <input id="name">
 
-<label>Photo</label>
-<input type="file" accept="image/*" onchange="loadPhoto(event)">
+  <label>Email</label>
+  <input id="email">
 
-<h2>Create Your CV</h2>
+  <label>Job Title</label>
+  <input id="title">
 
-<label>Your Full Name</label><br>
-<input class="input" placeholder="John Doe"><br><br>
+  <label>Profile Summary</label>
+  <textarea id="summary"></textarea>
 
-<label>Email Address</label><br>
-<input class="input" type="email" placeholder="you@email.com" required><br><br>
+  <label>Skills (comma separated)</label>
+  <input id="skills">
 
-<label>Upload Photo</label><br>
-<input type="file" accept="image/*"><br><br>
+  <label>Experience</label>
+  <textarea id="exp"></textarea>
 
-<label>Professional Summary</label><br>
-<textarea class="input" rows="5" placeholder="Brief profile summary"></textarea><br><br>
+  <label>Upload Photo</label>
+  <input type="file" accept="image/*" onchange="loadPhoto(event)">
 
-<button class="btn">Generate CV</button>
+  <label>Template</label>
+  <select id="template" onchange="updateCV()">
+    <option value="template-pro">Professional</option>
+    <option value="template-modern">Modern</option>
+    <option value="template-simple">Simple</option>
+  </select>
 
-<p class="note">
-Your email is used only to send your CV or contact you for support.
-</p>
-
-<button onclick="window.print()">Download PDF</button>
+  <button class="btn print-hide" onclick="window.print()">Download PDF</button>
 </div>
 
-<!-- PREVIEW -->
-<div class="card resume" id="cvPreview">
-<div id="cvContent" class="template-simple">
-<img id="cvPhoto" style="display:none"><br><br>
-<h2 id="cvName">Your Name</h2>
-<h4 id="cvTitle">Job Title</h4>
-<p id="cvSummary"></p>
-<h4>Skills</h4>
-<p id="cvSkills"></p>
-<h4>Experience</h4>
-<p id="cvExp"></p>
-</div>
+<!-- ================= PREVIEW ================= -->
+<div class="cv-preview template-pro" id="cv">
+  <img id="photo" src="">
+  <h2 id="pName">Your Name</h2>
+  <h4 id="pTitle">Job Title</h4>
+  <p id="pSummary"></p>
+
+  <h3>Skills</h3>
+  <p id="pSkills"></p>
+
+  <h3>Experience</h3>
+  <p id="pExp"></p>
 </div>
 
 </div>
+</section>
+
+<footer class="footer">© 2025 Yireh.site</footer>
 
 <script>
-function renderCV(){
-  document.getElementById("cvName").innerText = name.value || "Your Name";
-  document.getElementById("cvTitle").innerText = title.value || "Job Title";
-  document.getElementById("cvSummary").innerText = summary.value;
-  document.getElementById("cvSkills").innerText = skills.value;
-  document.getElementById("cvExp").innerText = experience.value;
-
-  const tpl = document.getElementById("template").value;
-  document.getElementById("cvContent").className = tpl;
-}
-
 function loadPhoto(e){
-  const img = document.getElementById("cvPhoto");
-  img.src = URL.createObjectURL(e.target.files[0]);
-  img.style.display="block";
+  const img=document.getElementById("photo");
+  img.src=URL.createObjectURL(e.target.files[0]);
 }
-</script>
 
-<footer style="text-align:center;margin:30px;color:#9aa6b2">
-© 2025 Yireh.site
-</footer>
+function updateCV(){
+  document.getElementById("cv").className =
+    "cv-preview " + document.getElementById("template").value;
+
+  pName.innerText=name.value||"Your Name";
+  pTitle.innerText=title.value||"Job Title";
+  pSummary.innerText=summary.value;
+  pSkills.innerText=skills.value;
+  pExp.innerText=exp.value;
+}
+
+document.querySelectorAll("input,textarea").forEach(el=>{
+  el.addEventListener("input", updateCV);
+});
+</script>
 
 </body>
 </html>
