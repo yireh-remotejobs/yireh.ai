@@ -1,79 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Admin Panel – Yireh</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="favicon.ico">
-
-<style>
-body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-.header{background:#021428;padding:16px;font-weight:bold}
-.container{max-width:1100px;margin:auto;padding:20px}
-.card{background:rgba(255,255,255,0.06);padding:16px;border-radius:12px;margin-bottom:14px}
-.btn{padding:8px 14px;border-radius:8px;border:none;font-weight:bold;cursor:pointer}
-.approve{background:#22c55e;color:#022}
-.reject{background:#ef4444;color:#fff}
-.small{color:#9aa6b2;font-size:13px}
-</style>
+<title>Admin – Yireh</title>
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<header class="header">
-Yireh Admin Panel — Job Approval
-</header>
+<h2>Admin Job Approval</h2>
+<input id="pass" placeholder="Admin password">
+<button onclick="load()">Login</button>
 
-<div class="container" id="adminJobs">
-Loading jobs...
-</div>
+<div id="list"></div>
 
 <script>
-const ADMIN_PASSWORD = "yireh-admin"; // change later
+const ADMIN_PASS = "yireh2025";
 
-const pass = prompt("Enter admin password:");
-if (pass !== ADMIN_PASSWORD) {
-  alert("Access denied");
-  document.body.innerHTML = "";
+function load(){
+  if(pass.value!==ADMIN_PASS) return alert("Wrong password");
+
+  const jobs = JSON.parse(localStorage.getItem("yirehJobs")||"[]");
+  const box = document.getElementById("list");
+  box.innerHTML = "";
+
+  jobs.forEach((j,i)=>{
+    box.innerHTML += `
+    <div class="card">
+      <b>${j.title}</b> – ${j.company}<br>
+      Approved: ${j.approved}<br>
+      <button onclick="approve(${i})">Approve</button>
+    </div>`;
+  });
 }
-
-const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-const box = document.getElementById("adminJobs");
-box.innerHTML = "";
-
-if (jobs.length === 0) {
-  box.innerHTML = "<i>No job submissions</i>";
-}
-
-jobs.forEach((job, index) => {
-  const div = document.createElement("div");
-  div.className = "card";
-
-  div.innerHTML = `
-    <h3>${job.title}</h3>
-    <p><b>${job.company}</b> • ${job.location || "Remote"}</p>
-    <p class="small">Apply: ${job.email}</p>
-    <p class="small">Status: ${job.approved ? "✅ Approved" : "⏳ Pending"}</p>
-
-    <button class="btn approve" onclick="approve(${index})">Approve</button>
-    <button class="btn reject" onclick="rejectJob(${index})">Reject</button>
-  `;
-  box.appendChild(div);
-});
 
 function approve(i){
+  const jobs = JSON.parse(localStorage.getItem("yirehJobs"));
   jobs[i].approved = true;
   localStorage.setItem("yirehJobs", JSON.stringify(jobs));
-  alert("Job approved");
-  location.reload();
-}
-
-function rejectJob(i){
-  if(confirm("Delete this job?")){
-    jobs.splice(i,1);
-    localStorage.setItem("yirehJobs", JSON.stringify(jobs));
-    location.reload();
-  }
+  load();
 }
 </script>
 
