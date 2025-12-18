@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Job Builder – Yireh</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-<h2>Create Job Description</h2>
-
-<input id="title" class="input" placeholder="Job Title"><br><br>
-<textarea id="desc" class="input" placeholder="Job Description"></textarea><br><br>
-
-<button class="btn" onclick="saveJob()">Publish Job</button>
-
 <script>
-function saveJob() {
-  const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+function submitJob(){
+  const title = document.getElementById("jobTitle").value;
+  const desc = document.getElementById("jobDesc").value;
+
+  if(!title || !desc){
+    alert("Fill all fields");
+    return;
+  }
+
+  let jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+
   jobs.push({
-    title: title.value,
-    desc: desc.value
+    title:title,
+    desc:desc,
+    status:"pending"
   });
-  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
-  alert("Job published!");
+
+  localStorage.setItem("jobs", JSON.stringify(jobs));
+  alert("Job submitted for admin approval");
 }
 </script>
-
-</body>
-</html>
