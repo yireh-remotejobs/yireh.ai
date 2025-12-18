@@ -37,11 +37,29 @@ button{background:#1e90ff;color:#022;padding:10px 16px;border:none;border-radius
 <div class="container">
 <div class="card">
 
-<h3>Job Details</h3>
-<input id="title" placeholder="Job Title">
-<input id="company" placeholder="Company Name">
-<input id="location" placeholder="Location / Remote">
-<textarea id="desc" placeholder="Job Description"></textarea>
+<h2>Create Job Description</h2>
+
+<label>Company Name</label><br>
+<input class="input" placeholder="Company Name"><br><br>
+
+<label>Contact Email</label><br>
+<input class="input" type="email" placeholder="hr@company.com" required><br><br>
+
+<label>Job Title</label><br>
+<input class="input" placeholder="Job Title"><br><br>
+
+<label>Upload Company Logo (optional)</label><br>
+<input type="file" accept="image/*"><br><br>
+
+<label>Job Responsibilities</label><br>
+<textarea class="input" rows="5" placeholder="Describe responsibilities"></textarea><br><br>
+
+<button class="btn">Generate Job Description</button>
+
+<p class="note">
+This email will be shown to applicants. Do not use personal emails if possible.
+</p>
+
 
 <label>Optional Image</label>
 <input type="file" id="img">
