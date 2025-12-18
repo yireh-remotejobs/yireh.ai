@@ -1,61 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin – Job Approval | Yireh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Admin Panel – Yireh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
-  <h2>Yireh Admin Panel</h2>
+  <div class="brand">
+    <img src="logo.png" height="50">
+    <div>
+      <h2>Yireh Admin</h2>
+      <small>Job Approval Panel</small>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="admin.html" class="active">Admin</a>
+  </nav>
 </header>
 
+<!-- MAIN -->
 <section class="container">
-  <div class="card">
-    <h3>Pending Jobs</h3>
-    <div id="pendingJobs"></div>
+  <h2>Pending Job Approvals</h2>
+  <p class="small">
+    Review jobs carefully. Approve only legitimate postings.
+  </p>
+
+  <div id="adminJobs" class="cards"></div>
+
+  <div id="noJobs" class="card small" style="display:none">
+    No pending jobs 🎉
   </div>
 </section>
 
+<!-- FOOTER -->
+<footer class="footer">
+  © 2025 Yireh.site • Admin Panel
+</footer>
+
+<!-- SCRIPT -->
 <script>
 const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-const pendingDiv = document.getElementById("pendingJobs");
+const container = document.getElementById("adminJobs");
+const empty = document.getElementById("noJobs");
 
-function save(jobs){
-  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
+const pending = jobs.filter(j => j.approved === false);
+
+if (pending.length === 0) {
+  empty.style.display = "block";
 }
 
-function approve(i){
-  jobs[i].approved = true;
-  save(jobs);
-  location.reload();
-}
+pending.forEach((job, index) => {
+  const card = document.createElement("div");
+  card.className = "card";
 
-function reject(i){
-  jobs.splice(i,1);
-  save(jobs);
-  location.reload();
-}
+  card.innerHTML = `
+    <h3>${job.title}</h3>
+    <p class="small">
+      <b>Company:</b> ${job.company}<br>
+      <b>Email:</b> ${job.email}<br>
+      <b>Location:</b> ${job.location}<br>
+      <b>Type:</b> ${job.type}
+    </p>
 
-if(jobs.length === 0){
-  pendingDiv.innerHTML = "<p>No pending jobs</p>";
-}
+    <details>
+      <summary>View Description</summary>
+      <div class="small">${job.jd}</div>
+    </details>
 
-jobs.forEach((job,i)=>{
-  if(!job.approved){
-    pendingDiv.innerHTML += `
-      <div class="card">
-        <h4>${job.title}</h4>
-        <p><b>${job.company}</b> – ${job.location}</p>
-        <p>${job.email}</p>
-        <button class="btn" onclick="approve(${i})">Approve</button>
-        <button class="btn ghost" onclick="reject(${i})">Reject</button>
-      </div>
-    `;
-  }
+    <div class="hero-actions">
+      <button class="btn" onclick="approve(${index})">Approve</button>
+      <button class="btn ghost" onclick="reject(${index})">Reject</button>
+    </div>
+  `;
+
+  container.appendChild(card);
 });
+
+function approve(i) {
+  const all = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+  const job = all.filter(j => j.approved === false)[i];
+
+  const realIndex = all.indexOf(job);
+  all[realIndex].approved = true;
+
+  localStorage.setItem("yirehJobs", JSON.stringify(all));
+  alert("Job approved");
+  location.reload();
+}
+
+function reject(i) {
+  if (!confirm("Reject and delete this job?")) return;
+
+  let all = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+  const job = all.filter(j => j.approved === false)[i];
+
+  all = all.filter(j => j !== job);
+  localStorage.setItem("yirehJobs", JSON.stringify(all));
+
+  alert("Job rejected");
+  location.reload();
+}
 </script>
 
 </body>
