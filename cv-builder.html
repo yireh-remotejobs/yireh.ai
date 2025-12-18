@@ -91,38 +91,43 @@ After payment, refresh page → Premium unlocks automatically (manual for now)
 </footer>
 
 <script>
-const photoInput = document.getElementById("photo");
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
 let photoData = "";
 
-photoInput.addEventListener("change", () => {
-  const file = photoInput.files[0];
-  if (!file) return;
+document.getElementById("photo").addEventListener("change", e => {
   const r = new FileReader();
-  r.onload = e => photoData = e.target.result;
-  r.readAsDataURL(file);
+  r.onload = ev => photoData = ev.target.result;
+  r.readAsDataURL(e.target.files[0]);
 });
 
 document.querySelectorAll("input[name=tpl]").forEach(r=>{
-  r.onchange = () => {
+  r.onchange = () =>
     document.getElementById("payBox").style.display =
       r.value === "premium" ? "block" : "none";
-  }
 });
 
 function generateCV(){
   const tpl = document.querySelector("input[name=tpl]:checked").value;
-  if (tpl === "premium" && !confirm("Have you completed payment?")) return;
+  if (tpl==="premium" && !confirm("Confirm payment completed")) return;
 
-  const cv = `
-  ${photoData ? `<img src="${photoData}" style="width:100px;border-radius:8px">` : ""}
-  <h2>${name.value}</h2>
-  <b>${role.value}</b>
-  <p>${summary.value}</p>
-  <p class="small">Contact: ${email.value}</p>
+  document.getElementById("cvPreview").innerHTML = `
+    ${photoData ? `<img src="${photoData}" style="width:100px">` : ""}
+    <h2>${name.value}</h2>
+    <b>${role.value}</b>
+    <p>${summary.value}</p>
+    <small>${email.value}</small>
+    <br><br>
+    <button class="btn" onclick="downloadPDF()">Download PDF</button>
   `;
-
-  document.getElementById("cvPreview").innerHTML = cv;
 }
+
+function downloadPDF(){
+  html2pdf().from(document.getElementById("cvPreview")).save("Yireh-CV.pdf");
+}
+</script>
+
 </script>
 
 </body>
