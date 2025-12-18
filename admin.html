@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yireh Admin Panel</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h2>🔐 Yireh Admin Dashboard</h2>
+
+<div id="loginBox">
+  <input type="password" id="adminPass" placeholder="Admin Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="adminArea" style="display:none;">
+  <h3>Pending Jobs</h3>
+  <div id="jobList"></div>
+</div>
+
+<script>
+const ADMIN_PASS = "Vs5002190?";
+
+function login(){
+  if(document.getElementById("adminPass").value === ADMIN_PASS){
+    document.getElementById("loginBox").style.display="none";
+    document.getElementById("adminArea").style.display="block";
+    loadJobs();
+  } else {
+    alert("Wrong password");
+  }
+}
+
+function loadJobs(){
+  const jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+  const box = document.getElementById("jobList");
+  box.innerHTML = "";
+
+  jobs.forEach((j,i)=>{
+    if(j.status === "pending"){
+      box.innerHTML += `
+      <div class="card">
+        <h4>${j.title}</h4>
+        <p>${j.desc}</p>
+        <button onclick="approve(${i})" class="btn">Approve</button>
+        <button onclick="removeJob(${i})" class="btn ghost">Delete</button>
+      </div>`;
+    }
+  });
+}
+
+function approve(i){
+  let jobs = JSON.parse(localStorage.getItem("jobs"));
+  jobs[i].status="approved";
+  localStorage.setItem("jobs",JSON.stringify(jobs));
+  loadJobs();
+}
+
+function removeJob(i){
+  let jobs = JSON.parse(localStorage.getItem("jobs"));
+  jobs.splice(i,1);
+  localStorage.setItem("jobs",JSON.stringify(jobs));
+  loadJobs();
+}
+</script>
+
+</body>
+</html>
