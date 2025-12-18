@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Jobs – Yireh</title>
-  <link rel="stylesheet" href="styles.css">
+<title>Remote Jobs – Yireh</title>
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-<header>
+
+<header class="header">
   <h1>Remote Jobs</h1>
   <a href="index.html">← Home</a>
 </header>
 
-<section id="jobs"></section>
+<div class="cards" id="jobs">
+  <p>No jobs yet.  
+  Jobs will appear automatically after job descriptions are created & approved.</p>
+</div>
 
-<script>
-const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-const box = document.getElementById("jobs");
+<section class="card scam">
+  <b>⚠ Scam Warning</b>
+  <p>Yireh never asks money to apply for jobs.</p>
+</section>
 
-if (jobs.length === 0) {
-  box.innerHTML = "<p>No jobs yet. Create one using Job Builder.</p>";
-}
-
-jobs.forEach(j => {
-  box.innerHTML += `
-    <div class="card">
-      <h3>${j.title}</h3>
-      <p>${j.desc}</p>
-    </div>
-  `;
-});
-</script>
-
-<footer>© 2025 Yireh.site</footer>
 </body>
 </html>
