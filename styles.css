@@ -7,7 +7,7 @@
 }
 
 body {
-  background: #0f172a;   /* dark blue */
+  background: #0f172a;
   color: #e5e7eb;
   min-height: 100vh;
   display: flex;
@@ -15,7 +15,7 @@ body {
 }
 
 /* ===== HEADER ===== */
-header {
+header, .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,27 +24,36 @@ header {
   border-bottom: 1px solid #1e293b;
 }
 
-header img {
-  margin-right: 10px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-header h1 {
-  font-size: 20px;
+.brand h1 {
   color: #facc15;
+  font-size: 22px;
 }
 
-nav a {
+.brand small {
+  color: #94a3b8;
+}
+
+/* ===== NAV ===== */
+nav a,
+.nav a {
   color: #e5e7eb;
   text-decoration: none;
-  margin-left: 20px;
+  margin-left: 18px;
   font-weight: 600;
 }
 
-nav a:hover {
+nav a:hover,
+.nav a:hover {
   color: #38bdf8;
 }
 
-/* ===== CONTAINER (LANDSCAPE FIX) ===== */
+/* ===== CONTAINER ===== */
 .container {
   max-width: 1200px;
   margin: auto;
@@ -64,17 +73,14 @@ nav a:hover {
   color: #facc15;
 }
 
-.hero p {
-  font-size: 18px;
-  max-width: 800px;
-  margin: auto;
-  color: #cbd5f5;
+.hero-actions {
+  margin-top: 25px;
 }
 
 /* ===== BUTTONS ===== */
 .btn {
   display: inline-block;
-  margin: 15px 10px;
+  margin: 10px;
   padding: 12px 24px;
   background: #38bdf8;
   color: #020617;
@@ -93,21 +99,49 @@ nav a:hover {
   border: 2px solid #38bdf8;
 }
 
+/* ===== INPUTS ===== */
+.input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  background: #020617;
+  color: #e5e7eb;
+}
+
 /* ===== CARDS ===== */
 .card {
   background: #020617;
-  padding: 20px;
+  padding: 22px;
   border-radius: 12px;
   margin: 20px auto;
-  max-width: 700px;
-  text-align: left;
+  max-width: 720px;
+}
+
+.scam {
+  background: #3b2b00;
+  color: #fff;
+}
+
+/* ===== PAY GRID ===== */
+.pay-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 /* ===== FOOTER ===== */
-footer {
+footer, .footer {
   margin-top: auto;
   padding: 15px;
   text-align: center;
   background: #020617;
   color: #94a3b8;
+}
+
+/* ===== SMALL TEXT ===== */
+.small {
+  color: #cbd5f5;
+  font-size: 14px;
 }
