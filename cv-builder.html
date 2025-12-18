@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CV Builder – Yireh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>CV Builder – Yireh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 <header class="header">
   <div class="brand">
     <img src="logo.png" height="50">
@@ -26,130 +26,123 @@
     <a href="jobs.html">Jobs</a>
     <a href="services.html">Services</a>
     <a href="cv-builder.html" class="active">CV Builder</a>
+    <a href="job-builder.html">Job Builder</a>
     <a href="contact.html">Contact</a>
   </nav>
 </header>
 
-<!-- ================= MAIN ================= -->
+<!-- MAIN -->
 <section class="container">
 
-  <div class="card">
-    <h2>Build Your CV</h2>
-    <p class="small">Choose a template and fill your details. Preview updates instantly.</p>
+<div class="card">
+  <h2>Create Your CV</h2>
+  <p class="small">Free basic CV • Premium templates available</p>
+
+  <div class="cards">
 
     <!-- FORM -->
-    <div class="cards">
+    <div class="card">
+      <h3>Your Details</h3>
 
-      <!-- LEFT: INPUT -->
-      <div class="card">
-        <h3>Your Details</h3>
+      <input id="name" class="input" placeholder="Full Name">
+      <input id="email" class="input" placeholder="Email">
+      <input id="role" class="input" placeholder="Job Title">
 
-        <input id="name" class="input" placeholder="Full Name">
-        <input id="email" class="input" placeholder="Email Address">
-        <input id="title" class="input" placeholder="Job Title (e.g. HSE Engineer)">
+      <textarea id="summary" class="input" rows="4"
+        placeholder="Professional summary"></textarea>
 
-        <textarea id="summary" class="input" rows="4"
-          placeholder="Professional summary"></textarea>
+      <textarea id="skills" class="input" rows="4"
+        placeholder="Skills (comma separated)"></textarea>
 
-        <textarea id="skills" class="input" rows="4"
-          placeholder="Skills (comma separated)"></textarea>
+      <label class="small">Upload Photo</label>
+      <input type="file" id="photo" accept="image/*">
 
-        <label class="small">Upload Photo</label>
-        <input type="file" id="photo" accept="image/*">
+      <label class="small">Select Template</label>
+      <select id="template" class="input">
+        <option value="free">Free – Classic</option>
+        <option value="premium1">Premium – Modern</option>
+        <option value="premium2">Premium – Executive</option>
+      </select>
 
-        <label class="small">Choose Template</label>
-        <select id="template" class="input" onchange="updateCV()">
-          <option value="classic">Classic</option>
-          <option value="modern">Modern</option>
-        </select>
-
-        <button class="btn" onclick="updateCV()">Update Preview</button>
-      </div>
-
-      <!-- RIGHT: PREVIEW -->
-      <div class="card">
-        <h3>CV Preview</h3>
-
-        <div id="cvPreview" class="card" style="background:#fff;color:#000;">
-          <div id="cvPhoto"></div>
-          <h2 id="cvName">Your Name</h2>
-          <h4 id="cvTitle">Job Title</h4>
-          <p id="cvEmail">email@example.com</p>
-
-          <hr>
-
-          <h4>Profile</h4>
-          <p id="cvSummary"></p>
-
-          <h4>Skills</h4>
-          <ul id="cvSkills"></ul>
-        </div>
-      </div>
-
+      <button class="btn" onclick="buildCV()">Build CV</button>
     </div>
+
+    <!-- PREVIEW -->
+    <div class="card">
+      <h3>CV Preview</h3>
+
+      <div id="photoPreview"></div>
+
+      <div id="cvPreview" class="cv-preview">
+        <p><i>Your CV will appear here</i></p>
+      </div>
+    </div>
+
   </div>
+</div>
 
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  © 2025 Yireh.site • CV Builder v1
+  © 2025 Yireh.site • CV Builder v2
 </footer>
 
-<!-- ================= SCRIPT ================= -->
+<!-- SCRIPT -->
 <script>
-const savedName = localStorage.getItem("yirehUser") || "";
-const savedEmail = localStorage.getItem("yirehEmail") || "";
-
-document.getElementById("name").value = savedName;
-document.getElementById("email").value = savedEmail;
+let photoData = "";
 
 document.getElementById("photo").addEventListener("change", function () {
   const file = this.files[0];
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = function (e) {
-    document.getElementById("cvPhoto").innerHTML =
-      `<img src="${e.target.result}" style="width:100px;border-radius:50%">`;
-  };
+  reader.onload = e => photoData = e.target.result;
   reader.readAsDataURL(file);
 });
 
-function updateCV() {
-  document.getElementById("cvName").innerText =
-    document.getElementById("name").value || "Your Name";
+function buildCV() {
+  const name = nameEl().value.trim();
+  const email = emailEl().value.trim();
+  const role = roleEl().value.trim();
+  const summary = summaryEl().value.trim();
+  const skills = skillsEl().value.trim();
+  const template = templateEl().value;
 
-  document.getElementById("cvEmail").innerText =
-    document.getElementById("email").value;
-
-  document.getElementById("cvTitle").innerText =
-    document.getElementById("title").value;
-
-  document.getElementById("cvSummary").innerText =
-    document.getElementById("summary").value;
-
-  const skills = document.getElementById("skills").value.split(",");
-  const list = document.getElementById("cvSkills");
-  list.innerHTML = "";
-
-  skills.forEach(skill => {
-    if (skill.trim()) {
-      const li = document.createElement("li");
-      li.innerText = skill.trim();
-      list.appendChild(li);
-    }
-  });
-
-  const template = document.getElementById("template").value;
-  const preview = document.getElementById("cvPreview");
-
-  if (template === "modern") {
-    preview.style.borderLeft = "6px solid #1e90ff";
-  } else {
-    preview.style.borderLeft = "none";
+  if (!name || !email || !role) {
+    alert("Name, Email, and Job Title required");
+    return;
   }
+
+  if (template !== "free") {
+    alert("Premium template selected — payment required");
+    return;
+  }
+
+  const cv = `
+    <div class="cv ${template}">
+      ${photoData ? `<img src="${photoData}" class="cv-photo">` : ""}
+      <h2>${name}</h2>
+      <h4>${role}</h4>
+      <p>${summary}</p>
+
+      <h4>Skills</h4>
+      <ul>
+        ${skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")}
+      </ul>
+
+      <p class="small">${email}</p>
+    </div>
+  `;
+
+  document.getElementById("cvPreview").innerHTML = cv;
 }
+
+function nameEl(){return document.getElementById("name")}
+function emailEl(){return document.getElementById("email")}
+function roleEl(){return document.getElementById("role")}
+function summaryEl(){return document.getElementById("summary")}
+function skillsEl(){return document.getElementById("skills")}
+function templateEl(){return document.getElementById("template")}
 </script>
 
 </body>
