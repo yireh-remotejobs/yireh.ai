@@ -1,61 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Remote Jobs – Yireh</title>
-<link rel="stylesheet" href="styles.css">
-<link rel="icon" href="favicon.ico">
-<style>
-body{background:#071029;color:#e6eef6;font-family:Arial}
-.container{max-width:1100px;margin:auto;padding:20px}
-.job{background:rgba(255,255,255,0.05);padding:16px;border-radius:12px;margin-bottom:12px}
-.small{color:#9aa6b2;font-size:13px}
-</style>
+  <title>Remote Jobs – Yireh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<header style="text-align:center;padding:20px">
-<img src="logo.png" height="50">
-<h2>Remote Jobs</h2>
-<p>Real jobs created on Yireh</p>
-<a href="job-builder.html" style="color:#1e90ff;font-weight:bold">+ Create Job</a>
+<header class="header">
+  <h2>Remote Jobs</h2>
 </header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="jobs.html">Jobs</a>
-  <a href="services.html">Services</a>
-  <a href="cv-builder.html">CV Builder</a>
-  <a href="job-builder.html">Job Builder</a>
-  <a href="contact.html">Contact</a>
-</nav>
 
-<div class="container" id="jobList"></div>
+<section class="container">
+  <div id="jobsList"></div>
+</section>
 
 <script>
 const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-const list = document.getElementById("jobList");
+const list = document.getElementById("jobsList");
 
-if(jobs.length===0){
-  list.innerHTML="<p>No jobs yet. Be the first to post.</p>";
+const approvedJobs = jobs.filter(j => j.approved);
+
+if(approvedJobs.length === 0){
+  list.innerHTML = `
+    <div class="card">
+      <h3>No jobs available yet</h3>
+      <p>Check back soon or submit a job.</p>
+    </div>
+  `;
 }
 
-jobs.forEach(j=>{
-  const d=document.createElement("div");
-  d.className="job";
-  d.innerHTML=`
-    <h3>${j.title}</h3>
-    <p><b>${j.company}</b> • ${j.location}</p>
-    <p>${j.desc}</p>
-    <p class="small">Posted: ${j.date}</p>
+approvedJobs.forEach(job=>{
+  list.innerHTML += `
+    <div class="card">
+      <h3>${job.title}</h3>
+      <p><b>${job.company}</b> – ${job.location || "Remote"}</p>
+      <p><b>Apply:</b> ${job.email}</p>
+    </div>
   `;
-  list.appendChild(d);
 });
 </script>
-
-<footer style="text-align:center;margin:30px;color:#9aa6b2">
-© 2025 Yireh.site
-</footer>
 
 </body>
 </html>
