@@ -1,67 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Yireh Admin Panel</title>
+  <title>Admin – Job Approval | Yireh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<h2>🔐 Yireh Admin Dashboard</h2>
+<header class="header">
+  <h2>Yireh Admin Panel</h2>
+</header>
 
-<div id="loginBox">
-  <input type="password" id="adminPass" placeholder="Admin Password">
-  <button onclick="login()">Login</button>
-</div>
-
-<div id="adminArea" style="display:none;">
-  <h3>Pending Jobs</h3>
-  <div id="jobList"></div>
-</div>
+<section class="container">
+  <div class="card">
+    <h3>Pending Jobs</h3>
+    <div id="pendingJobs"></div>
+  </div>
+</section>
 
 <script>
-const ADMIN_PASS = "Vs5002190?";
+const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+const pendingDiv = document.getElementById("pendingJobs");
 
-function login(){
-  if(document.getElementById("adminPass").value === ADMIN_PASS){
-    document.getElementById("loginBox").style.display="none";
-    document.getElementById("adminArea").style.display="block";
-    loadJobs();
-  } else {
-    alert("Wrong password");
-  }
-}
-
-function loadJobs(){
-  const jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
-  const box = document.getElementById("jobList");
-  box.innerHTML = "";
-
-  jobs.forEach((j,i)=>{
-    if(j.status === "pending"){
-      box.innerHTML += `
-      <div class="card">
-        <h4>${j.title}</h4>
-        <p>${j.desc}</p>
-        <button onclick="approve(${i})" class="btn">Approve</button>
-        <button onclick="removeJob(${i})" class="btn ghost">Delete</button>
-      </div>`;
-    }
-  });
+function save(jobs){
+  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
 }
 
 function approve(i){
-  let jobs = JSON.parse(localStorage.getItem("jobs"));
-  jobs[i].status="approved";
-  localStorage.setItem("jobs",JSON.stringify(jobs));
-  loadJobs();
+  jobs[i].approved = true;
+  save(jobs);
+  location.reload();
 }
 
-function removeJob(i){
-  let jobs = JSON.parse(localStorage.getItem("jobs"));
+function reject(i){
   jobs.splice(i,1);
-  localStorage.setItem("jobs",JSON.stringify(jobs));
-  loadJobs();
+  save(jobs);
+  location.reload();
 }
+
+if(jobs.length === 0){
+  pendingDiv.innerHTML = "<p>No pending jobs</p>";
+}
+
+jobs.forEach((job,i)=>{
+  if(!job.approved){
+    pendingDiv.innerHTML += `
+      <div class="card">
+        <h4>${job.title}</h4>
+        <p><b>${job.company}</b> – ${job.location}</p>
+        <p>${job.email}</p>
+        <button class="btn" onclick="approve(${i})">Approve</button>
+        <button class="btn ghost" onclick="reject(${i})">Reject</button>
+      </div>
+    `;
+  }
+});
 </script>
 
 </body>
