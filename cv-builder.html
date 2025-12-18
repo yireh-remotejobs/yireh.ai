@@ -94,39 +94,34 @@ After payment, refresh page → Premium unlocks automatically (manual for now)
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-let photoData = "";
+function smartSummary(role, skills) {
+  return `Experienced ${role} with strong expertise in ${skills}.
+Proven ability to work independently in remote environments,
+deliver quality results, and collaborate with global teams.`;
+}
 
-document.getElementById("photo").addEventListener("change", e => {
-  const r = new FileReader();
-  r.onload = ev => photoData = ev.target.result;
-  r.readAsDataURL(e.target.files[0]);
-});
+function generateCV() {
+  const role = document.getElementById("role").value;
+  const skills = document.getElementById("skills").value;
+  const email = document.getElementById("email").value;
 
-document.querySelectorAll("input[name=tpl]").forEach(r=>{
-  r.onchange = () =>
-    document.getElementById("payBox").style.display =
-      r.value === "premium" ? "block" : "none";
-});
-
-function generateCV(){
-  const tpl = document.querySelector("input[name=tpl]:checked").value;
-  if (tpl==="premium" && !confirm("Confirm payment completed")) return;
+  if (!role || !skills || !email) {
+    alert("Fill all required fields");
+    return;
+  }
 
   document.getElementById("cvPreview").innerHTML = `
-    ${photoData ? `<img src="${photoData}" style="width:100px">` : ""}
-    <h2>${name.value}</h2>
-    <b>${role.value}</b>
-    <p>${summary.value}</p>
-    <small>${email.value}</small>
-    <br><br>
-    <button class="btn" onclick="downloadPDF()">Download PDF</button>
+    <h2>${role}</h2>
+    <p>${smartSummary(role, skills)}</p>
+    <h4>Skills</h4>
+    <ul>
+      ${skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")}
+    </ul>
+    <small>${email}</small>
   `;
 }
-
-function downloadPDF(){
-  html2pdf().from(document.getElementById("cvPreview")).save("Yireh-CV.pdf");
-}
 </script>
+
 
 </script>
 
