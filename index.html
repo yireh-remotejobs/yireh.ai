@@ -1,71 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Yireh – Remote Jobs, CV Writing & Career Support</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Global styles -->
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="header">
-  <img src="logo.png" height="55">
-  <h1>Yireh</h1>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="jobs.html">Jobs</a>
-  <a href="services.html">Services</a>
-  <a href="cv-builder.html">CV Builder</a>
-  <a href="job-builder.html">Job Builder</a>
-  <a href="contact.html">Contact</a>
-</nav>
-  <span id="userBox"></span>
+  <div class="brand">
+    <img src="logo.png" alt="Yireh Logo" height="60">
+    <div>
+      <h1>Yireh</h1>
+      <small>Remote Jobs • CV Writing • Career Support</small>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="services.html">Services</a>
+    <a href="cv-builder.html">CV Builder</a>
+    <a href="job-builder.html">Job Builder</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div id="userBox"></div>
 </header>
 
-<section class="hero">
-  <h2>Empowering Talent Worldwide 🌍</h2>
-  <p>
-    Free remote jobs • Professional CV tools • Ethical career support  
+<!-- ================= AUTH ================= -->
+<section class="container" id="authBox">
+  <div class="card">
+    <h3>Sign In</h3>
+
+    <input id="username" class="input" placeholder="Your name">
+    <input id="email" class="input" placeholder="Your email">
+
+    <div class="small">
+      <label>
+        <input type="checkbox" id="scamAgree">
+        I understand scam risks and agree to safety rules
+      </label>
+    </div>
+
+    <button class="btn" onclick="login()">Continue</button>
+  </div>
+</section>
+
+<!-- ================= HERO ================= -->
+<section class="hero container">
+  <h1>Empowering Talent Worldwide 🌍</h1>
+
+  <p class="small">
+    Free remote jobs • Professional CV & Cover Letter tools  
     <br><b>No scams. No fake promises.</b>
   </p>
 
   <div class="hero-actions">
-    <a class="btn" href="jobs.html">Browse Jobs</a>
-    <a class="btn ghost" href="cv-builder.html">Build CV</a>
+    <a class="btn" href="jobs.html">Browse Remote Jobs</a>
+    <a class="btn ghost" href="cv-builder.html">Build Your CV</a>
   </div>
 </section>
 
-<section class="card scam">
-  <h3>⚠ Scam Awareness</h3>
-  <ul>
-    <li>We never guarantee jobs</li>
-    <li>No payments via WhatsApp or calls</li>
-    <li>Payments only via this website</li>
-  </ul>
-
-  <label>
-    <input type="checkbox" id="agree">
-    I understand the scam risks
-  </label>
+<!-- ================= SCAM WARNING ================= -->
+<section class="container">
+  <div class="card scam">
+    <h3>⚠ Scam Awareness</h3>
+    <ul>
+      <li>We never guarantee jobs</li>
+      <li>No payments via WhatsApp or calls</li>
+      <li>Payments only via official site buttons</li>
+      <li>Report fake claims immediately</li>
+    </ul>
+  </div>
 </section>
 
-<section class="card">
-  <h3>Sign In</h3>
-  <input id="username" class="input" placeholder="Enter your name">
-  <button class="btn" onclick="login()">Continue</button>
+<!-- ================= DONATIONS ================= -->
+<section class="container">
+  <div class="card">
+    <h3>Support Yireh ❤️</h3>
+
+    <div class="pay-grid">
+      <a class="btn" href="https://paypal.me/yirehremotejobs/1" target="_blank">$1</a>
+      <a class="btn" href="https://paypal.me/yirehremotejobs/3" target="_blank">$3</a>
+      <a class="btn" href="https://paypal.me/yirehremotejobs/5" target="_blank">$5</a>
+
+      <a class="btn ghost"
+         href="upi://pay?pa=yireh@upi&pn=Yireh">
+         Google Pay
+      </a>
+    </div>
+  </div>
 </section>
 
-<footer>© 2025 yireh.site</footer>
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  © 2025 Yireh.site • Ethical Remote Careers
+</footer>
 
+<!-- ================= SCRIPT ================= -->
 <script>
-function login(){
-  if(!document.getElementById("agree").checked){
+function login() {
+  const name = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const agree = document.getElementById("scamAgree").checked;
+
+  if (!name || !email) {
+    alert("Enter name and email");
+    return;
+  }
+  if (!agree) {
     alert("Please accept scam awareness");
     return;
   }
-  const u=document.getElementById("username").value.trim();
-  if(!u) return alert("Enter name");
-  localStorage.setItem("yirehUser",u);
-  document.getElementById("userBox").innerHTML="Welcome, <b>"+u+"</b>";
+
+  localStorage.setItem("yirehUser", name);
+  localStorage.setItem("yirehEmail", email);
+  location.reload();
+}
+
+const user = localStorage.getItem("yirehUser");
+if (user) {
+  document.getElementById("authBox").style.display = "none";
+  document.getElementById("userBox").innerHTML =
+    `Welcome, <b>${user}</b> |
+     <a href="#" onclick="logout()">Logout</a>`;
+}
+
+function logout() {
+  localStorage.clear();
+  location.reload();
 }
 </script>
 
