@@ -141,6 +141,22 @@ Send your CV to <b>${email}</b>.
 Mention the job title <b>${title}</b> in the subject line.
 </p>
 `;
+<script>
+function generateJD() {
+  ...
+  const job = {
+    company, email, title, location, type, skills,
+    approved: false,
+    created: new Date().toISOString()
+  };
+
+  const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+  jobs.push(job);
+  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
+
+  alert("Job submitted for admin approval");
+}
+</script>
 
   document.getElementById("jobPreview").innerHTML = jd;
 }
