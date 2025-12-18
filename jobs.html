@@ -1,106 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Remote Jobs – Yireh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Jobs – Yireh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
 
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css">
+<style>
+body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
+.header{padding:16px;background:#021428}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:rgba(255,255,255,0.05);padding:16px;border-radius:12px;margin-bottom:12px}
+</style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
-  <div class="brand">
-    <img src="logo.png" height="50">
-    <div>
-      <h2>Yireh</h2>
-      <small>Verified Remote Jobs</small>
-    </div>
-  </div>
-
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="jobs.html" class="active">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Job Builder</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+<b>Yireh – Remote Jobs</b>
 </header>
 
-<!-- MAIN -->
-<section class="container">
-  <h2>Available Remote Jobs</h2>
-  <p class="small">
-    Only <b>approved</b> and <b>verified</b> job listings are shown here.
-  </p>
+<div class="container" id="jobList">
+<i>No jobs yet</i>
+</div>
 
-  <!-- JOB LIST -->
-  <div id="jobList" class="cards"></div>
-
-  <!-- EMPTY STATE -->
-  <div id="noJobs" class="card small" style="display:none">
-    No approved jobs yet.  
-    Employers can post jobs for free using the Job Builder.
-  </div>
-</section>
-
-<!-- SCAM WARNING -->
-<section class="container">
-  <div class="card scam">
-    <h3>⚠ Scam Awareness</h3>
-    <ul>
-      <li>Yireh never guarantees jobs</li>
-      <li>We never ask payment via WhatsApp</li>
-      <li>Apply only using employer email shown</li>
-      <li>Report suspicious listings immediately</li>
-    </ul>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  © 2025 Yireh.site • Trusted Remote Careers
-</footer>
-
-<!-- SCRIPT -->
 <script>
-const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-const list = document.getElementById("jobList");
-const empty = document.getElementById("noJobs");
+const jobs=JSON.parse(localStorage.getItem("yirehJobs")||"[]");
+const list=document.getElementById("jobList");
+list.innerHTML="";
 
-const approvedJobs = jobs.filter(j => j.approved === true);
-
-if (approvedJobs.length === 0) {
-  empty.style.display = "block";
-}
-
-approvedJobs.forEach(job => {
-  const card = document.createElement("div");
-  card.className = "card";
-
-  card.innerHTML = `
-    <h3>${job.title}</h3>
-    <p class="small">
-      <b>Company:</b> ${job.company}<br>
-      <b>Location:</b> ${job.location}<br>
-      <b>Type:</b> ${job.type}
-    </p>
-
-    <details>
-      <summary>View Job Description</summary>
-      <div class="small">${job.jd}</div>
-    </details>
-
-    <p class="small">
-      <b>Apply:</b> <a href="mailto:${job.email}">${job.email}</a>
-    </p>
+jobs.filter(j=>j.approved).forEach(j=>{
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+    <h3>${j.title}</h3>
+    <p>${j.company} • ${j.location}</p>
+    <p>Apply: ${j.email}</p>
   `;
-
-  list.appendChild(card);
+  list.appendChild(d);
 });
 </script>
 
