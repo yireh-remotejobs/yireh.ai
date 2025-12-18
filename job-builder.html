@@ -97,73 +97,89 @@
 
 <!-- SCRIPT -->
 <script>
+<script>
+/* IMAGE PREVIEW */
 document.getElementById("image").addEventListener("change", function () {
   const file = this.files[0];
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = e => {
+  reader.onload = function (e) {
     document.getElementById("imgPreview").innerHTML =
       `<img src="${e.target.result}" style="max-width:120px;border-radius:8px">`;
   };
   reader.readAsDataURL(file);
 });
 
+/* GENERATE JOB DESCRIPTION */
 function generateJD() {
-  const company = companyEl.value.trim();
-  const email = emailEl.value.trim();
-  const title = titleEl.value.trim();
-  const location = locationEl.value.trim() || "Remote";
-  const type = typeEl.value.trim() || "Contract";
-  const skills = skillsEl.value.trim();
+  const company = document.getElementById("company").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const title = document.getElementById("title").value.trim();
+  const location = document.getElementById("location").value.trim();
+  const type = document.getElementById("type").value.trim();
+  const skills = document.getElementById("skills").value.trim();
 
   if (!company || !email || !title) {
     alert("Company, Email, and Job Title are required");
     return;
   }
 
-  const skillList = skills
-    ? skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")
-    : "<li>Relevant skills</li>";
-
   const jd = `
-<h3>${title}</h3>
-<p><b>Company:</b> ${company}</p>
-<p><b>Location:</b> ${location}</p>
-<p><b>Job Type:</b> ${type}</p>
+    <h3>${title}</h3>
+    <p><b>Company:</b> ${company}</p>
+    <p><b>Location:</b> ${location || "Remote"}</p>
+    <p><b>Job Type:</b> ${type || "Contract"}</p>
 
-<h4>About the Role</h4>
-<p>${company} is seeking a motivated ${title} to join our team.</p>
+    <h4>About the Role</h4>
+    <p>
+      ${company} is looking for a motivated <b>${title}</b> to join our team.
+      This role supports ethical and remote-friendly work culture.
+    </p>
 
-<h4>Responsibilities</h4>
-<ul>
-  <li>Perform role-specific duties</li>
-  <li>Collaborate with team members</li>
-  <li>Meet quality standards</li>
-</ul>
+    <h4>Responsibilities</h4>
+    <ul>
+      <li>Execute core job responsibilities</li>
+      <li>Collaborate with team members</li>
+      <li>Maintain professional standards</li>
+    </ul>
 
-<h4>Required Skills</h4>
-<ul>${skillList}</ul>
+    <h4>Required Skills</h4>
+    <ul>
+      ${skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")}
+    </ul>
 
-<h4>How to Apply</h4>
-<p>Email your CV to <b>${email}</b></p>
-`;
+    <h4>How to Apply</h4>
+    <p>
+      Send your CV to <b>${email}</b><br>
+      Subject: <b>${title}</b>
+    </p>
+  `;
 
+  // SHOW PREVIEW
   document.getElementById("jobPreview").innerHTML = jd;
-  document.getElementById("paymentBox").style.display = "block";
 
-  // Save for jobs.html (pending approval)
+  // SAVE FOR ADMIN APPROVAL
+  const job = {
+    company,
+    email,
+    title,
+    location,
+    type,
+    skills,
+    jd,
+    approved: false,
+    created: new Date().toISOString()
+  };
+
   const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-  jobs.push({ company, email, title, location, type, jd, approved:false });
+  jobs.push(job);
   localStorage.setItem("yirehJobs", JSON.stringify(jobs));
-}
 
-const companyEl = document.getElementById("company");
-const emailEl = document.getElementById("email");
-const titleEl = document.getElementById("title");
-const locationEl = document.getElementById("location");
-const typeEl = document.getElementById("type");
-const skillsEl = document.getElementById("skills");
+  alert("Job submitted for admin approval");
+}
+</script>
+
 </script>
 
 </body>
