@@ -156,6 +156,16 @@ function generateCV() {
   `;
 }
 </script>
+<script>
+function suggestSkills(role){
+  const map = {
+    developer:["JavaScript","React","API","Git"],
+    writer:["SEO","Content Strategy","Editing"],
+    hse:["Risk Assessment","ISO 45001","Audits"]
+  };
+  document.getElementById("skills").value = (map[role]||[]).join(", ");
+}
+</script>
 
 </body>
 </html>
