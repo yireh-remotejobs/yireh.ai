@@ -1,42 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Admin – Yireh</title>
+<meta charset="UTF-8">
+<title>Admin – Job Approvals | Yireh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<h2>Admin Job Approval</h2>
-<input id="pass" placeholder="Admin password">
-<button onclick="load()">Login</button>
+<header class="header">
+  <div class="brand">
+    <img src="logo.png" height="45">
+    <b>Yireh Admin</b>
+  </div>
 
-<div id="list"></div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="admin.html" class="active">Admin</a>
+  </nav>
+</header>
+
+<section class="container">
+  <h2>Pending Job Approvals</h2>
+  <p class="small">Approve only genuine jobs.</p>
+
+  <div id="adminJobs" class="cards"></div>
+</section>
+
+<footer class="footer">
+© 2025 Yireh.site • Admin Panel
+</footer>
 
 <script>
-const ADMIN_PASS = "yireh2025";
+const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+const box = document.getElementById("adminJobs");
 
-function load(){
-  if(pass.value!==ADMIN_PASS) return alert("Wrong password");
-
-  const jobs = JSON.parse(localStorage.getItem("yirehJobs")||"[]");
-  const box = document.getElementById("list");
-  box.innerHTML = "";
-
-  jobs.forEach((j,i)=>{
-    box.innerHTML += `
-    <div class="card">
-      <b>${j.title}</b> – ${j.company}<br>
-      Approved: ${j.approved}<br>
-      <button onclick="approve(${i})">Approve</button>
-    </div>`;
-  });
+if (jobs.length === 0) {
+  box.innerHTML = "<p>No jobs submitted yet.</p>";
 }
 
-function approve(i){
-  const jobs = JSON.parse(localStorage.getItem("yirehJobs"));
+jobs.forEach((job, i) => {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  card.innerHTML = `
+    <h3>${job.title}</h3>
+    <p><b>Company:</b> ${job.company}</p>
+    <p><b>Email:</b> ${job.email}</p>
+    <p><b>Status:</b> ${job.approved ? "Approved" : "Pending"}</p>
+
+    <button class="btn" onclick="approve(${i})">Approve</button>
+    <button class="btn ghost" onclick="removeJob(${i})">Reject</button>
+  `;
+
+  box.appendChild(card);
+});
+
+function approve(i) {
   jobs[i].approved = true;
   localStorage.setItem("yirehJobs", JSON.stringify(jobs));
-  load();
+  location.reload();
+}
+
+function removeJob(i) {
+  if (!confirm("Delete this job?")) return;
+  jobs.splice(i, 1);
+  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
+  location.reload();
 }
 </script>
 
