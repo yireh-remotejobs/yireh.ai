@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="google-site-verification" content="WhZRsnidckv0xKz6BQvvpkfcb843iAGIWroUfT1Gl74" />
-<meta name="description" content="Yireh helps you find remote jobs, build CVs, create job descriptions, and avoid scams. Ethical career support platform.">
-<meta name="keywords" content="remote jobs, CV builder, resume writing, job description generator, career support">
-<meta name="author" content="Yireh.site">
-
+<head>
 <meta charset="UTF-8">
 <title>Yireh – Remote Jobs, CV Writing & Career Support</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Free remote jobs, CV builder, job description generator, ethical career support. No scams.">
+<meta name="keywords" content="remote jobs, cv builder, resume, job description, career support">
+
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.css">
-<script src="script.js" defer></script>
-
 
 <style>
 body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
 .header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#021428}
-.nav a{color:#e6eef6;margin:0 10px;text-decoration:none;font-weight:bold}
+.nav a{color:#e6eef6;margin:0 12px;text-decoration:none;font-weight:bold}
+.nav a:hover{color:#1e90ff}
 .container{max-width:1100px;margin:auto;padding:30px}
-.hero{padding:60px 20px;text-align:center}
-.btn{background:#1e90ff;color:#022;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold}
-.ghost{border:1px solid #1e90ff;background:transparent;color:#e6eef6}
+.hero{text-align:center;padding:70px 20px}
+.btn{background:#1e90ff;color:#022;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:bold;margin:6px;display:inline-block}
+.ghost{background:transparent;border:1px solid #1e90ff;color:#e6eef6}
 .card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-top:20px}
 .footer{text-align:center;color:#9aa6b2;padding:30px}
+.input{padding:10px;border-radius:8px;border:none;width:100%;margin:6px 0}
+.small{font-size:13px;color:#9aa6b2}
 </style>
 </head>
 
@@ -41,70 +42,66 @@ body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
     <a href="job-builder.html">Job Builder</a>
     <a href="contact.html">Contact</a>
   </nav>
+  <span id="userBox"></span>
 </header>
 
 <section class="hero">
-  <div class="container">
-
-  <div class="card">
-    <h3>Sign In / Sign Up</h3>
-
-    <input id="username" placeholder="Your name" style="padding:10px;width:100%;margin-bottom:10px">
-    <input id="email" placeholder="Your email" style="padding:10px;width:100%;margin-bottom:10px">
-
-    <label style="display:block;margin-bottom:10px">
-      <input type="checkbox" id="agree">
-      I understand scam risks
-    </label>
-
-    <button class="btn" onclick="login()">Continue</button>
-
-    <p id="loginMsg"></p>
-  </div>
-
-</div>
-
-<script>
-function login(){
-  const name = document.getElementById("username").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const agree = document.getElementById("agree").checked;
-
-  if(!name || !email) return alert("Enter name & email");
-  if(!agree) return alert("Please accept scam awareness");
-
-  localStorage.setItem("yirehUser", name);
-  localStorage.setItem("yirehEmail", email);
-  location.reload();
-}
-
-const user = localStorage.getItem("yirehUser");
-if(user){
-  document.querySelector(".card").style.display="none";
-}
-</script>
-
   <h1>Empowering Talent Worldwide 🌍</h1>
-  <p>Free Remote Jobs • CV Tools • Ethical Career Support</p>
+  <p>Free Remote Jobs • CV & Cover Letter Tools • Ethical Career Support</p>
 
   <a class="btn" href="jobs.html">Browse Jobs</a>
   <a class="btn ghost" href="cv-builder.html">Build CV</a>
 </section>
 
 <div class="container">
-  <div class="card">
-    <h3>⚠ Scam Awareness</h3>
-    <ul>
-      <li>No job guarantees</li>
-      <li>No payments via WhatsApp</li>
-      <li>Payments only on this website</li>
-    </ul>
-  </div>
+
+<div class="card" id="authBox">
+  <h3>Sign In</h3>
+  <input id="username" class="input" placeholder="Your Name">
+  <input id="email" class="input" placeholder="Your Email">
+
+  <label class="small">
+    <input type="checkbox" id="scamAgree"> I understand scam risks
+  </label>
+
+  <br><br>
+  <button class="btn" onclick="login()">Continue</button>
 </div>
 
-<footer class="footer">
-© 2025 Yireh.site • Ethical Remote Careers
-</footer>
+<div class="card">
+  <h3>⚠ Scam Awareness</h3>
+  <ul>
+    <li>No job guarantees</li>
+    <li>No payments via WhatsApp</li>
+    <li>Payments only on this website</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Support Yireh ❤️</h3>
+  <a class="btn" href="https://paypal.me/yirehremotejobs/1" target="_blank">$1</a>
+  <a class="btn" href="https://paypal.me/yirehremotejobs/3" target="_blank">$3</a>
+  <a class="btn" href="https://paypal.me/yirehremotejobs/5" target="_blank">$5</a>
+  <a class="btn ghost" href="upi://pay?pa=yireh@upi&pn=Yireh">Google Pay</a>
+</div>
+
+</div>
+
+<footer class="footer">© 2025 Yireh.site</footer>
+
+<script>
+function login(){
+  if(!scamAgree.checked) return alert("Accept scam warning");
+  localStorage.setItem("yirehUser", username.value);
+  localStorage.setItem("yirehEmail", email.value);
+  location.reload();
+}
+const u=localStorage.getItem("yirehUser");
+if(u){
+  authBox.style.display="none";
+  userBox.innerHTML="Welcome <b>"+u+"</b> | <a href='#' onclick='localStorage.clear();location.reload()'>Logout</a>";
+}
+</script>
 
 </body>
 </html>
