@@ -1,51 +1,66 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="description" content="Yireh helps you find remote jobs, build CVs, create job descriptions, and avoid scams. Ethical career support platform.">
-<meta name="keywords" content="remote jobs, CV builder, resume writing, job description generator, career support">
-<meta name="author" content="Yireh.site">
-
-<title>Jobs – Yireh</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Remote Jobs – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
 <header class="header">
-<h2>Remote Jobs</h2>
-<nav class="nav">
-<a href="index.html">Home</a>
-<a href="cv-builder.html">CV Builder</a>
-</nav>
+  <div class="brand">
+    <img src="logo.png" height="50">
+    <b>Yireh</b>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html" class="active">Jobs</a>
+    <a href="services.html">Services</a>
+    <a href="cv-builder.html">CV Builder</a>
+    <a href="job-builder.html">Post Job</a>
+  </nav>
 </header>
 
 <section class="container">
-<div id="jobs"></div>
+  <h2>Verified Remote Jobs</h2>
+  <p class="small">
+    Only admin-approved jobs are shown here.  
+    No fake listings. No paid guarantees.
+  </p>
+
+  <div id="jobsList" class="cards"></div>
 </section>
 
+<footer class="footer">
+© 2025 Yireh.site • Scam-free Job Listings
+</footer>
+
 <script>
-const SHEET_URL = "PASTE_YOUR_CSV_LINK_HERE";
+const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+const list = document.getElementById("jobsList");
 
-fetch(SHEET_URL)
-.then(r=>r.text())
-.then(t=>{
-  const rows = t.split("\n").slice(1);
-  const box = document.getElementById("jobs");
+const approved = jobs.filter(j => j.approved === true);
 
-  rows.forEach(r=>{
-    const c = r.split(",");
-    if (c[6]?.trim() !== "yes") return;
+if (approved.length === 0) {
+  list.innerHTML = "<p>No approved jobs yet.</p>";
+}
 
-    box.innerHTML += `
-    <div class="card">
-      <h3>${c[2]}</h3>
-      <b>${c[0]}</b>
-      <p>${c[3]} • ${c[4]}</p>
-      <p class="small">Skills: ${c[5]}</p>
-      <a class="btn" href="mailto:${c[1]}">Apply</a>
-    </div>
-    `;
-  });
+approved.forEach(job => {
+  const div = document.createElement("div");
+  div.className = "card";
+
+  div.innerHTML = `
+    <h3>${job.title}</h3>
+    <p><b>Company:</b> ${job.company}</p>
+    <p><b>Location:</b> ${job.location || "Remote"}</p>
+    <p><b>Type:</b> ${job.type || "Contract"}</p>
+    <p><b>Apply:</b> ${job.email}</p>
+  `;
+  list.appendChild(div);
 });
 </script>
 
