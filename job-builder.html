@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta name="description" content="Yireh helps you find remote jobs, build CVs, create job descriptions, and avoid scams. Ethical career support platform.">
-<meta name="keywords" content="remote jobs, CV builder, resume writing, job description generator, career support">
-<meta name="author" content="Yireh.site">
-
+<html>
+<head>
 <meta charset="UTF-8">
 <title>Job Builder – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,95 +9,47 @@
 
 <style>
 body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-.header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#021428}
-.nav a{color:#e6eef6;margin:0 10px;text-decoration:none;font-weight:bold}
-.container{max-width:1100px;margin:auto;padding:20px}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:12px;margin-bottom:20px}
-.input{width:100%;padding:10px;margin-bottom:10px;border-radius:6px;border:none}
-.btn{background:#1e90ff;color:#022;padding:10px 16px;border-radius:8px;border:none;font-weight:bold}
+.container{max-width:1000px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-top:20px}
+.input{width:100%;padding:10px;border-radius:8px;border:none;margin:6px 0}
+.btn{background:#1e90ff;color:#022;padding:10px 18px;border-radius:8px;font-weight:bold;border:none}
 </style>
 </head>
 
 <body>
 
-<header class="header">
-  <b>Yireh – Job Builder</b>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="jobs.html">Jobs</a>
-  </nav>
-</header>
-
 <div class="container">
 
+<h2>Job Description Generator</h2>
+
 <div class="card">
-<h2>Create Job Description</h2>
-<p>Posting is FREE • JD generation costs <b>$0.20</b></p>
-
 <input id="company" class="input" placeholder="Company Name">
-<input id="email" class="input" placeholder="Employer Email">
+<input id="email" class="input" placeholder="Contact Email">
 <input id="title" class="input" placeholder="Job Title">
-<input id="location" class="input" placeholder="Location / Remote">
-<textarea id="skills" class="input" placeholder="Skills (comma separated)"></textarea>
+<textarea id="skills" class="input" placeholder="Required Skills"></textarea>
 
-<a class="btn" href="https://paypal.me/yirehremotejobs/0.2" target="_blank"
-onclick="unlock()">Pay $0.20 & Generate</a>
+<label>Upload Image</label>
+<input type="file" id="img" accept="image/*">
 
+<p>Job posting is FREE. Description generation costs $0.20</p>
+
+<a class="btn" href="https://paypal.me/yirehremotejobs/0.2" target="_blank">Pay $0.20</a>
 <button class="btn" onclick="generateJD()">Generate</button>
 </div>
 
-<div class="card">
-<h3>Preview</h3>
-<div id="preview"></div>
+<div class="card" id="jdPreview">
+<i>Generated job description appears here</i>
 </div>
 
 </div>
 
 <script>
-function unlock(){
-  localStorage.setItem("jdPaid","yes");
-}
-
-function generateJD() {
-  const title = document.getElementById("title").value;
-  const company = document.getElementById("company").value;
-  const skills = document.getElementById("skills").value;
-  const email = document.getElementById("email").value;
-
-  if (!title || !company || !email) {
-    alert("Required fields missing");
-    return;
-  }
-
-  const jd = `
-<h3>${title}</h3>
-<p><b>Company:</b> ${company}</p>
-
-<h4>Role Overview</h4>
-<p>
-${company} is seeking a motivated ${title} to join our remote team.
-This role requires strong skills in ${skills}.
-</p>
-
-<h4>Responsibilities</h4>
-<ul>
-  <li>Deliver assigned tasks independently</li>
-  <li>Collaborate with distributed teams</li>
-  <li>Maintain quality and timelines</li>
-</ul>
-
-<h4>Required Skills</h4>
-<ul>
-${skills.split(",").map(s=>`<li>${s.trim()}</li>`).join("")}
-</ul>
-
-<h4>Apply</h4>
-<p>Email your CV to <b>${email}</b></p>
-`;
-
-  document.getElementById("jobPreview").innerHTML = jd;
-}
-
+function generateJD(){
+  jdPreview.innerHTML =
+    "<h3>"+title.value+"</h3>"+
+    "<p><b>Company:</b> "+company.value+"</p>"+
+    "<p><b>Skills:</b> "+skills.value+"</p>"+
+    "<p>Apply via: "+email.value+"</p>";
 }
 </script>
 
