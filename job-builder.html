@@ -1,57 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Job Builder – Yireh</title>
+<title>Job Description Builder – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.css">
-
-<style>
-body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-.container{max-width:1000px;margin:auto;padding:30px}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-top:20px}
-.input{width:100%;padding:10px;border-radius:8px;border:none;margin:6px 0}
-.btn{background:#1e90ff;color:#022;padding:10px 18px;border-radius:8px;font-weight:bold;border:none}
-</style>
 </head>
 
 <body>
 
-<div class="container">
+<header class="header">
+  <div class="brand">
+    <img src="logo.png" height="50">
+    <b>Yireh</b>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="services.html">Services</a>
+    <a href="cv-builder.html">CV Builder</a>
+    <a href="job-builder.html" class="active">Job Builder</a>
+  </nav>
+</header>
 
-<h2>Job Description Generator</h2>
+<section class="container">
+  <div class="card">
+    <h2>Create Job Description</h2>
+    <p class="small">
+      ✔ Job posting is FREE  
+      ✔ Job description generation costs <b>$0.20</b>  
+      ✔ Admin approval required before publishing
+    </p>
 
-<div class="card">
-<input id="company" class="input" placeholder="Company Name">
-<input id="email" class="input" placeholder="Contact Email">
-<input id="title" class="input" placeholder="Job Title">
-<textarea id="skills" class="input" placeholder="Required Skills"></textarea>
-
-<label>Upload Image</label>
-<input type="file" id="img" accept="image/*">
-
-<p>Job posting is FREE. Description generation costs $0.20</p>
-
-<a class="btn" href="https://paypal.me/yirehremotejobs/0.2" target="_blank">Pay $0.20</a>
-<button class="btn" onclick="generateJD()">Generate</button>
-</div>
-
-<div class="card" id="jdPreview">
-<i>Generated job description appears here</i>
-</div>
-
-</div>
-
-<script>
-function generateJD(){
-  jdPreview.innerHTML =
-    "<h3>"+title.value+"</h3>"+
-    "<p><b>Company:</b> "+company.value+"</p>"+
-    "<p><b>Skills:</b> "+skills.value+"</p>"+
-    "<p>Apply via: "+email.value+"</p>";
-}
-</script>
-
-</body>
-</html>
+    <input id="company" class="input" placeholder="Company Name">
+    <input id="email" class="input" placeholder="Employer Email">
+    <input id="title" class="input" placeholder="Job Title">
+    <input
