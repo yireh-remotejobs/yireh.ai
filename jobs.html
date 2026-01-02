@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Remote Jobs – Yireh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Remote Jobs – Yireh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
 
-  <style>
-    body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-    .header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#021428}
-    .nav a{color:#e6eef6;margin:0 10px;text-decoration:none;font-weight:bold}
-    .container{max-width:1100px;margin:auto;padding:30px}
-    .job-card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-bottom:20px}
-    .small{color:#9aa6b2}
-    .footer{text-align:center;color:#9aa6b2;padding:30px}
-  </style>
+<style>
+body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
+.header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#021428}
+.nav a{color:#e6eef6;margin:0 10px;text-decoration:none;font-weight:bold}
+.container{max-width:1100px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-bottom:20px}
+.job{border-left:4px solid #1e90ff}
+.small{color:#9aa6b2;font-size:14px}
+.btn{background:#1e90ff;color:#022;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:bold}
+.footer{text-align:center;color:#9aa6b2;padding:30px}
+</style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
   <div style="display:flex;align-items:center;gap:10px">
     <img src="logo.png" height="45">
@@ -31,44 +34,68 @@
     <a href="jobs.html">Jobs</a>
     <a href="services.html">Services</a>
     <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Post Job</a>
+    <a href="job-builder.html">Job Builder</a>
     <a href="contact.html">Contact</a>
   </nav>
 </header>
 
 <section class="container">
-  <h2>🌍 Remote Jobs</h2>
-  <p class="small">Only verified and approved jobs are shown</p>
 
-  <div id="jobsList"></div>
+<h2>Remote Jobs</h2>
+<p class="small">
+Only verified and approved jobs are published.  
+<b>No fees to apply.</b>
+</p>
+
+<!-- SCAM WARNING -->
+<div class="card">
+<h3>⚠ Scam Awareness</h3>
+<ul>
+  <li>Yireh never guarantees jobs</li>
+  <li>No payments via WhatsApp or calls</li>
+  <li>Employers contact you directly</li>
+</ul>
+</div>
+
+<!-- JOB LIST -->
+<div id="jobList"></div>
+
 </section>
 
 <footer class="footer">
-  © 2025 Yireh.site • Ethical Remote Careers
+© 2025 Yireh.site • Ethical Remote Careers
 </footer>
 
 <script>
 const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-const list = document.getElementById("jobsList");
+const list = document.getElementById("jobList");
 
 const approvedJobs = jobs.filter(j => j.approved === true);
 
 if (approvedJobs.length === 0) {
-  list.innerHTML = "<p>No approved jobs yet.</p>";
-}
+  list.innerHTML = "<p class='small'>No approved jobs yet.</p>";
+} else {
+  approvedJobs.reverse().forEach(job => {
+    const div = document.createElement("div");
+    div.className = "card job";
+    div.innerHTML = `
+      <h3>${job.title}</h3>
+      <p><b>Company:</b> ${job.company}</p>
+      <p><b>Location:</b> ${job.location || "Remote"}</p>
+      <p><b>Type:</b> ${job.type || "Contract"}</p>
 
-approvedJobs.forEach(job => {
-  const div = document.createElement("div");
-  div.className = "job-card";
-  div.innerHTML = `
-    <h3>${job.title}</h3>
-    <p><b>${job.company}</b> • ${job.location || "Remote"}</p>
-    <p class="small">${job.type || "Contract"}</p>
-    <p><b>Skills:</b> ${job.skills}</p>
-    <p><b>Apply:</b> ${job.email}</p>
-  `;
-  list.appendChild(div);
-});
+      <p class="small">
+        <b>Skills:</b> ${job.skills}
+      </p>
+
+      <a class="btn"
+         href="mailto:${job.email}?subject=Application: ${job.title}">
+         Apply Now
+      </a>
+    `;
+    list.appendChild(div);
+  });
+}
 </script>
 
 </body>
