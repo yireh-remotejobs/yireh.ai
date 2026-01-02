@@ -1,83 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Job Description Builder – Yireh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Job Description Builder – Yireh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
 
-  <style>
-    body {
-      margin: 0;
-      background: #071029;
-      color: #e6eef6;
-      font-family: Arial, sans-serif;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      background: #021428;
-    }
-    .nav a {
-      color: #e6eef6;
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px;
-    }
-    .card {
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-    }
-    .input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      border: none;
-    }
-    .btn {
-      background: #1e90ff;
-      color: #022;
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .footer {
-      text-align: center;
-      color: #9aa6b2;
-      padding: 30px;
-    }
-    img.preview {
-      max-width: 120px;
-      margin-top: 10px;
-      border-radius: 8px;
-    }
-  </style>
+<style>
+body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
+.header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#021428}
+.nav a{color:#e6eef6;margin:0 10px;text-decoration:none;font-weight:bold}
+.container{max-width:1100px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-bottom:20px}
+.input{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:none}
+.btn{background:#1e90ff;color:#022;padding:12px 20px;border-radius:10px;border:none;font-weight:bold;cursor:pointer}
+.btn.locked{background:#555;color:#ccc;cursor:not-allowed}
+.small{color:#9aa6b2;font-size:14px}
+.footer{text-align:center;color:#9aa6b2;padding:30px}
+</style>
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 <header class="header">
   <div style="display:flex;align-items:center;gap:10px">
     <img src="logo.png" height="45">
     <b>Yireh</b>
   </div>
-
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="jobs.html">Jobs</a>
@@ -88,118 +40,134 @@
   </nav>
 </header>
 
-<!-- ================= MAIN ================= -->
 <section class="container">
 
-  <div class="card">
-    <h2>Create Job Description</h2>
-    <p>
-      Job posting is <b>FREE</b>.  
-      Job description generation costs <b>$0.20</b>.
-    </p>
-  </div>
+<h2>Create Job Description</h2>
+<p class="small">
+Job posting is <b>FREE</b>.  
+Job description generation costs <b>$0.20</b>.
+</p>
 
-  <div class="card">
-    <h3>Job Details</h3>
+<!-- PAYMENT BLOCK -->
+<div class="card" id="paymentBox">
+  <h3>🔒 Unlock Job Description Generator</h3>
+  <p>Pay once to generate your job description.</p>
 
-    <input id="company" class="input" placeholder="Company Name">
-    <input id="email" class="input" placeholder="Employer Email">
-    <input id="title" class="input" placeholder="Job Title">
-    <input id="location" class="input" placeholder="Location / Remote">
-    <input id="type" class="input" placeholder="Full-time / Contract">
+  <a class="btn"
+     href="https://paypal.me/yirehremotejobs/0.2"
+     target="_blank">
+     Pay $0.20 with PayPal
+  </a>
 
-    <textarea id="skills" rows="4" class="input"
-      placeholder="Required skills (comma separated)"></textarea>
+  <br><br>
+  <button class="btn" onclick="unlockJD()">I’ve Paid – Unlock</button>
+</div>
 
-    <label>Upload Company Logo / Image</label>
-    <input type="file" id="image" accept="image/*">
+<!-- FORM -->
+<div class="card">
+<h3>Job Details</h3>
 
-    <div id="imgPreview"></div>
+<input id="company" class="input" placeholder="Company Name">
+<input id="email" class="input" placeholder="Employer Email">
+<input id="title" class="input" placeholder="Job Title">
+<input id="location" class="input" placeholder="Location / Remote">
+<input id="type" class="input" placeholder="Full-time / Contract">
 
-    <button class="btn" onclick="generateJD()">Generate Job Description</button>
-  </div>
+<textarea id="skills" class="input" rows="4"
+placeholder="Required skills (comma separated)"></textarea>
 
-  <div class="card">
-    <h3>Generated Job Description</h3>
-    <div id="jobPreview">
-      <i>Your generated description will appear here</i>
-    </div>
-  </div>
+<label class="small">Upload Company Logo / Image</label>
+<input type="file" id="image" accept="image/*">
+
+<br><br>
+<button id="genBtn" class="btn locked" disabled>
+Generate Job Description
+</button>
+</div>
+
+<!-- OUTPUT -->
+<div class="card">
+<h3>Generated Job Description</h3>
+<div id="imgPreview"></div>
+<div id="jobPreview" class="small">
+Locked until payment
+</div>
+</div>
 
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  © 2025 Yireh.site • Job Builder v1
+© 2025 Yireh.site • Job Builder v1
 </footer>
 
-<!-- ================= SCRIPT ================= -->
 <script>
-document.getElementById("image").addEventListener("change", function () {
-  const file = this.files[0];
-  if (!file) return;
+let unlocked = false;
 
+function unlockJD(){
+  unlocked = true;
+  document.getElementById("genBtn").disabled = false;
+  document.getElementById("genBtn").classList.remove("locked");
+  document.getElementById("jobPreview").innerHTML = "Unlocked. You may generate.";
+  document.getElementById("paymentBox").style.display = "none";
+}
+
+document.getElementById("image").addEventListener("change", function(){
+  const file = this.files[0];
+  if(!file) return;
   const reader = new FileReader();
-  reader.onload = function (e) {
+  reader.onload = e => {
     document.getElementById("imgPreview").innerHTML =
-      `<img src="${e.target.result}" class="preview">`;
+      `<img src="${e.target.result}" style="max-width:120px;border-radius:8px">`;
   };
   reader.readAsDataURL(file);
 });
 
-function generateJD() {
-  const company = document.getElementById("company").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const title = document.getElementById("title").value.trim();
-  const location = document.getElementById("location").value.trim() || "Remote";
-  const type = document.getElementById("type").value.trim() || "Contract";
-  const skills = document.getElementById("skills").value.trim();
+document.getElementById("genBtn").onclick = function(){
+  if(!unlocked) return;
 
-  if (!company || !email || !title) {
-    alert("Company, Email, and Job Title are required");
+  const company = company.value.trim();
+  const email = email.value.trim();
+  const title = title.value.trim();
+  const location = location.value.trim();
+  const type = type.value.trim();
+  const skills = skills.value.trim();
+
+  if(!company || !email || !title){
+    alert("Company, email, and title required");
     return;
   }
 
   const jdHTML = `
-    <h3>${title}</h3>
-    <p><b>Company:</b> ${company}</p>
-    <p><b>Location:</b> ${location}</p>
-    <p><b>Job Type:</b> ${type}</p>
+<h3>${title}</h3>
+<p><b>${company}</b> • ${location || "Remote"} • ${type || "Contract"}</p>
 
-    <h4>About the Role</h4>
-    <p>${company} is seeking a motivated <b>${title}</b> to join our team.</p>
+<h4>Responsibilities</h4>
+<ul>
+<li>Core responsibilities related to the role</li>
+<li>Collaborate with distributed teams</li>
+<li>Deliver quality work on time</li>
+</ul>
 
-    <h4>Responsibilities</h4>
-    <ul>
-      <li>Perform core duties related to the role</li>
-      <li>Collaborate with internal teams</li>
-      <li>Maintain quality and timelines</li>
-    </ul>
+<h4>Required Skills</h4>
+<ul>
+${skills.split(",").map(s=>`<li>${s.trim()}</li>`).join("")}
+</ul>
 
-    <h4>Required Skills</h4>
-    <ul>
-      ${skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")}
-    </ul>
-
-    <h4>How to Apply</h4>
-    <p>Email your CV to <b>${email}</b> with subject <b>${title}</b></p>
-  `;
+<p><b>Apply:</b> ${email}</p>
+`;
 
   document.getElementById("jobPreview").innerHTML = jdHTML;
 
-  // Save job for admin approval
-  const job = {
-    company, email, title, location, type, skills,
-    approved: false,
-    created: new Date().toISOString()
-  };
-
   const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-  jobs.push(job);
+  jobs.push({
+    company, email, title, location, type, skills,
+    approved:false,
+    created:new Date().toISOString()
+  });
   localStorage.setItem("yirehJobs", JSON.stringify(jobs));
 
   alert("Job submitted for admin approval");
-}
+};
 </script>
 
 </body>
