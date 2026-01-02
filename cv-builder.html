@@ -113,8 +113,17 @@ document.getElementById("photo").addEventListener("change", function () {
   reader.readAsDataURL(this.files[0]);
 });
 
-function selectTemplate(t) {
-  selectedTemplate = t;
+const premiumUnlocked = localStorage.getItem("yirehPremiumCV") === "yes";
+
+if (premiumUnlocked) {
+  document.querySelector(".template-premium").classList.remove("template-premium");
+  document.querySelector(".template-premium").innerHTML = "⭐ Premium Template (Unlocked)";
+}
+
+function unlockPremium() {
+  alert("After payment, click OK to unlock premium templates.");
+  localStorage.setItem("yirehPremiumCV", "yes");
+  location.reload();
 }
 
 function generateCV() {
