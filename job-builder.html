@@ -37,3 +37,31 @@
     <input id="email" class="input" placeholder="Employer Email">
     <input id="title" class="input" placeholder="Job Title">
     <input
+<script>
+function generateJD() {
+  const company = companyInput.value.trim();
+  const email = emailInput.value.trim();
+  const title = titleInput.value.trim();
+  const skills = skillsInput.value.trim();
+
+  if (!company || !email || !title) {
+    alert("Company, Email & Job Title required");
+    return;
+  }
+
+  if (!localStorage.getItem("yirehJDUnlocked")) {
+    if (!confirm("JD generation costs $0.20. Proceed to payment?")) return;
+    window.open("https://paypal.me/yirehremotejobs/0.20", "_blank");
+    alert("After payment, click Generate again.");
+    localStorage.setItem("yirehJDUnlocked", "yes");
+    return;
+  }
+
+  document.getElementById("jobPreview").innerHTML = `
+    <h3>${title}</h3>
+    <p><b>${company}</b></p>
+    <p>${skills}</p>
+    <p>Apply via: ${email}</p>
+  `;
+}
+</script>
