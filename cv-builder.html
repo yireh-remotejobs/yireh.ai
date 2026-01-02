@@ -1,131 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta name="description" content="Yireh helps you find remote jobs, build CVs, create job descriptions, and avoid scams. Ethical career support platform.">
-<meta name="keywords" content="remote jobs, CV builder, resume writing, job description generator, career support">
-<meta name="author" content="Yireh.site">
-
+<html>
+<head>
 <meta charset="UTF-8">
 <title>CV Builder – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
+.container{max-width:1000px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-top:20px}
+.input{width:100%;padding:10px;border-radius:8px;border:none;margin:6px 0}
+.btn{background:#1e90ff;color:#022;padding:10px 18px;border-radius:8px;font-weight:bold;border:none}
+</style>
 </head>
 
 <body>
 
-<header class="header">
-  <div class="brand">
-    <img src="logo.png" height="50">
-    <div>
-      <h2>Yireh</h2>
-      <small>CV & Cover Letter Builder</small>
-    </div>
-  </div>
+<div class="container">
 
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="cv-builder.html" class="active">CV Builder</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-
-<section class="container">
+<h2>CV & Cover Letter Builder</h2>
 
 <div class="card">
-<h2>Build Your CV</h2>
-<p class="small">Free basic CV • Premium templates require unlock</p>
-
 <input id="name" class="input" placeholder="Full Name">
 <input id="email" class="input" placeholder="Email">
-<input id="role" class="input" placeholder="Target Job Role">
+<textarea id="skills" class="input" placeholder="Skills"></textarea>
 
-<textarea id="summary" class="input" rows="4"
-placeholder="Professional Summary"></textarea>
-
-<label class="small">Upload Photo</label>
+<label>Upload Photo</label>
 <input type="file" id="photo" accept="image/*">
 
-<hr>
-
-<h3>Select Template</h3>
-
-<label>
-<input type="radio" name="tpl" value="basic" checked>
- Basic (Free)
-</label><br>
-
-<label>
-<input type="radio" name="tpl" value="premium">
- Premium (Paid)
-</label>
-
-<div id="payBox" style="display:none;margin-top:10px">
-<p class="small">Unlock premium templates:</p>
-
-<a class="btn" href="https://paypal.me/yirehremotejobs/1" target="_blank">
-Pay $1 (PayPal)
-</a>
-
-<a class="btn ghost"
-href="upi://pay?pa=yireh@upi&pn=Yireh">
-Google Pay
-</a>
-
-<p class="small">
-After payment, refresh page → Premium unlocks automatically (manual for now)
-</p>
-</div>
-
-<br>
-<button class="btn" onclick="generateCV()">Generate CV</button>
+<br><br>
+<button class="btn" onclick="buildCV()">Generate CV (FREE)</button>
 </div>
 
 <div class="card">
-<h3>CV Preview</h3>
-<div id="cvPreview" class="card"></div>
+<h3>Premium Templates ($1)</h3>
+<a class="btn" href="https://paypal.me/yirehremotejobs/1" target="_blank">Unlock Premium</a>
 </div>
 
-</section>
+<div class="card" id="cvPreview">
+<i>Your CV preview will appear here</i>
+</div>
 
-<footer class="footer">
-© 2025 Yireh.site • CV Builder v1
-</footer>
-
-<script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</div>
 
 <script>
-function smartSummary(role, skills) {
-  return `Experienced ${role} with strong expertise in ${skills}.
-Proven ability to work independently in remote environments,
-deliver quality results, and collaborate with global teams.`;
+function buildCV(){
+  cvPreview.innerHTML =
+    "<h3>"+name.value+"</h3>"+
+    "<p>"+email.value+"</p>"+
+    "<p><b>Skills:</b> "+skills.value+"</p>";
 }
-
-function generateCV() {
-  const role = document.getElementById("role").value;
-  const skills = document.getElementById("skills").value;
-  const email = document.getElementById("email").value;
-
-  if (!role || !skills || !email) {
-    alert("Fill all required fields");
-    return;
-  }
-
-  document.getElementById("cvPreview").innerHTML = `
-    <h2>${role}</h2>
-    <p>${smartSummary(role, skills)}</p>
-    <h4>Skills</h4>
-    <ul>
-      ${skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")}
-    </ul>
-    <small>${email}</small>
-  `;
-}
-</script>
-
-
 </script>
 
 </body>
