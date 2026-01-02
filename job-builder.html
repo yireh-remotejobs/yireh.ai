@@ -1,70 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="description" content="Yireh helps you find remote jobs, build CVs, create job descriptions, and avoid scams. Ethical career support platform.">
-<meta name="keywords" content="remote jobs, CV builder, resume writing, job description generator, career support">
-<meta name="author" content="Yireh.site">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Description Builder – Yireh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<title>Job Description Builder – Yireh</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #071029;
+      color: #e6eef6;
+      font-family: Arial, sans-serif;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: #021428;
+    }
+    .nav a {
+      color: #e6eef6;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    .input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: none;
+    }
+    .btn {
+      background: #1e90ff;
+      color: #022;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .footer {
+      text-align: center;
+      color: #9aa6b2;
+      padding: 30px;
+    }
+    img.preview {
+      max-width: 120px;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="header">
-  <div class="brand">
-    <img src="logo.png" height="50">
+  <div style="display:flex;align-items:center;gap:10px">
+    <img src="logo.png" height="45">
     <b>Yireh</b>
   </div>
+
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="jobs.html">Jobs</a>
     <a href="services.html">Services</a>
     <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html" class="active">Job Builder</a>
+    <a href="job-builder.html">Job Builder</a>
+    <a href="contact.html">Contact</a>
   </nav>
 </header>
 
+<!-- ================= MAIN ================= -->
 <section class="container">
+
   <div class="card">
     <h2>Create Job Description</h2>
-    <p class="small">
-      ✔ Job posting is FREE  
-      ✔ Job description generation costs <b>$0.20</b>  
-      ✔ Admin approval required before publishing
+    <p>
+      Job posting is <b>FREE</b>.  
+      Job description generation costs <b>$0.20</b>.
     </p>
+  </div>
+
+  <div class="card">
+    <h3>Job Details</h3>
 
     <input id="company" class="input" placeholder="Company Name">
     <input id="email" class="input" placeholder="Employer Email">
     <input id="title" class="input" placeholder="Job Title">
-    <input
+    <input id="location" class="input" placeholder="Location / Remote">
+    <input id="type" class="input" placeholder="Full-time / Contract">
+
+    <textarea id="skills" rows="4" class="input"
+      placeholder="Required skills (comma separated)"></textarea>
+
+    <label>Upload Company Logo / Image</label>
+    <input type="file" id="image" accept="image/*">
+
+    <div id="imgPreview"></div>
+
+    <button class="btn" onclick="generateJD()">Generate Job Description</button>
+  </div>
+
+  <div class="card">
+    <h3>Generated Job Description</h3>
+    <div id="jobPreview">
+      <i>Your generated description will appear here</i>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  © 2025 Yireh.site • Job Builder v1
+</footer>
+
+<!-- ================= SCRIPT ================= -->
 <script>
+document.getElementById("image").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    document.getElementById("imgPreview").innerHTML =
+      `<img src="${e.target.result}" class="preview">`;
+  };
+  reader.readAsDataURL(file);
+});
+
 function generateJD() {
-  const company = companyInput.value.trim();
-  const email = emailInput.value.trim();
-  const title = titleInput.value.trim();
-  const skills = skillsInput.value.trim();
+  const company = document.getElementById("company").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const title = document.getElementById("title").value.trim();
+  const location = document.getElementById("location").value.trim() || "Remote";
+  const type = document.getElementById("type").value.trim() || "Contract";
+  const skills = document.getElementById("skills").value.trim();
 
   if (!company || !email || !title) {
-    alert("Company, Email & Job Title required");
+    alert("Company, Email, and Job Title are required");
     return;
   }
 
-  if (!localStorage.getItem("yirehJDUnlocked")) {
-    if (!confirm("JD generation costs $0.20. Proceed to payment?")) return;
-    window.open("https://paypal.me/yirehremotejobs/0.20", "_blank");
-    alert("After payment, click Generate again.");
-    localStorage.setItem("yirehJDUnlocked", "yes");
-    return;
-  }
-
-  document.getElementById("jobPreview").innerHTML = `
+  const jdHTML = `
     <h3>${title}</h3>
-    <p><b>${company}</b></p>
-    <p>${skills}</p>
-    <p>Apply via: ${email}</p>
+    <p><b>Company:</b> ${company}</p>
+    <p><b>Location:</b> ${location}</p>
+    <p><b>Job Type:</b> ${type}</p>
+
+    <h4>About the Role</h4>
+    <p>${company} is seeking a motivated <b>${title}</b> to join our team.</p>
+
+    <h4>Responsibilities</h4>
+    <ul>
+      <li>Perform core duties related to the role</li>
+      <li>Collaborate with internal teams</li>
+      <li>Maintain quality and timelines</li>
+    </ul>
+
+    <h4>Required Skills</h4>
+    <ul>
+      ${skills.split(",").map(s => `<li>${s.trim()}</li>`).join("")}
+    </ul>
+
+    <h4>How to Apply</h4>
+    <p>Email your CV to <b>${email}</b> with subject <b>${title}</b></p>
   `;
+
+  document.getElementById("jobPreview").innerHTML = jdHTML;
+
+  // Save job for admin approval
+  const job = {
+    company, email, title, location, type, skills,
+    approved: false,
+    created: new Date().toISOString()
+  };
+
+  const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
+  jobs.push(job);
+  localStorage.setItem("yirehJobs", JSON.stringify(jobs));
+
+  alert("Job submitted for admin approval");
 }
 </script>
+
+</body>
+</html>
