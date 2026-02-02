@@ -1,154 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <title>CV Builder – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.css">
-
-<style>
-body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-.header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#021428}
-.nav a{color:#e6eef6;margin:0 10px;text-decoration:none;font-weight:bold}
-.container{max-width:1100px;margin:auto;padding:30px}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-bottom:20px}
-.input{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:none}
-.btn{background:#1e90ff;color:#022;padding:12px 20px;border-radius:10px;border:none;font-weight:bold;cursor:pointer}
-.btn.locked{background:#555;color:#ccc;cursor:not-allowed}
-.small{color:#9aa6b2;font-size:14px}
-.cv-preview{background:#fff;color:#000;padding:30px;border-radius:10px}
-.cv-preview img{max-width:120px;border-radius:8px;margin-bottom:10px}
-.footer{text-align:center;color:#9aa6b2;padding:30px}
-</style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div style="display:flex;align-items:center;gap:10px">
-    <img src="logo.png" height="45">
-    <b>Yireh</b>
-  </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Job Builder</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<header class="header"><b>CV Builder</b></header>
 
 <section class="container">
+  <div class="card">
+    <input id="name" class="input" placeholder="Full Name">
+    <input id="email" class="input" placeholder="Email">
+    <input id="education" class="input" placeholder="Education">
+    <textarea id="skills" class="input" placeholder="Skills"></textarea>
 
-<h2>CV Builder v2</h2>
-<p class="small">
-Create a professional CV in minutes.  
-<b>Basic template is FREE.</b> Premium templates can be unlocked later.
-</p>
+    <button class="btn" onclick="generateCV()">Generate CV</button>
+    <button class="btn ghost" onclick="window.print()">Download PDF</button>
+  </div>
 
-<!-- TEMPLATE SELECT -->
-<div class="card">
-<h3>Select Template</h3>
-
-<select id="template" class="input">
-  <option value="basic">Basic (Free)</option>
-  <option value="modern">Modern (Premium)</option>
-  <option value="executive">Executive (Premium)</option>
-</select>
-
-<p class="small">
-Premium templates require payment (coming soon).
-</p>
-</div>
-
-<!-- FORM -->
-<div class="card">
-<h3>Your Details</h3>
-
-<input id="name" class="input" placeholder="Full Name">
-<input id="email" class="input" placeholder="Email Address">
-<input id="title" class="input" placeholder="Professional Title">
-
-<textarea id="summary" class="input" rows="4"
-placeholder="Professional Summary"></textarea>
-
-<textarea id="skills" class="input" rows="4"
-placeholder="Skills (comma separated)"></textarea>
-
-<textarea id="experience" class="input" rows="5"
-placeholder="Work Experience"></textarea>
-
-<label class="small">Upload Profile Photo</label>
-<input type="file" id="photo" accept="image/*">
-
-<br><br>
-<button class="btn" onclick="generateCV()">Generate CV</button>
-</div>
-
-<!-- PREVIEW -->
-<div class="card">
-<h3>CV Preview</h3>
-<div id="cvPreview" class="cv-preview">
-Your CV will appear here
-</div>
-</div>
-
+  <div id="cvPreview" class="card"></div>
 </section>
 
-<footer class="footer">
-© 2025 Yireh.site • CV Builder v2
-</footer>
-
 <script>
-let photoData = "";
-
-document.getElementById("photo").addEventListener("change", function(){
-  const file = this.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => photoData = e.target.result;
-  reader.readAsDataURL(file);
-});
-
 function generateCV(){
-  const tpl = document.getElementById("template").value;
-  const name = name.value.trim();
-  const email = email.value.trim();
-  const title = title.value.trim();
-  const summary = summary.value.trim();
-  const skills = skills.value.trim();
-  const exp = experience.value.trim();
-
-  if(!name || !email){
-    alert("Name and email required");
-    return;
-  }
-
-  if(tpl !== "basic"){
-    alert("Premium template – payment required (coming soon)");
-    return;
-  }
-
-  document.getElementById("cvPreview").innerHTML = `
-    ${photoData ? `<img src="${photoData}">` : ""}
-    <h2>${name}</h2>
-    <p><b>${title}</b></p>
-    <p>${email}</p>
-
-    <h3>Profile</h3>
-    <p>${summary}</p>
-
-    <h3>Skills</h3>
-    <ul>
-      ${skills.split(",").map(s=>`<li>${s.trim()}</li>`).join("")}
-    </ul>
-
-    <h3>Experience</h3>
-    <p>${exp.replace(/\n/g,"<br>")}</p>
+  cvPreview.innerHTML = `
+    <h2>${name.value}</h2>
+    <p>${email.value}</p>
+    <h4>Education</h4>
+    <p>${education.value}</p>
+    <h4>Skills</h4>
+    <p>${skills.value}</p>
   `;
 }
 </script>
