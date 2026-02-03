@@ -1,89 +1,88 @@
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#071029;
-  color:#e6eef6;
+* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: #f4f6f9;
+  margin: 0;
 }
 
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 24px;
-  background:#021428;
+header {
+  background: #1e3c72;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
 }
 
-.brand{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-.brand img{height:48px}
-
-.nav a{
-  color:#e6eef6;
-  margin:0 10px;
-  text-decoration:none;
-  font-weight:600;
-}
-.nav a:hover,.nav .active{color:#1e90ff}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:40px 20px;
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
 }
 
-.hero{text-align:center;padding:60px 20px}
-
-.btn{
-  display:inline-block;
-  background:#1e90ff;
-  color:#021428;
-  padding:12px 22px;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:bold;
-  margin:8px;
+.form-panel {
+  width: 40%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.ghost{
-  background:transparent;
-  border:1px solid #1e90ff;
-  color:#e6eef6;
+.form-panel input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
 }
 
-.card{
-  background:rgba(255,255,255,0.06);
-  padding:24px;
-  border-radius:14px;
-  margin-top:20px;
+.form-panel button {
+  padding: 8px 12px;
+  margin-top: 5px;
 }
 
-.center{text-align:center}
-
-.warning{border-left:4px solid #ff9800}
-
-.input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:8px;
-  border:none;
+.pdf-btn {
+  background: #1e3c72;
+  color: #fff;
+  width: 100%;
+  font-size: 16px;
 }
 
-.small{font-size:14px;opacity:0.85}
-
-.footer{
-  text-align:center;
-  padding:30px;
-  color:#9aa6b2;
+.preview-panel {
+  width: 60%;
 }
 
-.pay-grid{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  flex-wrap:wrap;
+.cv {
+  background: #fff;
+  padding: 25px;
+  min-height: 1120px;
 }
+
+.cv .header {
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.cv img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.cv h1 { margin: 10px 0 0; }
+.cv h3 { margin: 5px 0; color: #555; }
+
+section { margin-top: 20px; }
+section h2 {
+  color: #1e3c72;
+  border-bottom: 1px solid #ddd;
+}
+
+.skill-tags span {
+  background: #1e3c72;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 3px;
+  display: inline-block;
+}
+
+/* TEMPLATE VARIATIONS */
+.cv.modern h2 { color: #0a8; }
+.cv.fresher h2 { color: #555; }
