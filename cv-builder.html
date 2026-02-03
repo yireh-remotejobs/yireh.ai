@@ -1,235 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CV Builder – Yireh</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Build a professional CV for free with Yireh. Ethical, scam-free career support.">
-
-  <link rel="icon" href="favicon.ico">
-
-  <!-- STYLE -->
-  <style>
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      background:#071029;
-      color:#e6eef6;
-    }
-    a{text-decoration:none}
-    .header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px 22px;
-      background:#021428;
-      flex-wrap:wrap;
-    }
-    .nav a{
-      color:#e6eef6;
-      margin:0 10px;
-      font-weight:bold;
-    }
-    .nav a:hover{color:#1e90ff}
-
-    .container{
-      max-width:1100px;
-      margin:auto;
-      padding:30px 20px;
-    }
-    h1,h2,h3{margin-top:0}
-
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:24px;
-    }
-    @media(max-width:900px){
-      .grid{grid-template-columns:1fr}
-    }
-
-    .card{
-      background:rgba(255,255,255,0.06);
-      padding:22px;
-      border-radius:16px;
-    }
-    .input, textarea{
-      width:100%;
-      padding:10px;
-      margin:6px 0 14px;
-      border-radius:8px;
-      border:none;
-      outline:none;
-    }
-    textarea{resize:vertical}
-    .btn{
-      display:inline-block;
-      background:#1e90ff;
-      color:#021428;
-      padding:10px 18px;
-      border-radius:10px;
-      font-weight:bold;
-      cursor:pointer;
-      border:none;
-    }
-    .btn.ghost{
-      background:transparent;
-      border:1px solid #1e90ff;
-      color:#e6eef6;
-    }
-    .small{
-      font-size:14px;
-      color:#b9c6d4;
-    }
-    .cv-preview{
-      background:#fff;
-      color:#000;
-      padding:30px;
-      border-radius:12px;
-      font-family:Arial;
-    }
-    .cv-preview h2{margin-bottom:4px}
-    .section{margin-top:18px}
-    .footer{
-      text-align:center;
-      padding:30px;
-      color:#9aa6b2;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>CV Builder – Yireh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="cv.css">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-  <b>Yireh – CV Builder</b>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Job Builder</a>
-  </nav>
+<header class="top">
+  <h2>CV Builder v2</h2>
+  <small>Free • Professional • No Watermark</small>
 </header>
 
-<!-- ================= MAIN ================= -->
 <section class="container">
-  <h1>Free Professional CV Builder</h1>
-  <p class="small">
-    Build a clean, ATS-friendly CV.  
-    <b>100% free • No watermark • No scams</b>
-  </p>
+
+<form id="cvForm">
+
+<!-- BASIC INFO -->
+<div class="card">
+  <h3>Personal Information</h3>
 
   <div class="grid">
-
-    <!-- ================= INPUT ================= -->
-    <div class="card">
-      <h3>Personal Information</h3>
-      <input id="name" class="input" placeholder="Full Name">
-      <input id="email" class="input" placeholder="Email">
-      <input id="phone" class="input" placeholder="Phone">
-      <input id="location" class="input" placeholder="Location">
-
-      <h3>Professional Summary</h3>
-      <textarea id="summary" rows="4"
-        placeholder="Brief professional summary"></textarea>
-
-      <h3>Education</h3>
-      <textarea id="education" rows="4"
-        placeholder="Degree, Institution, Year"></textarea>
-
-      <h3>Experience</h3>
-      <textarea id="experience" rows="5"
-        placeholder="Job Title – Company – Responsibilities"></textarea>
-
-      <h3>Skills</h3>
-      <textarea id="skills" rows="3"
-        placeholder="Comma separated skills"></textarea>
-
-      <h3>Certifications (Optional)</h3>
-      <textarea id="certs" rows="3"
-        placeholder="Certifications, courses"></textarea>
-
-      <button class="btn" onclick="generateCV()">Generate CV</button>
-      <button class="btn ghost" onclick="downloadPDF()">Download PDF</button>
-
-      <p class="small">
-        🔒 Future upgrade: templates, photo upload, AI suggestions
-      </p>
-    </div>
-
-    <!-- ================= PREVIEW ================= -->
-    <div class="card">
-      <h3>Live Preview</h3>
-      <div id="cvPreview" class="cv-preview">
-        <i>Fill the form to see your CV preview</i>
-      </div>
-    </div>
-
+    <input name="fullName" placeholder="Full Name" required>
+    <input name="jobTitle" placeholder="Job Title">
+    <input name="email" placeholder="Email">
+    <input name="phone" placeholder="Phone">
+    <input name="location" placeholder="City, Country">
   </div>
+
+  <label class="photo">
+    Upload Photo
+    <input type="file" accept="image/*" id="photoInput">
+  </label>
+</div>
+
+<!-- SUMMARY -->
+<div class="card">
+  <h3>Professional Summary</h3>
+  <textarea name="summary" rows="4"
+    placeholder="Brief professional profile (3–4 lines)"></textarea>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="card">
+  <h3>Work Experience</h3>
+  <div id="experience"></div>
+  <button type="button" onclick="addExperience()">+ Add Experience</button>
+</div>
+
+<!-- EDUCATION -->
+<div class="card">
+  <h3>Education</h3>
+  <div id="education"></div>
+  <button type="button" onclick="addEducation()">+ Add Education</button>
+</div>
+
+<!-- SKILLS -->
+<div class="card">
+  <h3>Skills</h3>
+  <textarea name="skills"
+    placeholder="Skill 1, Skill 2, Skill 3"></textarea>
+</div>
+
+<!-- ACTION -->
+<div class="card center">
+  <button class="primary" type="submit">Preview CV</button>
+</div>
+
+</form>
 </section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-  © 2025 Yireh.site • Free CV Builder
-</footer>
-
-<!-- ================= SCRIPT ================= -->
-<script>
-function generateCV(){
-  const name=nameVal("name");
-  const email=nameVal("email");
-  const phone=nameVal("phone");
-  const location=nameVal("location");
-  const summary=nameVal("summary");
-  const education=nameVal("education");
-  const experience=nameVal("experience");
-  const skills=nameVal("skills");
-  const certs=nameVal("certs");
-
-  document.getElementById("cvPreview").innerHTML=`
-    <h2>${name}</h2>
-    <p>${email} | ${phone} | ${location}</p>
-
-    <div class="section">
-      <b>Professional Summary</b>
-      <p>${summary}</p>
-    </div>
-
-    <div class="section">
-      <b>Education</b>
-      <p>${education.replace(/\n/g,"<br>")}</p>
-    </div>
-
-    <div class="section">
-      <b>Experience</b>
-      <p>${experience.replace(/\n/g,"<br>")}</p>
-    </div>
-
-    <div class="section">
-      <b>Skills</b>
-      <ul>
-        ${skills.split(",").map(s=>`<li>${s.trim()}</li>`).join("")}
-      </ul>
-    </div>
-
-    ${certs?`
-    <div class="section">
-      <b>Certifications</b>
-      <p>${certs.replace(/\n/g,"<br>")}</p>
-    </div>`:""}
-  `;
-}
-
-function nameVal(id){
-  return document.getElementById(id).value.trim();
-}
-
-function downloadPDF(){
-  alert("PDF export ready.\nUse browser Print → Save as PDF.\n(Professional PDF automation coming in next version)");
-}
-</script>
-
+<script src="cv.js"></script>
 </body>
 </html>
