@@ -1,77 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>CV Builder – Yireh</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="cv.css">
-</head>
+const expDiv = document.getElementById("experience");
+const eduDiv = document.getElementById("education");
+const skillsDiv = document.getElementById("skills");
 
-<body>
+function addExperience(){
+  expDiv.innerHTML += `
+    <input placeholder="Company & Role">
+    <textarea placeholder="Responsibilities"></textarea>
+  `;
+}
 
-<header class="top">
-  <h2>CV Builder v2</h2>
-  <small>Free • Professional • No Watermark</small>
-</header>
+function addEducation(){
+  eduDiv.innerHTML += `
+    <input placeholder="Degree & Institution">
+    <input placeholder="Year">
+  `;
+}
 
-<section class="container">
+function addSkill(){
+  const skill = document.getElementById("skillInput").value;
+  if(!skill) return;
+  skillsDiv.innerHTML += `<span class="skill">${skill}</span>`;
+  document.getElementById("skillInput").value = "";
+  renderPreview();
+}
 
-<form id="cvForm">
+document.querySelectorAll("input, textarea").forEach(el=>{
+  el.addEventListener("input", renderPreview);
+});
 
-<!-- BASIC INFO -->
-<div class="card">
-  <h3>Personal Information</h3>
+document.getElementById("photo").addEventListener("change", e=>{
+  const reader = new FileReader();
+  reader.onload = () => document.getElementById("photoPreview").src = reader.result;
+  reader.readAsDataURL(e.target.files[0]);
+});
 
-  <div class="grid">
-    <input name="fullName" placeholder="Full Name" required>
-    <input name="jobTitle" placeholder="Job Title">
-    <input name="email" placeholder="Email">
-    <input name="phone" placeholder="Phone">
-    <input name="location" placeholder="City, Country">
-  </div>
+function renderPreview(){
+  pName.innerText = name.value;
+  pTitle.innerText = title.value;
+  pContact.innerText = `${email.value} | ${phone.value} | ${location.value}`;
+  pSummary.innerText = summary.value;
 
-  <label class="photo">
-    Upload Photo
-    <input type="file" accept="image/*" id="photoInput">
-  </label>
-</div>
+  pExperience.innerHTML = expDiv.innerHTML;
+  pEducation.innerHTML = eduDiv.innerHTML;
+  pSkills.innerHTML = skillsDiv.innerHTML;
+}
 
-<!-- SUMMARY -->
-<div class="card">
-  <h3>Professional Summary</h3>
-  <textarea name="summary" rows="4"
-    placeholder="Brief professional profile (3–4 lines)"></textarea>
-</div>
-
-<!-- EXPERIENCE -->
-<div class="card">
-  <h3>Work Experience</h3>
-  <div id="experience"></div>
-  <button type="button" onclick="addExperience()">+ Add Experience</button>
-</div>
-
-<!-- EDUCATION -->
-<div class="card">
-  <h3>Education</h3>
-  <div id="education"></div>
-  <button type="button" onclick="addEducation()">+ Add Education</button>
-</div>
-
-<!-- SKILLS -->
-<div class="card">
-  <h3>Skills</h3>
-  <textarea name="skills"
-    placeholder="Skill 1, Skill 2, Skill 3"></textarea>
-</div>
-
-<!-- ACTION -->
-<div class="card center">
-  <button class="primary" type="submit">Preview CV</button>
-</div>
-
-</form>
-</section>
-
-<script src="cv.js"></script>
-</body>
-</html>
+function generatePDF(){
+  html2pdf().from(document.getElementById("cvPreview")).save("My_CV.pdf");
+}
