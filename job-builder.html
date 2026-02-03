@@ -1,33 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>Job Builder – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
+
+<style>
+body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
+.header{background:#021428;padding:14px 20px;display:flex;justify-content:space-between}
+.nav a{color:#e6eef6;margin:0 8px;font-weight:bold;text-decoration:none}
+.container{max-width:1000px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,.06);padding:22px;border-radius:16px}
+.input,textarea{width:100%;padding:10px;border-radius:8px;border:none;margin-bottom:12px}
+.btn{background:#1e90ff;color:#021428;padding:10px 18px;border-radius:10px;font-weight:bold;border:none;cursor:pointer}
+.small{font-size:14px;color:#b9c6d4}
+</style>
 </head>
+
 <body>
 
-<header class="header"><b>Job Builder</b></header>
+<header class="header">
+  <b>Yireh – Job Builder</b>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="cv-builder.html">CV Builder</a>
+  </nav>
+</header>
 
 <section class="container">
   <div class="card">
-    <input id="company" class="input" placeholder="Company Name">
-    <input id="title" class="input" placeholder="Job Title">
-    <textarea id="skills" class="input" placeholder="Skills"></textarea>
-    <button class="btn" onclick="generateJD()">Generate</button>
-  </div>
+    <h2>Create Job Listing</h2>
+    <p class="small">Free job posting. All jobs reviewed before publishing.</p>
 
-  <div id="jdPreview" class="card"></div>
+    <input id="company" class="input" placeholder="Company Name">
+    <input id="email" class="input" placeholder="Employer Email">
+    <input id="title" class="input" placeholder="Job Title">
+    <input id="location" class="input" placeholder="Location / Remote">
+    <textarea id="desc" rows="6" class="input" placeholder="Job Description"></textarea>
+
+    <button class="btn" onclick="submitJob()">Submit for Approval</button>
+  </div>
 </section>
 
 <script>
-function generateJD(){
-  jdPreview.innerHTML = `
-    <h3>${title.value}</h3>
-    <p><b>${company.value}</b></p>
-    <p>Skills: ${skills.value}</p>
-  `;
+function submitJob(){
+  const job={
+    company:val("company"),
+    email:val("email"),
+    title:val("title"),
+    location:val("location"),
+    desc:val("desc"),
+    created:new Date().toISOString()
+  };
+  if(!job.company||!job.email||!job.title){
+    alert("Company, email, and job title required");
+    return;
+  }
+  const pending=JSON.parse(localStorage.getItem("yirehJobs_pending")||"[]");
+  pending.push(job);
+  localStorage.setItem("yirehJobs_pending",JSON.stringify(pending));
+  alert("Job submitted for admin approval");
+  document.querySelectorAll("input,textarea").forEach(i=>i.value="");
 }
+function val(id){return document.getElementById(id).value.trim()}
 </script>
 
 </body>
