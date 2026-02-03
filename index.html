@@ -1,109 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Yireh – Free Remote Jobs & CV Builder</title>
+<meta charset="UTF-8">
+<title>Yireh – Remote Jobs & CV Builder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-        content="Yireh is a free, ethical platform for remote jobs, CV building, and career support. No scams. No fake promises.">
-  <meta name="keywords"
-        content="remote jobs, free CV builder, resume maker, job description generator">
-  <meta name="author" content="Yireh.site">
+<meta name="description" content="Yireh is a free ethical platform for remote jobs, CV building, job descriptions and career support. No scams. No fake promises.">
+<meta name="keywords" content="remote jobs, cv builder, resume, job description, ethical careers">
 
-  <link rel="icon" href="favicon.ico">
-
-  <!-- GLOBAL STYLES -->
-  <style>
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      background:#071029;
-      color:#e6eef6;
-    }
-    a{text-decoration:none}
-    .header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px 22px;
-      background:#021428;
-      flex-wrap:wrap;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .brand b{font-size:20px}
-    .nav a{
-      color:#e6eef6;
-      margin:0 10px;
-      font-weight:bold;
-    }
-    .nav a:hover{color:#1e90ff}
-
-    .container{
-      max-width:1100px;
-      margin:auto;
-      padding:40px 20px;
-    }
-    .hero{
-      text-align:center;
-      padding:60px 20px;
-    }
-    .hero h1{font-size:36px}
-    .hero p{color:#c7d2df}
-
-    .btn{
-      display:inline-block;
-      background:#1e90ff;
-      color:#021428;
-      padding:12px 22px;
-      border-radius:10px;
-      font-weight:bold;
-      margin:6px;
-    }
-    .btn:hover{opacity:0.9}
-    .ghost{
-      background:transparent;
-      border:1px solid #1e90ff;
-      color:#e6eef6;
-    }
-
-    .card{
-      background:rgba(255,255,255,0.06);
-      padding:22px;
-      border-radius:16px;
-      margin-top:24px;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:20px;
-    }
-    .small{
-      font-size:14px;
-      color:#b9c6d4;
-    }
-    .input{
-      width:100%;
-      padding:10px;
-      margin:8px 0;
-      border-radius:8px;
-      border:none;
-      outline:none;
-    }
-    .footer{
-      text-align:center;
-      padding:30px;
-      color:#9aa6b2;
-    }
-    #userBox{
-      color:#9fd3ff;
-      font-weight:bold;
-    }
-  </style>
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -111,12 +17,15 @@
 <!-- ================= HEADER ================= -->
 <header class="header">
   <div class="brand">
-    <img src="logo.png" height="45">
-    <b>Yireh</b>
+    <img src="logo.png" alt="Yireh Logo">
+    <div>
+      <h1>Yireh</h1>
+      <small>Ethical Remote Careers</small>
+    </div>
   </div>
 
   <nav class="nav">
-    <a href="index.html">Home</a>
+    <a href="index.html" class="active">Home</a>
     <a href="jobs.html">Jobs</a>
     <a href="services.html">Services</a>
     <a href="cv-builder.html">CV Builder</a>
@@ -127,108 +36,94 @@
   <div id="userBox"></div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <h1>Free & Ethical Career Platform 🌍</h1>
-  <p>
-    Remote Jobs • CV Builder • Job Description Tools  
-    <br><b>100% Free. No scams. No fake promises.</b>
-  </p>
-
-  <a class="btn" href="jobs.html">Browse Jobs</a>
-  <a class="btn ghost" href="cv-builder.html">Build Your CV</a>
-</section>
-
-<!-- ================= SIGN IN ================= -->
+<!-- ================= AUTH ================= -->
 <section class="container" id="authBox">
-  <div class="card" style="max-width:420px;margin:auto">
-    <h3>Sign In / Sign Up</h3>
+  <div class="card">
+    <h2>Sign In / Sign Up</h2>
 
     <input id="name" class="input" placeholder="Your name">
     <input id="email" class="input" placeholder="Your email">
 
     <label class="small">
       <input type="checkbox" id="agree">
-      I understand scam risks and platform rules
+      I understand scam risks & agree to ethical rules
     </label>
 
-    <br><br>
     <button class="btn" onclick="login()">Continue</button>
   </div>
 </section>
 
-<!-- ================= FREE SERVICES ================= -->
-<section class="container">
-  <h2>Our Services (All FREE)</h2>
+<!-- ================= HERO ================= -->
+<section class="hero container">
+  <h1>Empowering Talent Worldwide 🌍</h1>
 
-  <div class="grid">
-    <div class="card">✔ Remote Job Listings</div>
-    <div class="card">✔ CV Builder & PDF Export</div>
-    <div class="card">✔ Job Description Generator</div>
-    <div class="card">✔ Scam Awareness & Career Guidance</div>
+  <p>
+    100% Free Remote Jobs • Professional CV Builder • Job Description Tools  
+    <br><b>No scams. No guarantees. No fake promises.</b>
+  </p>
+
+  <div class="hero-actions">
+    <a class="btn" href="jobs.html">Find Jobs</a>
+    <a class="btn ghost" href="cv-builder.html">Build CV</a>
+  </div>
+</section>
+
+<!-- ================= SCAM NOTICE ================= -->
+<section class="container">
+  <div class="card warning">
+    <h3>⚠ Scam Awareness</h3>
+    <ul>
+      <li>Yireh never guarantees jobs</li>
+      <li>No payments via WhatsApp or calls</li>
+      <li>Donations only via official buttons</li>
+      <li>Report fake claims immediately</li>
+    </ul>
   </div>
 </section>
 
 <!-- ================= DONATION ================= -->
 <section class="container">
-  <div class="card">
+  <div class="card center">
     <h3>Support Yireh ❤️ (Optional)</h3>
     <p class="small">
-      All services are FREE.  
-      Donations help us maintain the platform.
+      All services are free.  
+      Donations help keep the platform alive.
     </p>
 
-    <a class="btn"
-       href="https://paypal.me/ShanmugaveluV"
-       target="_blank">
-       Donate via PayPal
-    </a>
-
-    <a class="btn ghost"
-       href="upi://pay?pa=yirehmex-1@okhdfcbank&pn=Yireh&cu=INR">
-       Google Pay (UPI)
-    </a>
-  </div>
-</section>
-
-<!-- ================= SCAM WARNING ================= -->
-<section class="container">
-  <div class="card">
-    <h3>⚠ Scam Awareness</h3>
-    <ul class="small">
-      <li>We never guarantee jobs</li>
-      <li>No payments via WhatsApp or calls</li>
-      <li>Only trust yireh.site links</li>
-    </ul>
+    <div class="pay-grid">
+      <a class="btn" href="https://paypal.me/ShanmugaveluV" target="_blank">PayPal</a>
+      <a class="btn ghost" href="upi://pay?pa=yirehmex-1@okhdfcbank&pn=Yireh">Google Pay</a>
+    </div>
   </div>
 </section>
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
-  © 2025 Yireh.site • Ethical & Free Career Platform
+© 2025 Yireh.site • Ethical Remote Careers
 </footer>
 
 <!-- ================= SCRIPT ================= -->
 <script>
 function login(){
-  const n=document.getElementById("name").value.trim();
-  const e=document.getElementById("email").value.trim();
-  const a=document.getElementById("agree").checked;
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const agree = document.getElementById("agree").checked;
 
-  if(!n||!e){alert("Enter name and email");return;}
-  if(!a){alert("Please accept scam awareness");return;}
+  if(!name || !email) return alert("Enter name and email");
+  if(!agree) return alert("Please accept scam awareness");
 
-  localStorage.setItem("yirehUser",n);
-  localStorage.setItem("yirehEmail",e);
+  localStorage.setItem("yirehUser", name);
+  localStorage.setItem("yirehEmail", email);
   location.reload();
 }
 
-const u=localStorage.getItem("yirehUser");
-if(u){
+const user = localStorage.getItem("yirehUser");
+if(user){
   document.getElementById("authBox").style.display="none";
   document.getElementById("userBox").innerHTML =
-    `Welcome, ${u} | <a href="#" onclick="logout()">Logout</a>`;
+    `Welcome, <b>${user}</b> | <a href="#" onclick="logout()">Logout</a>`;
 }
+
 function logout(){
   localStorage.clear();
   location.reload();
