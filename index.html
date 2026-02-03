@@ -2,133 +2,94 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Yireh – Remote Jobs & CV Builder</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="description" content="Yireh is a free ethical platform for remote jobs, CV building, job descriptions and career support. No scams. No fake promises.">
-<meta name="keywords" content="remote jobs, cv builder, resume, job description, ethical careers">
-
-<link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="styles.css">
+<title>CV Builder v2 – Free Professional Resume</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-  <div class="brand">
-    <img src="logo.png" alt="Yireh Logo">
-    <div>
-      <h1>Yireh</h1>
-      <small>Ethical Remote Careers</small>
-    </div>
-  </div>
-
-  <nav class="nav">
-    <a href="index.html" class="active">Home</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Job Builder</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-
-  <div id="userBox"></div>
+<header>
+  <h1>CV Builder v2</h1>
+  <p>Free • Professional • No Watermark</p>
 </header>
 
-<!-- ================= AUTH ================= -->
-<section class="container" id="authBox">
-  <div class="card">
-    <h2>Sign In / Sign Up</h2>
+<div class="container">
 
-    <input id="name" class="input" placeholder="Your name">
-    <input id="email" class="input" placeholder="Your email">
+<!-- LEFT FORM -->
+<div class="form-panel">
 
-    <label class="small">
-      <input type="checkbox" id="agree">
-      I understand scam risks & agree to ethical rules
-    </label>
+<h2>Template</h2>
+<select id="templateSelect" onchange="changeTemplate()">
+  <option value="classic">Classic Professional</option>
+  <option value="modern">Modern IT</option>
+  <option value="fresher">Fresher / Student</option>
+</select>
 
-    <button class="btn" onclick="login()">Continue</button>
-  </div>
-</section>
+<h2>Personal Info</h2>
+<input placeholder="Full Name" id="name">
+<input placeholder="Job Title" id="title">
+<input placeholder="Email" id="email">
+<input placeholder="Phone" id="phone">
+<input placeholder="City, Country" id="location">
+<input type="file" accept="image/*" onchange="uploadPhoto(event)">
 
-<!-- ================= HERO ================= -->
-<section class="hero container">
-  <h1>Empowering Talent Worldwide 🌍</h1>
+<h2>Professional Summary</h2>
+<textarea id="summary" placeholder="3–4 lines professional summary"></textarea>
 
-  <p>
-    100% Free Remote Jobs • Professional CV Builder • Job Description Tools  
-    <br><b>No scams. No guarantees. No fake promises.</b>
-  </p>
+<h2>Experience</h2>
+<div id="experienceList"></div>
+<button onclick="addExperience()">+ Add Experience</button>
 
-  <div class="hero-actions">
-    <a class="btn" href="jobs.html">Find Jobs</a>
-    <a class="btn ghost" href="cv-builder.html">Build CV</a>
-  </div>
-</section>
+<h2>Education</h2>
+<div id="educationList"></div>
+<button onclick="addEducation()">+ Add Education</button>
 
-<!-- ================= SCAM NOTICE ================= -->
-<section class="container">
-  <div class="card warning">
-    <h3>⚠ Scam Awareness</h3>
-    <ul>
-      <li>Yireh never guarantees jobs</li>
-      <li>No payments via WhatsApp or calls</li>
-      <li>Donations only via official buttons</li>
-      <li>Report fake claims immediately</li>
-    </ul>
-  </div>
-</section>
+<h2>Skills</h2>
+<input id="skillInput" placeholder="Type skill & press Add">
+<button onclick="addSkill()">Add Skill</button>
+<div id="skills"></div>
 
-<!-- ================= DONATION ================= -->
-<section class="container">
-  <div class="card center">
-    <h3>Support Yireh ❤️ (Optional)</h3>
-    <p class="small">
-      All services are free.  
-      Donations help keep the platform alive.
-    </p>
+<br>
+<button class="pdf-btn" onclick="downloadPDF()">⬇ Download PDF</button>
 
-    <div class="pay-grid">
-      <a class="btn" href="https://paypal.me/ShanmugaveluV" target="_blank">PayPal</a>
-      <a class="btn ghost" href="upi://pay?pa=yirehmex-1@okhdfcbank&pn=Yireh">Google Pay</a>
+</div>
+
+<!-- RIGHT PREVIEW -->
+<div class="preview-panel">
+  <div id="cv" class="cv classic">
+
+    <div class="header">
+      <img id="photo">
+      <h1 id="pName">Your Name</h1>
+      <h3 id="pTitle">Job Title</h3>
+      <p id="pContact">Email | Phone | Location</p>
     </div>
+
+    <section>
+      <h2>Summary</h2>
+      <p id="pSummary"></p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div id="pExperience"></div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div id="pEducation"></div>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div id="pSkills" class="skill-tags"></div>
+    </section>
+
   </div>
-</section>
+</div>
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-© 2025 Yireh.site • Ethical Remote Careers
-</footer>
+</div>
 
-<!-- ================= SCRIPT ================= -->
-<script>
-function login(){
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const agree = document.getElementById("agree").checked;
-
-  if(!name || !email) return alert("Enter name and email");
-  if(!agree) return alert("Please accept scam awareness");
-
-  localStorage.setItem("yirehUser", name);
-  localStorage.setItem("yirehEmail", email);
-  location.reload();
-}
-
-const user = localStorage.getItem("yirehUser");
-if(user){
-  document.getElementById("authBox").style.display="none";
-  document.getElementById("userBox").innerHTML =
-    `Welcome, <b>${user}</b> | <a href="#" onclick="logout()">Logout</a>`;
-}
-
-function logout(){
-  localStorage.clear();
-  location.reload();
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
