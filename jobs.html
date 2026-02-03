@@ -2,100 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Remote Jobs – Yireh</title>
+<title>Jobs – Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="styles.css">
 
 <style>
 body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-.header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#021428}
-.nav a{color:#e6eef6;margin:0 10px;text-decoration:none;font-weight:bold}
-.container{max-width:1100px;margin:auto;padding:30px}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:14px;margin-bottom:20px}
-.job{border-left:4px solid #1e90ff}
-.small{color:#9aa6b2;font-size:14px}
-.btn{background:#1e90ff;color:#022;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:bold}
-.footer{text-align:center;color:#9aa6b2;padding:30px}
+.header{background:#021428;padding:14px 20px}
+.container{max-width:1000px;margin:auto;padding:30px}
+.card{background:rgba(255,255,255,.06);padding:20px;border-radius:16px;margin-bottom:20px}
+.btn{background:#1e90ff;color:#021428;padding:8px 14px;border-radius:8px;font-weight:bold;text-decoration:none}
+.small{color:#b9c6d4;font-size:14px}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
-  <div style="display:flex;align-items:center;gap:10px">
-    <img src="logo.png" height="45">
-    <b>Yireh</b>
-  </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="services.html">Services</a>
-    <a href="cv-builder.html">CV Builder</a>
-    <a href="job-builder.html">Job Builder</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+  <b>Yireh – Job Listings</b>
 </header>
 
-<section class="container">
-
-<h2>Remote Jobs</h2>
-<p class="small">
-Only verified and approved jobs are published.  
-<b>No fees to apply.</b>
-</p>
-
-<!-- SCAM WARNING -->
-<div class="card">
-<h3>⚠ Scam Awareness</h3>
-<ul>
-  <li>Yireh never guarantees jobs</li>
-  <li>No payments via WhatsApp or calls</li>
-  <li>Employers contact you directly</li>
-</ul>
-</div>
-
-<!-- JOB LIST -->
-<div id="jobList"></div>
-
-</section>
-
-<footer class="footer">
-© 2025 Yireh.site • Ethical Remote Careers
-</footer>
+<section class="container" id="jobs"></section>
 
 <script>
-const jobs = JSON.parse(localStorage.getItem("yirehJobs") || "[]");
-const list = document.getElementById("jobList");
+const jobs=JSON.parse(localStorage.getItem("yirehJobs_live")||"[]");
+const box=document.getElementById("jobs");
 
-const approvedJobs = jobs.filter(j => j.approved === true);
-
-if (approvedJobs.length === 0) {
-  list.innerHTML = "<p class='small'>No approved jobs yet.</p>";
-} else {
-  approvedJobs.reverse().forEach(job => {
-    const div = document.createElement("div");
-    div.className = "card job";
-    div.innerHTML = `
-      <h3>${job.title}</h3>
-      <p><b>Company:</b> ${job.company}</p>
-      <p><b>Location:</b> ${job.location || "Remote"}</p>
-      <p><b>Type:</b> ${job.type || "Contract"}</p>
-
-      <p class="small">
-        <b>Skills:</b> ${job.skills}
-      </p>
-
-      <a class="btn"
-         href="mailto:${job.email}?subject=Application: ${job.title}">
-         Apply Now
-      </a>
-    `;
-    list.appendChild(div);
-  });
+if(!jobs.length){
+  box.innerHTML="<p>No jobs available yet.</p>";
 }
+
+jobs.forEach(j=>{
+  box.innerHTML+=`
+  <div class="card">
+    <h3>${j.title}</h3>
+    <p><b>${j.company}</b> – ${j.location}</p>
+    <p class="small">${j.desc}</p>
+
+    <p class="small">
+      📧 Apply: <b>${j.email}</b>
+    </p>
+
+    <a class="btn" href="cv-builder.html">Build CV</a>
+  </div>`;
+});
 </script>
 
 </body>
