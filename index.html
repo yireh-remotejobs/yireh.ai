@@ -4,109 +4,112 @@
 <meta charset="UTF-8">
 <title>Yireh – Remote Jobs & CV Builder</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Yireh provides FREE Remote Jobs, CV Builder, Job Posting & Career Services. Donations supported via PayPal & GPay.">
-<meta name="keywords" content="Remote Jobs, CV Builder, Resume Maker, Free Job Portal, Yireh">
+<meta name="description" content="Yireh offers FREE CV Builder, Remote Jobs & Job Posting. Optional donations supported securely.">
+<meta name="keywords" content="CV Builder, Resume Maker, Remote Jobs, Free Job Portal">
 <meta name="author" content="Yireh">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f6fb;
-    color: #222;
+body{
+    margin:0;
+    font-family:Segoe UI,Arial,sans-serif;
+    background:#f4f6fb;
+    color:#222;
 }
-header {
-    background: linear-gradient(135deg,#1a237e,#3949ab);
-    color: #fff;
-    padding: 20px;
+header{
+    background:linear-gradient(135deg,#1a237e,#3949ab);
+    padding:15px 20px;
 }
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
 }
-nav h1 {
-    margin: 0;
-    font-size: 26px;
+.logo{
+    display:flex;
+    align-items:center;
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
 }
-nav a {
-    color: #fff;
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: 500;
+.logo img{
+    height:40px;
+    margin-right:10px;
 }
-.hero {
-    padding: 60px 20px;
-    text-align: center;
+nav a{
+    color:#fff;
+    margin:0 10px;
+    text-decoration:none;
+    font-weight:500;
 }
-.hero h2 {
-    font-size: 36px;
-    margin-bottom: 10px;
+.hero{
+    text-align:center;
+    padding:60px 20px;
 }
-.hero p {
-    font-size: 18px;
-    max-width: 700px;
-    margin: auto;
+.hero h2{
+    font-size:36px;
 }
-.btn {
-    display: inline-block;
-    margin: 15px;
-    padding: 14px 28px;
-    background: #ffca28;
-    color: #000;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
+.hero p{
+    max-width:720px;
+    margin:auto;
+    font-size:18px;
 }
-.section {
-    padding: 50px 20px;
-    max-width: 1100px;
-    margin: auto;
+.btn{
+    display:inline-block;
+    margin:15px;
+    padding:14px 30px;
+    background:#ffca28;
+    color:#000;
+    text-decoration:none;
+    border-radius:6px;
+    font-weight:600;
 }
-.section h3 {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 30px;
+.section{
+    padding:50px 20px;
+    max-width:1100px;
+    margin:auto;
 }
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 20px;
+.section h3{
+    text-align:center;
+    font-size:30px;
 }
-.card {
-    background: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
 }
-.card h4 {
-    margin-top: 0;
-    color: #1a237e;
+.card{
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
-.donate {
-    text-align: center;
-    background: #e8eaf6;
-    padding: 40px 20px;
+.card h4{
+    color:#1a237e;
 }
-footer {
-    background: #1a237e;
-    color: #fff;
-    text-align: center;
-    padding: 15px;
+.donate{
+    background:#e8eaf6;
+    text-align:center;
+    padding:45px 20px;
 }
-input {
-    padding: 10px;
-    width: 90%;
-    margin: 8px 0;
+footer{
+    background:#1a237e;
+    color:#fff;
+    text-align:center;
+    padding:15px;
 }
-.form-box {
-    max-width: 400px;
-    margin: auto;
-    background: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+.form-box{
+    max-width:400px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
+}
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
 }
 </style>
 </head>
@@ -115,7 +118,11 @@ input {
 
 <header>
 <nav>
-<h1>Yireh</h1>
+<div class="logo">
+    <!-- Replace logo.png with your actual logo file -->
+    <img src="logo.png" alt="Yireh Logo">
+    Yireh
+</div>
 <div>
 <a href="index.html">Home</a>
 <a href="cv-builder.html">CV Builder</a>
@@ -128,40 +135,47 @@ input {
 
 <section class="hero">
 <h2>Remote Jobs & Professional CV Builder</h2>
-<p>All services are <strong>100% FREE</strong>.  
-If Yireh helps you, you may support us with a voluntary donation.</p>
-<a class="btn" href="cv-builder.html">Build Your CV</a>
-<a class="btn" href="job-builder.html">Find / Post Jobs</a>
+<p>
+All services are <strong>100% FREE</strong>.  
+Support Yireh only if you wish — no charges, no restrictions.
+</p>
+<a class="btn" href="cv-builder.html">Build CV</a>
+<a class="btn" href="job-builder.html">Find Jobs</a>
 </section>
 
 <section class="section">
-<h3>Our Free Services</h3>
+<h3>What You Get (Free)</h3>
 <div class="cards">
 <div class="card">
-<h4>CV Builder</h4>
-<p>Create professional resumes with modern templates and PDF export.</p>
+<h4>Advanced CV Builder</h4>
+<p>Modern templates, photo CV, PDF export, future-ready.</p>
 </div>
 <div class="card">
 <h4>Job Builder</h4>
-<p>Employers post jobs. Job seekers search and apply with CV.</p>
+<p>Post jobs, search jobs, apply using CV.</p>
+</div>
+<div class="card">
+<h4>Admin Verified</h4>
+<p>Jobs reviewed to avoid fake and spam listings.</p>
 </div>
 <div class="card">
 <h4>Remote Jobs</h4>
-<p>Access verified remote job listings worldwide.</p>
-</div>
-<div class="card">
-<h4>Admin Verified Jobs</h4>
-<p>All jobs reviewed to prevent spam and fake listings.</p>
+<p>Work-from-home opportunities worldwide.</p>
 </div>
 </div>
 </section>
 
 <section class="donate">
-<h3>Support Yireh (Optional Donation)</h3>
-<p>All features are free. Donate only if you wish ❤️</p>
+<h3>Support Yireh (Optional)</h3>
+<p>No payment required. Donations are voluntary.</p>
 
-<p><strong>Google Pay:</strong> yirehmex-1@okhdfcbank</p>
-<a class="btn" href="https://paypal.me/ShanmugaveluV" target="_blank">Donate via PayPal</a>
+<a class="btn" href="https://paypal.me/ShanmugaveluV" target="_blank">
+Donate via PayPal
+</a>
+
+<a class="btn" href="donate-gpay.html">
+Donate via Google Pay
+</a>
 </section>
 
 <section id="login" class="section">
@@ -176,7 +190,7 @@ If Yireh helps you, you may support us with a voluntary donation.</p>
 </section>
 
 <footer>
-<p>© 2026 Yireh. All Rights Reserved.</p>
+© 2026 Yireh. All rights reserved.
 </footer>
 
 </body>
