@@ -2,205 +2,171 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Yireh – CV Builder v3</title>
+<title>CV Builder v3 – Professional</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-    margin:0;
-    font-family:Segoe UI,Arial,sans-serif;
-    background:#eef1f7;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  padding: 30px;
 }
-header{
-    background:#0b3c91;
-    color:#fff;
-    padding:16px 20px;
-    font-size:22px;
-    font-weight:700;
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
 }
-.wrapper{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-    max-width:1300px;
-    margin:auto;
-    padding:20px;
+
+.form-box, .preview-box {
+  background: #f4f6fb;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
-.panel{
-    background:#fff;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 6px 18px rgba(0,0,0,.12);
+
+.form-box h2 {
+  margin-top: 0;
+  color: #1e3c72;
 }
-h3{color:#0b3c91;margin-top:0}
-input,textarea,select{
-    width:100%;
-    padding:10px;
-    margin:6px 0;
-    border-radius:6px;
-    border:1px solid #ccc;
+
+.form-box input,
+.form-box textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
 }
-button{
-    background:#0b3c91;
-    color:#fff;
-    border:none;
-    padding:10px 16px;
-    border-radius:6px;
-    cursor:pointer;
+
+.skills span {
+  display: inline-block;
+  background: #1e3c72;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  margin: 4px;
+  font-size: 13px;
 }
-.theme{
-    display:flex;
-    gap:8px;
-    margin:10px 0;
+
+.preview-box {
+  background: #ffffff;
 }
-.theme div{
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    cursor:pointer;
+
+.preview-header {
+  text-align: center;
 }
-.preview{
-    padding:25px;
-    border-radius:10px;
-    background:#fff;
-    min-height:900px;
+
+.preview-header img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
 }
-.cv{
-    color:#000;
+
+.preview-header h1 {
+  margin: 5px 0;
+  color: #1e3c72;
 }
-.cv h1{margin:0}
-.cv h2{
-    border-bottom:2px solid;
-    padding-bottom:4px;
+
+.section {
+  margin-top: 15px;
 }
-.photo{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    border:4px solid;
-}
-.top{
-    display:flex;
-    gap:20px;
-    align-items:center;
-}
-small{color:#555}
-@media(max-width:900px){
-    .wrapper{grid-template-columns:1fr}
+
+.section h3 {
+  border-bottom: 2px solid #1e3c72;
+  padding-bottom: 5px;
+  color: #1e3c72;
 }
 </style>
 </head>
 
 <body>
 
-<header>Yireh – CV Builder v3 (Professional)</header>
+<div class="container">
 
-<div class="wrapper">
+  <!-- FORM -->
+  <div class="form-box">
+    <h2>CV Builder v3</h2>
 
-<!-- ================= FORM ================= -->
-<div class="panel">
-<h3>CV Details</h3>
+    <input id="name" placeholder="Full Name">
+    <input id="dob" placeholder="Date of Birth">
+    <input id="email" placeholder="Email">
+    <input id="phone" placeholder="Phone Number">
+    <input type="file" accept="image/*" onchange="loadPhoto(event)">
 
-<input placeholder="Full Name" oninput="update()">
-<input placeholder="Job Title" oninput="update()">
-<input placeholder="Email | Phone | Location" oninput="update()">
+    <textarea id="summary" placeholder="Professional Summary"></textarea>
+    <textarea id="education" placeholder="Education"></textarea>
+    <textarea id="experience" placeholder="Experience"></textarea>
+    <textarea id="projects" placeholder="Projects"></textarea>
 
-<label>Upload Photo</label>
-<input type="file" accept="image/*" onchange="loadPhoto(event)">
+    <input id="skillInput" placeholder="Add skill & press Enter" onkeydown="addSkill(event)">
+  </div>
 
-<textarea placeholder="Professional Summary" oninput="update()"></textarea>
-
-<h4>Education</h4>
-<textarea placeholder="Degree, Institution, Year" oninput="update()"></textarea>
-
-<h4>Experience</h4>
-<textarea placeholder="Role, Company, Achievements" oninput="update()"></textarea>
-
-<h4>Skills</h4>
-<textarea placeholder="Skills (comma separated)" oninput="update()"></textarea>
-
-<h4>Template</h4>
-<select onchange="setTemplate(this.value)">
-    <option value="classic">Classic</option>
-    <option value="modern">Modern</option>
-</select>
-
-<h4>Color Theme</h4>
-<div class="theme">
-    <div style="background:#0b3c91" onclick="setColor('#0b3c91')"></div>
-    <div style="background:#00695c" onclick="setColor('#00695c')"></div>
-    <div style="background:#6a1b9a" onclick="setColor('#6a1b9a')"></div>
-    <div style="background:#37474f" onclick="setColor('#37474f')"></div>
-</div>
-
-<button onclick="downloadPDF()">Download PDF</button>
-</div>
-
-<!-- ================= PREVIEW ================= -->
-<div class="panel preview" id="printArea">
-<div class="cv" id="cv">
-    <div class="top">
-        <img id="cvPhoto" class="photo" src="" style="display:none">
-        <div>
-            <h1 id="pName">Your Name</h1>
-            <b id="pTitle">Job Title</b><br>
-            <small id="pContact">Email | Phone | Location</small>
-        </div>
+  <!-- PREVIEW -->
+  <div class="preview-box">
+    <div class="preview-header">
+      <img id="photo">
+      <h1 id="pName"></h1>
+      <p id="pDob"></p>
+      <p id="pContact"></p>
     </div>
 
-    <h2>Profile</h2>
-    <p id="pSummary"></p>
+    <div class="section">
+      <h3>Profile</h3>
+      <p id="pSummary"></p>
+    </div>
 
-    <h2>Education</h2>
-    <p id="pEdu"></p>
+    <div class="section">
+      <h3>Education</h3>
+      <p id="pEducation"></p>
+    </div>
 
-    <h2>Experience</h2>
-    <p id="pExp"></p>
+    <div class="section">
+      <h3>Experience</h3>
+      <p id="pExperience"></p>
+    </div>
 
-    <h2>Skills</h2>
-    <p id="pSkills"></p>
-</div>
-</div>
+    <div class="section">
+      <h3>Projects</h3>
+      <p id="pProjects"></p>
+    </div>
+
+    <div class="section">
+      <h3>Skills</h3>
+      <div class="skills" id="pSkills"></div>
+    </div>
+  </div>
 
 </div>
 
 <script>
-let color = "#0b3c91";
-let template = "classic";
+const bind = () => {
+  pName.innerText = name.value;
+  pDob.innerText = "DOB: " + dob.value;
+  pContact.innerText = email.value + " | " + phone.value;
+  pSummary.innerText = summary.value;
+  pEducation.innerText = education.value;
+  pExperience.innerText = experience.value;
+  pProjects.innerText = projects.value;
+};
 
-function update(){
-    const inputs = document.querySelectorAll("input,textarea");
-    pName.innerText = inputs[0].value || "Your Name";
-    pTitle.innerText = inputs[1].value || "Job Title";
-    pContact.innerText = inputs[2].value || "Email | Phone | Location";
-    pSummary.innerText = inputs[4].value;
-    pEdu.innerText = inputs[5].value;
-    pExp.innerText = inputs[6].value;
-    pSkills.innerText = inputs[7].value;
+document.querySelectorAll("input, textarea").forEach(el => {
+  el.addEventListener("input", bind);
+});
+
+function loadPhoto(e) {
+  photo.src = URL.createObjectURL(e.target.files[0]);
 }
 
-function loadPhoto(e){
-    const img = document.getElementById("cvPhoto");
-    img.src = URL.createObjectURL(e.target.files[0]);
-    img.style.display="block";
-    img.style.borderColor=color;
-}
-
-function setColor(c){
-    color = c;
-    document.querySelectorAll("h2").forEach(h=>h.style.borderColor=c);
-    document.querySelector(".photo").style.borderColor=c;
-}
-
-function setTemplate(t){
-    template = t;
-    document.getElementById("cv").style.fontFamily =
-        t==="modern" ? "Poppins,Segoe UI" : "Georgia,Segoe UI";
-}
-
-function downloadPDF(){
-    window.print();
+function addSkill(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    const span = document.createElement("span");
+    span.innerText = skillInput.value;
+    pSkills.appendChild(span);
+    skillInput.value = "";
+  }
 }
 </script>
 
