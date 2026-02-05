@@ -2,50 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Jobs – Yireh</title>
+<title>Job Builder & Applications | Yireh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{margin:0;background:#071029;color:#e6eef6;font-family:Arial}
-.header{background:#021428;padding:14px 20px}
-.container{max-width:1000px;margin:auto;padding:30px}
-.card{background:rgba(255,255,255,.06);padding:20px;border-radius:16px;margin-bottom:20px}
-.btn{background:#1e90ff;color:#021428;padding:8px 14px;border-radius:8px;font-weight:bold;text-decoration:none}
-.small{color:#b9c6d4;font-size:14px}
-</style>
-</head>
-
-<body>
-
-<header class="header">
-  <b>Yireh – Job Listings</b>
-</header>
-
-<section class="container" id="jobs"></section>
-
-<script>
-const jobs=JSON.parse(localStorage.getItem("yirehJobs_live")||"[]");
-const box=document.getElementById("jobs");
-
-if(!jobs.length){
-  box.innerHTML="<p>No jobs available yet.</p>";
-}
-
-jobs.forEach(j=>{
-  box.innerHTML+=`
-  <div class="card">
-    <h3>${j.title}</h3>
-    <p><b>${j.company}</b> – ${j.location}</p>
-    <p class="small">${j.desc}</p>
-
-    <p class="small">
-      📧 Apply: <b>${j.email}</b>
-    </p>
-
-    <a class="btn" href="cv-builder.html">Build CV</a>
-  </div>`;
-});
-</script>
-
-</body>
-</html>
+body{
+    font-family: Arial,
