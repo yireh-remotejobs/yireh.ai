@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Yireh CV Builder v2</title>
+<title>Yireh – CV Builder v3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
 body{
@@ -15,210 +12,195 @@ body{
     background:#eef1f7;
 }
 header{
-    background:#1a237e;
+    background:#0b3c91;
     color:#fff;
-    padding:15px 20px;
+    padding:16px 20px;
     font-size:22px;
     font-weight:700;
 }
-.container{
+.wrapper{
     display:grid;
-    grid-template-columns:380px 1fr;
+    grid-template-columns:1fr 1fr;
     gap:20px;
+    max-width:1300px;
+    margin:auto;
     padding:20px;
 }
-.form-panel{
+.panel{
     background:#fff;
     padding:20px;
     border-radius:12px;
-    box-shadow:0 6px 20px rgba(0,0,0,.1);
-    overflow-y:auto;
-    max-height:90vh;
+    box-shadow:0 6px 18px rgba(0,0,0,.12);
 }
-.form-panel h3{
-    margin-top:20px;
-    color:#1a237e;
-}
-input, textarea{
+h3{color:#0b3c91;margin-top:0}
+input,textarea,select{
     width:100%;
     padding:10px;
     margin:6px 0;
-    border:1px solid #ccc;
     border-radius:6px;
+    border:1px solid #ccc;
 }
-textarea{resize:vertical}
 button{
-    background:#1a237e;
+    background:#0b3c91;
     color:#fff;
-    padding:10px 15px;
     border:none;
+    padding:10px 16px;
     border-radius:6px;
     cursor:pointer;
-    margin-top:8px;
 }
-button.secondary{
-    background:#555;
+.theme{
+    display:flex;
+    gap:8px;
+    margin:10px 0;
 }
-.preview-panel{
+.theme div{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    cursor:pointer;
+}
+.preview{
+    padding:25px;
+    border-radius:10px;
     background:#fff;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 6px 20px rgba(0,0,0,.1);
+    min-height:900px;
 }
 .cv{
-    max-width:800px;
-    margin:auto;
+    color:#000;
 }
-.cv-header{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-.cv-header img{
-    width:120px;
-    height:120px;
-    object-fit:cover;
-    border-radius:50%;
-}
-.cv h1{
-    margin:0;
-    font-size:30px;
-}
-.section{
-    margin-top:20px;
-}
-.section h4{
-    color:#1a237e;
-    border-bottom:2px solid #1a237e;
+.cv h1{margin:0}
+.cv h2{
+    border-bottom:2px solid;
     padding-bottom:4px;
 }
-.item{
-    margin-top:10px;
+.photo{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid;
 }
-.export{
-    text-align:center;
-    margin:20px;
+.top{
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+small{color:#555}
+@media(max-width:900px){
+    .wrapper{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<header>Yireh – Professional CV Builder v2</header>
+<header>Yireh – CV Builder v3 (Professional)</header>
 
-<div class="container">
+<div class="wrapper">
 
-<!-- ================= FORM PANEL ================= -->
-<div class="form-panel">
+<!-- ================= FORM ================= -->
+<div class="panel">
+<h3>CV Details</h3>
 
-<h3>Personal Details</h3>
-<input id="name" placeholder="Full Name" oninput="updateCV()">
-<input id="title" placeholder="Professional Title" oninput="updateCV()">
-<input id="email" placeholder="Email" oninput="updateCV()">
-<input id="phone" placeholder="Phone" oninput="updateCV()">
-<input id="location" placeholder="Location" oninput="updateCV()">
+<input placeholder="Full Name" oninput="update()">
+<input placeholder="Job Title" oninput="update()">
+<input placeholder="Email | Phone | Location" oninput="update()">
+
+<label>Upload Photo</label>
 <input type="file" accept="image/*" onchange="loadPhoto(event)">
 
-<h3>Profile Summary</h3>
-<textarea id="summary" placeholder="Short professional summary" oninput="updateCV()"></textarea>
+<textarea placeholder="Professional Summary" oninput="update()"></textarea>
 
-<h3>Education</h3>
-<textarea id="education" placeholder="Degree, Institution, Year" oninput="updateCV()"></textarea>
-
-<h3>Experience</h3>
-<textarea id="experience" placeholder="Job Title – Company – Responsibilities" oninput="updateCV()"></textarea>
-
-<h3>Skills</h3>
-<textarea id="skills" placeholder="Comma separated skills" oninput="updateCV()"></textarea>
-
-<h3>Projects</h3>
-<textarea id="projects" placeholder="Project name – description" oninput="updateCV()"></textarea>
-
-<h3>Certifications</h3>
-<textarea id="certs" placeholder="Certification name – year" oninput="updateCV()"></textarea>
-
-<button onclick="downloadPDF()">Download Professional PDF</button>
-
-</div>
-
-<!-- ================= PREVIEW PANEL ================= -->
-<div class="preview-panel">
-<div class="cv" id="cv">
-
-<div class="cv-header">
-<img id="photo" src="" style="display:none">
-<div>
-<h1 id="cv-name">Your Name</h1>
-<p id="cv-title"></p>
-<p id="cv-contact"></p>
-</div>
-</div>
-
-<div class="section">
-<h4>Profile</h4>
-<p id="cv-summary"></p>
-</div>
-
-<div class="section">
 <h4>Education</h4>
-<div id="cv-education"></div>
-</div>
+<textarea placeholder="Degree, Institution, Year" oninput="update()"></textarea>
 
-<div class="section">
 <h4>Experience</h4>
-<div id="cv-experience"></div>
-</div>
+<textarea placeholder="Role, Company, Achievements" oninput="update()"></textarea>
 
-<div class="section">
 <h4>Skills</h4>
-<div id="cv-skills"></div>
+<textarea placeholder="Skills (comma separated)" oninput="update()"></textarea>
+
+<h4>Template</h4>
+<select onchange="setTemplate(this.value)">
+    <option value="classic">Classic</option>
+    <option value="modern">Modern</option>
+</select>
+
+<h4>Color Theme</h4>
+<div class="theme">
+    <div style="background:#0b3c91" onclick="setColor('#0b3c91')"></div>
+    <div style="background:#00695c" onclick="setColor('#00695c')"></div>
+    <div style="background:#6a1b9a" onclick="setColor('#6a1b9a')"></div>
+    <div style="background:#37474f" onclick="setColor('#37474f')"></div>
 </div>
 
-<div class="section">
-<h4>Projects</h4>
-<div id="cv-projects"></div>
+<button onclick="downloadPDF()">Download PDF</button>
 </div>
 
-<div class="section">
-<h4>Certifications</h4>
-<div id="cv-certs"></div>
-</div>
+<!-- ================= PREVIEW ================= -->
+<div class="panel preview" id="printArea">
+<div class="cv" id="cv">
+    <div class="top">
+        <img id="cvPhoto" class="photo" src="" style="display:none">
+        <div>
+            <h1 id="pName">Your Name</h1>
+            <b id="pTitle">Job Title</b><br>
+            <small id="pContact">Email | Phone | Location</small>
+        </div>
+    </div>
 
+    <h2>Profile</h2>
+    <p id="pSummary"></p>
+
+    <h2>Education</h2>
+    <p id="pEdu"></p>
+
+    <h2>Experience</h2>
+    <p id="pExp"></p>
+
+    <h2>Skills</h2>
+    <p id="pSkills"></p>
 </div>
 </div>
 
 </div>
 
 <script>
-function updateCV(){
-    document.getElementById("cv-name").innerText = name.value || "Your Name";
-    document.getElementById("cv-title").innerText = title.value;
-    document.getElementById("cv-contact").innerText =
-        email.value + " | " + phone.value + " | " + location.value;
+let color = "#0b3c91";
+let template = "classic";
 
-    cv-summary.innerText = summary.value;
-    cv-education.innerText = education.value;
-    cv-experience.innerText = experience.value;
-    cv-skills.innerText = skills.value;
-    cv-projects.innerText = projects.value;
-    cv-certs.innerText = certs.value;
+function update(){
+    const inputs = document.querySelectorAll("input,textarea");
+    pName.innerText = inputs[0].value || "Your Name";
+    pTitle.innerText = inputs[1].value || "Job Title";
+    pContact.innerText = inputs[2].value || "Email | Phone | Location";
+    pSummary.innerText = inputs[4].value;
+    pEdu.innerText = inputs[5].value;
+    pExp.innerText = inputs[6].value;
+    pSkills.innerText = inputs[7].value;
 }
 
 function loadPhoto(e){
-    const img = document.getElementById("photo");
+    const img = document.getElementById("cvPhoto");
     img.src = URL.createObjectURL(e.target.files[0]);
-    img.style.display = "block";
+    img.style.display="block";
+    img.style.borderColor=color;
+}
+
+function setColor(c){
+    color = c;
+    document.querySelectorAll("h2").forEach(h=>h.style.borderColor=c);
+    document.querySelector(".photo").style.borderColor=c;
+}
+
+function setTemplate(t){
+    template = t;
+    document.getElementById("cv").style.fontFamily =
+        t==="modern" ? "Poppins,Segoe UI" : "Georgia,Segoe UI";
 }
 
 function downloadPDF(){
-    const element = document.getElementById("cv");
-    html2pdf().from(element).set({
-        margin:0.5,
-        filename:'Yireh_Professional_CV.pdf',
-        image:{type:'jpeg',quality:0.98},
-        html2canvas:{scale:2},
-        jsPDF:{unit:'in',format:'a4',orientation:'portrait'}
-    }).save();
+    window.print();
 }
 </script>
 
