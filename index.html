@@ -162,9 +162,9 @@ header h1{font-size:35px;}
 let jobs=[];
 
 function addJob(){
-let title=document.getElementById("jobTitle").value;
+let title=document.getElementById("jobTitle").value;  let title=document.getElementById("Contact emails").value;
 let desc=document.getElementById("jobDesc").value;
-let company=document.getElementById("jobCompany").value;
+let company=document.getElementById("jobCompany").value;let company=document.getElementById("Comtact Phone").value;
 
 let job={title,desc,company};
 jobs.push(job);
@@ -196,12 +196,12 @@ const { jsPDF } = window.jspdf;
 let doc = new jsPDF();
 
 doc.text("CV", 10, 10);
-doc.text("Name: "+document.getElementById("cvName").value,10,20);
-doc.text("Email: "+document.getElementById("cvEmail").value,10,30);
+doc.text("Name: "+document.getElementById("cvName").value,10,20);   doc.text("DOB: "+document.getElementById("DOB").value,10,20);
+doc.text("Email: "+document.getElementById("cvEmail").value,10,30); doc.text("Education: "+document.getElementById("Education").value,10,20);
 doc.text("Phone: "+document.getElementById("cvPhone").value,10,40);
 doc.text("Skills: "+document.getElementById("cvSkills").value,10,50);
 doc.text("Experience: "+document.getElementById("cvExperience").value,10,70);
-
+doc.text("Experience: "+document.getElementById("cvProjects").value,10,70);
 doc.save("Yireh_CV.pdf");
 }
 </script>
