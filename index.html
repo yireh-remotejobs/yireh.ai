@@ -1,265 +1,210 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>JIREH JOBS SITE</title>
+<title>YIREH JOBS SITE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- PDF Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-
-/* ===============================
-PROMISEDLAND – TRUE DARK MODE
-FORCE BLACK TEMPLATE
-================================= */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-/* FORCE FULL BLACK BACKGROUND */
-html{
-background:#000 !important;
-}
-
 body{
-background:#000 !important;
-color:#ffffff !important;
-font-family:'Segoe UI',sans-serif;
-min-height:100vh;
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#0f0f0f,#1a1a1a,#000);
+color:white;
 }
 
-/* HEADER */
 header{
-background:#000 !important;
-padding:25px 60px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-bottom:2px solid #FFD700;
+padding:30px;
+text-align:center;
+background:linear-gradient(90deg,#FFD700,#ffcc00);
+color:black;
 }
 
-.logo img{
-height:110px;
-}
-
-.brand{
-font-size:44px;
+header h1{
+font-size:55px;
+margin:0;
 font-weight:900;
-color:#FFD700;
-letter-spacing:2px;
 }
 
-.brand span{
-color:#ffffff;
-font-weight:400;
-font-size:22px;
+header p{
+font-size:20px;
+margin-top:10px;
 }
 
-.tagline{
-color:#ccc;
-font-size:14px;
+section{
+padding:40px;
 }
 
-/* GRID LAYOUT */
-.container{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-padding:50px 80px;
-}
-
-.full-width{
-grid-column:1/3;
-}
-
-/* CARDS */
 .card{
-background:#111 !important;
-border:1px solid #222;
-padding:35px;
+background:#111;
+padding:30px;
 border-radius:15px;
-box-shadow:0 0 25px rgba(0,0,0,0.7);
+box-shadow:0 0 20px rgba(255,215,0,0.3);
+margin-bottom:40px;
 }
 
-/* HEADINGS */
 h2{
 color:#FFD700;
-margin-bottom:20px;
 }
 
-/* INPUTS */
-input, select, textarea{
+input,textarea{
 width:100%;
-padding:12px;
-margin-bottom:15px;
-background:#000;
-border:1px solid #333;
+padding:10px;
+margin:8px 0;
 border-radius:8px;
-color:#fff;
+border:none;
+background:#222;
+color:white;
 }
 
-/* BUTTONS */
 button{
 background:#FFD700;
-color:#000;
-padding:8px 18px;
+color:black;
+padding:10px 20px;
 border:none;
 border-radius:20px;
-font-size:13px;
 cursor:pointer;
+font-weight:bold;
+margin-top:10px;
 }
 
 button:hover{
-background:#e6c200;
+background:#ffcc00;
 }
 
-/* PROPERTY CARD */
-.property{
-background:#0f0f0f;
-border:1px solid #222;
+.job{
+background:#1a1a1a;
 padding:20px;
-border-radius:12px;
-margin-bottom:15px;
-}
-
-.property img{
-width:100%;
-height:200px;
-object-fit:cover;
 border-radius:10px;
-margin-bottom:10px;
+margin-top:20px;
 }
 
-/* FOOTER */
-.footer{
-background:#000;
-color:#ccc;
+.support{
 text-align:center;
-padding:25px;
-border-top:1px solid #FFD700;
 }
 
-/* MOBILE */
-@media(max-width:900px){
-.container{
-grid-template-columns:1fr;
-padding:30px;
-}
-.full-width{
-grid-column:1;
-}
-}
-
-/* ===============================
-ENHANCEMENTS (NOT DELETING ORIGINAL)
-================================= */
-
-/* Bigger Logo */
-.logo img{
-height:170px !important;
-}
-
-/* Big Golden Main Title */
-.main-title{
+footer{
+background:black;
 text-align:center;
-font-size:80px;
-font-weight:900;
-color:#FFD700;
-letter-spacing:4px;
-margin:50px 0;
+padding:20px;
+margin-top:50px;
+color:#aaa;
 }
 
-/* Support Section */
-.support-section{
-padding:50px 80px;
+@media(max-width:768px){
+header h1{font-size:35px;}
 }
-
-.support-options{
-display:flex;
-justify-content:center;
-gap:60px;
-flex-wrap:wrap;
-margin-top:30px;
-}
-
-.support-box{
-background:#111;
-border:1px solid #222;
-padding:30px;
-border-radius:15px;
-text-align:center;
-width:350px;
-box-shadow:0 0 25px rgba(0,0,0,0.7);
-}
-
-.support-box h3{
-color:#FFD700;
-margin-bottom:15px;
-}
-
-.support-box img{
-width:280px;
-border:2px solid #FFD700;
-border-radius:12px;
-margin-top:15px;
-}
-
-/* Mobile Enhancement */
-@media(max-width:900px){
-.main-title{
-font-size:45px;
-}
-.support-section{
-padding:30px;
-}
-}
-
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">
-<img src="your-logo.png" alt="Logo">
-</div>
-<div>
-<div class="brand">JIREH <span>JOBS</span></div>
-<div class="tagline">Opportunities & Growth</div>
-</div>
+<h1>YIREH JOBS SITE</h1>
+<p>"Connecting Talent to Global Remote Opportunities — Build, Apply, Succeed."</p>
+<p>🌐 jireh.site | 📧 yireh.remotejobs@gmail.com</p>
 </header>
 
-<!-- BIG GOLD TITLE -->
-<div class="main-title">
-JIREH JOBS SITE
+<section>
+
+<!-- CV BUILDER -->
+<div class="card">
+<h2>Advanced CV Builder</h2>
+
+<input type="text" id="cvName" placeholder="Full Name">
+<input type="text" id="cvEmail" placeholder="Email">
+<input type="text" id="cvPhone" placeholder="Phone">
+<textarea id="cvSkills" placeholder="Skills"></textarea>
+<textarea id="cvExperience" placeholder="Experience"></textarea>
+<input type="file" id="cvPhoto" accept="image/*">
+
+<button onclick="generatePDF()">Download CV as PDF</button>
 </div>
 
-<!-- SUPPORT SECTION -->
-<div class="support-section">
+<!-- JOB BUILDER -->
+<div class="card">
+<h2>Create Job Post</h2>
 
-<h2 style="text-align:center;">Support Our Work</h2>
+<input type="text" id="jobTitle" placeholder="Job Title">
+<textarea id="jobDesc" placeholder="Job Description"></textarea>
+<input type="text" id="jobCompany" placeholder="Company Name">
 
-<div class="support-options">
+<button onclick="addJob()">Publish Job</button>
+</div>
 
-<div class="support-box">
-<h3>SUPPORT via PayPal</h3>
+<!-- JOB BOARD -->
+<div class="card">
+<h2>Available Jobs</h2>
+<div id="jobList"></div>
+</div>
+
+<!-- SUPPORT -->
+<div class="card support">
+<h2>Support Us</h2>
+<p>Support via PayPal</p>
 <a href="https://www.paypal.com/" target="_blank">
-<button>Support Now</button>
+<button>Donate with PayPal</button>
 </a>
+
+<p style="margin-top:30px;">Support via Google Pay</p>
+<img src="QR CODE-9080581547.jpeg" width="250">
 </div>
 
-<div class="support-box">
-<h3>SUPPORT via Google Pay</h3>
-<img src="QR CODE-9080581547.jpeg" alt="Google Pay QR Code">
-<p style="margin-top:10px;">Scan to Support</p>
-</div>
+</section>
 
-</div>
-</div>
+<footer>
+© 2026 YIREH JOBS SITE — All Rights Reserved
+</footer>
 
-<div class="footer">
-© 2026 Jireh Jobs Site – All Rights Reserved
+<script>
+let jobs=[];
+
+function addJob(){
+let title=document.getElementById("jobTitle").value;
+let desc=document.getElementById("jobDesc").value;
+let company=document.getElementById("jobCompany").value;
+
+let job={title,desc,company};
+jobs.push(job);
+displayJobs();
+}
+
+function displayJobs(){
+let list=document.getElementById("jobList");
+list.innerHTML="";
+jobs.forEach((job,index)=>{
+list.innerHTML+=`
+<div class="job">
+<h3>${job.title}</h3>
+<p>${job.desc}</p>
+<p><b>${job.company}</b></p>
+<input type="file" id="apply${index}">
+<button onclick="applyJob(${index})">Apply</button>
 </div>
+`;
+});
+}
+
+function applyJob(i){
+alert("Application Submitted Successfully!");
+}
+
+async function generatePDF(){
+const { jsPDF } = window.jspdf;
+let doc = new jsPDF();
+
+doc.text("CV", 10, 10);
+doc.text("Name: "+document.getElementById("cvName").value,10,20);
+doc.text("Email: "+document.getElementById("cvEmail").value,10,30);
+doc.text("Phone: "+document.getElementById("cvPhone").value,10,40);
+doc.text("Skills: "+document.getElementById("cvSkills").value,10,50);
+doc.text("Experience: "+document.getElementById("cvExperience").value,10,70);
+
+doc.save("Yireh_CV.pdf");
+}
+</script>
 
 </body>
 </html>
