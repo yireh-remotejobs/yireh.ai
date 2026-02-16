@@ -104,7 +104,7 @@ header h1{font-size:35px;}
 <header>
 <h1>YIREH JOBS SITE</h1>
 <p>"Connecting Talent to Global Remote Opportunities — Build, Apply, Succeed."</p>
-<p>🌐 jireh.site | 📧 yireh.remotejobs@gmail.com</p>
+<p>🌐 yireh.site | 📧 yireh.remotejobs@gmail.com</p>
 </header>
 
 <section>
@@ -113,12 +113,13 @@ header h1{font-size:35px;}
 <div class="card">
 <h2>Advanced CV Builder</h2>
 
-<input type="text" id="cvName" placeholder="Full Name">
-<input type="text" id="cvEmail" placeholder="Email">
-<input type="text" id="cvPhone" placeholder="Phone">
+<input type="text" id="cvName" placeholder="Full Name"> <input type="text" id="cvDOB" placeholder="DOB">
+<input type="text" id="cvEmail" placeholder="Email">    <input type="text" id="cvPhone" placeholder="Phone">
+<textarea id="cvSkills" placeholder="Education"></textarea>
 <textarea id="cvSkills" placeholder="Skills"></textarea>
 <textarea id="cvExperience" placeholder="Experience"></textarea>
-<input type="file" id="cvPhoto" accept="image/*">
+<textarea id="cvExperience" placeholder="Projects"></textarea>
+<input type="Photo file" id="cvPhoto" accept="image/*">
 
 <button onclick="generatePDF()">Download CV as PDF</button>
 </div>
@@ -127,9 +128,9 @@ header h1{font-size:35px;}
 <div class="card">
 <h2>Create Job Post</h2>
 
-<input type="text" id="jobTitle" placeholder="Job Title">
+<input type="text" id="jobTitle" placeholder="Job Title">  <input type="text" id="Contact email" placeholder="Contact email">
 <textarea id="jobDesc" placeholder="Job Description"></textarea>
-<input type="text" id="jobCompany" placeholder="Company Name">
+<input type="text" id="jobCompany" placeholder="Company Name">  <input type="text" id="Contact Phone" placeholder="Contact Phone">
 
 <button onclick="addJob()">Publish Job</button>
 </div>
@@ -143,12 +144,11 @@ header h1{font-size:35px;}
 <!-- SUPPORT -->
 <div class="card support">
 <h2>Support Us</h2>
-<p>Support via PayPal</p>
 <a href="https://www.paypal.com/" target="_blank">
 <button>Donate with PayPal</button>
 </a>
 
-<p style="margin-top:30px;">Support via Google Pay</p>
+<p style="margin-top:30px;">
 <img src="QR CODE-9080581547.jpeg" width="250">
 </div>
 
