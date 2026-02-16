@@ -4,19 +4,18 @@
 <title>YIREH JOBS SITE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- PDF Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 body{
 margin:0;
 font-family:Segoe UI;
-background:linear-gradient(135deg,#0f0f0f,#1a1a1a,#000);
+background:linear-gradient(135deg,#000,#111,#1a1a1a);
 color:white;
 }
 
 header{
-padding:30px;
+padding:40px;
 text-align:center;
 background:linear-gradient(90deg,#FFD700,#ffcc00);
 color:black;
@@ -35,6 +34,8 @@ margin-top:10px;
 
 section{
 padding:40px;
+max-width:1200px;
+margin:auto;
 }
 
 .card{
@@ -51,7 +52,7 @@ color:#FFD700;
 
 input,textarea{
 width:100%;
-padding:10px;
+padding:12px;
 margin:8px 0;
 border-radius:8px;
 border:none;
@@ -81,10 +82,6 @@ border-radius:10px;
 margin-top:20px;
 }
 
-.support{
-text-align:center;
-}
-
 footer{
 background:black;
 text-align:center;
@@ -103,36 +100,35 @@ header h1{font-size:35px;}
 
 <header>
 <h1>YIREH JOBS SITE</h1>
-<p>"Connecting Talent to Global Remote Opportunities — Build, Apply, Succeed."</p>
-<p>🌐 yireh.site | 📧 yireh.remotejobs@gmail.com</p>
+<p>Empowering Global Talent. Connecting Remote Futures.</p>
+<p>🌐 jireh.site | 📧 yireh.remotejobs@gmail.com</p>
 </header>
 
 <section>
 
-<!-- CV BUILDER -->
+<!-- COMPANY REGISTER -->
 <div class="card">
-<h2>Advanced CV Builder</h2>
-
-<input type="text" id="cvName" placeholder="Full Name"> <input type="text" id="cvDOB" placeholder="DOB">
-<input type="text" id="cvEmail" placeholder="Email">    <input type="text" id="cvPhone" placeholder="Phone">
-<textarea id="cvSkills" placeholder="Education"></textarea>
-<textarea id="cvSkills" placeholder="Skills"></textarea>
-<textarea id="cvExperience" placeholder="Experience"></textarea>
-<textarea id="cvExperience" placeholder="Projects"></textarea>
-<input type="file" id="cvPhoto" accept="image/*">
-
-<button onclick="generatePDF()">Download CV as PDF</button>
+<h2>Company Registration</h2>
+<input type="text" id="regName" placeholder="Company Name">
+<input type="email" id="regEmail" placeholder="Email">
+<input type="password" id="regPassword" placeholder="Password">
+<button onclick="register()">Register</button>
 </div>
 
-<!-- JOB BUILDER -->
+<!-- COMPANY LOGIN -->
 <div class="card">
-<h2>Create Job Post</h2>
+<h2>Company Login</h2>
+<input type="email" id="loginEmail" placeholder="Email">
+<input type="password" id="loginPassword" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
 
-<input type="text" id="jobTitle" placeholder="Job Title">  <input type="text" id="Contact email" placeholder="Contact email">
+<!-- POST JOB -->
+<div class="card">
+<h2>Post Job</h2>
+<input type="text" id="jobTitle" placeholder="Job Title">
 <textarea id="jobDesc" placeholder="Job Description"></textarea>
-<input type="text" id="jobCompany" placeholder="Company Name">  <input type="text" id="Contact Phone" placeholder="Contact Phone">
-
-<button onclick="addJob()">Publish Job</button>
+<button onclick="postJob()">Publish Job</button>
 </div>
 
 <!-- JOB BOARD -->
@@ -141,14 +137,25 @@ header h1{font-size:35px;}
 <div id="jobList"></div>
 </div>
 
+<!-- CV BUILDER -->
+<div class="card">
+<h2>Advanced CV Builder</h2>
+<input type="text" id="cvName" placeholder="Full Name">
+<input type="text" id="cvEmail" placeholder="Email">
+<input type="text" id="cvPhone" placeholder="Phone">
+<textarea id="cvSkills" placeholder="Skills"></textarea>
+<textarea id="cvExperience" placeholder="Experience"></textarea>
+<button onclick="generatePDF()">Download CV as PDF</button>
+</div>
+
 <!-- SUPPORT -->
-<div class="card support">
+<div class="card">
 <h2>Support Us</h2>
+<p>Support via PayPal</p>
 <a href="https://www.paypal.com/" target="_blank">
 <button>Donate with PayPal</button>
 </a>
-
-<p style="margin-top:30px;">
+<p style="margin-top:30px;">Support via Google Pay</p>
 <img src="QR CODE-9080581547.jpeg" width="250">
 </div>
 
@@ -159,51 +166,97 @@ header h1{font-size:35px;}
 </footer>
 
 <script>
-let jobs=[];
+const API_URL="https://your-backend-name.onrender.com";
+let token=null;
 
-function addJob(){
-let title=document.getElementById("jobTitle").value;  let title=document.getElementById("Contact emails").value;
-let desc=document.getElementById("jobDesc").value;
-let company=document.getElementById("jobCompany").value;let company=document.getElementById("Comtact Phone").value;
-
-let job={title,desc,company};
-jobs.push(job);
-displayJobs();
+async function register(){
+const res=await fetch(API_URL+"/register",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+name:regName.value,
+email:regEmail.value,
+password:regPassword.value
+})
+});
+alert("Registered Successfully");
 }
 
-function displayJobs(){
-let list=document.getElementById("jobList");
-list.innerHTML="";
-jobs.forEach((job,index)=>{
-list.innerHTML+=`
+async function login(){
+const res=await fetch(API_URL+"/login",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+email:loginEmail.value,
+password:loginPassword.value
+})
+});
+const data=await res.json();
+token=data.token;
+alert("Login Successful");
+}
+
+async function postJob(){
+await fetch(API_URL+"/post-job",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":token
+},
+body:JSON.stringify({
+title:jobTitle.value,
+description:jobDesc.value
+})
+});
+alert("Job Posted");
+loadJobs();
+}
+
+async function loadJobs(){
+const res=await fetch(API_URL+"/jobs");
+const jobs=await res.json();
+jobList.innerHTML="";
+jobs.forEach(job=>{
+jobList.innerHTML+=`
 <div class="job">
 <h3>${job.title}</h3>
-<p>${job.desc}</p>
-<p><b>${job.company}</b></p>
-<input type="file" id="apply${index}">
-<button onclick="applyJob(${index})">Apply</button>
+<p>${job.description}</p>
+<form onsubmit="apply(event,'${job._id}')">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<input type="file" name="cv" required>
+<button>Apply</button>
+</form>
 </div>
 `;
 });
 }
 
-function applyJob(i){
-alert("Application Submitted Successfully!");
+async function apply(e,id){
+e.preventDefault();
+let formData=new FormData(e.target);
+formData.append("jobId",id);
+
+await fetch(API_URL+"/apply",{
+method:"POST",
+body:formData
+});
+alert("Application Submitted");
 }
 
 async function generatePDF(){
 const { jsPDF } = window.jspdf;
-let doc = new jsPDF();
-
-doc.text("CV", 10, 10);
-doc.text("Name: "+document.getElementById("cvName").value,10,20);   doc.text("DOB: "+document.getElementById("DOB").value,10,20);
-doc.text("Email: "+document.getElementById("cvEmail").value,10,30); doc.text("Education: "+document.getElementById("Education").value,10,20);
-doc.text("Phone: "+document.getElementById("cvPhone").value,10,40);
-doc.text("Skills: "+document.getElementById("cvSkills").value,10,50);
-doc.text("Experience: "+document.getElementById("cvExperience").value,10,70);
-doc.text("Experience: "+document.getElementById("cvProjects").value,10,70);
+let doc=new jsPDF();
+doc.text("CURRICULUM VITAE",20,20);
+doc.text("Name: "+cvName.value,20,40);
+doc.text("Email: "+cvEmail.value,20,50);
+doc.text("Phone: "+cvPhone.value,20,60);
+doc.text("Skills: "+cvSkills.value,20,80);
+doc.text("Experience: "+cvExperience.value,20,110);
 doc.save("Yireh_CV.pdf");
 }
+
+loadJobs();
 </script>
 
 </body>
