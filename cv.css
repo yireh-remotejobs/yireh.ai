@@ -2,3 +2,38 @@ body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#0
+/* BIG GOLDEN MAIN TITLE */
+.main-title{
+text-align:center;
+font-size:70px;
+font-weight:900;
+color:#FFD700;
+letter-spacing:4px;
+margin-top:30px;
+margin-bottom:20px;
+}
+
+/* BIGGER LOGO TOP LEFT */
+.logo img{
+height:150px !important;
+}
+
+/* SUPPORT SECTION STYLE */
+.support-options{
+display:flex;
+justify-content:space-around;
+flex-wrap:wrap;
+gap:40px;
+margin-top:30px;
+}
+
+.support-box{
+text-align:center;
+}
+
+.support-box img{
+width:280px;
+margin-top:15px;
+border-radius:12px;
+border:2px solid #FFD700;
+}
