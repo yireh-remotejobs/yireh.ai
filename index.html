@@ -1,22 +1,338 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<title>YIREH JOBS SITE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===== GLOBAL ===== */
+
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
+  color:#333;
+}
+
+h1,h2,h3{
+  margin:0 0 15px 0;
+}
+
+button{
+  padding:12px 18px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+input, textarea, select{
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+  width:100%;
+  margin-bottom:10px;
+}
+
+/* ===== NAVBAR ===== */
+
+.navbar{
+  background:#111827;
+  color:white;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.navbar h2{
+  color:#fff;
+}
+
+.navbar a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:500;
+  cursor:pointer;
+}
+
+/* ===== SECTION LAYOUT ===== */
+
+.section{
+  margin:40px auto;
+  width:90%;
+  background:white;
+  border-radius:15px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  padding:30px;
+}
+
+.two-column{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
+.card{
+  background:#f8fafc;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.primary-btn{
+  background:#1e3c72;
+  color:white;
+}
+
+.secondary-btn{
+  background:#2a5298;
+  color:white;
+}
+
+.apply-btn{
+  background:#16a34a;
+  color:white;
+}
+
+.post-btn{
+  background:#7c3aed;
+  color:white;
+}
+
+.intern-btn{
+  background:#ec4899;
+  color:white;
+}
+
+.job-list, .intern-list{
+  max-height:300px;
+  overflow:auto;
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .two-column{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
 </head>
-<body onload="protectPage()">
 
-<nav class="navbar">
-  <a href="cv-builder.html">CV Builder</a>
-  <a href="jobs.html">Browse Jobs</a>
-  <a href="post-job.html">Post Job</a>
-  <a href="company.html">Company Panel</a>
-  <a href="admin.html">Admin</a>
-  <a onclick="logout()">Logout</a>
-</nav>
+<body>
 
-<h2>Welcome to Yireh Enterprise Dashboard</h2>
+<div class="navbar">
+  <h2>YIREH JOBS SITE</h2>
+  <div>
+    <a onclick="showSection('cv')">CV Builder</a>
+    <a onclick="showSection('jobs')">Jobs</a>
+    <a onclick="showSection('internships')">Internships</a>
+  </div>
+</div>
 
-<script src="assets/js/api.js"></script>
-<script src="assets/js/auth.js"></script>
+<!-- ================= CV BUILDER ================= -->
+
+<div class="section" id="cvSection">
+  <h1>Professional CV Builder</h1>
+  <div class="two-column">
+
+    <div class="card">
+      <h3>Build Your CV</h3>
+      <input type="text" id="cvName" placeholder="Full Name">
+      <input type="text" id="cvTitle" placeholder="Professional Title">
+      <input type="email" id="cvEmail" placeholder="Email">
+      <input type="text" id="cvPhone" placeholder="Phone">
+      <textarea id="cvSummary" placeholder="Professional Summary"></textarea>
+      <textarea id="cvSkills" placeholder="Skills (comma separated)"></textarea>
+      <textarea id="cvExperience" placeholder="Experience"></textarea>
+      <textarea id="cvEducation" placeholder="Education"></textarea>
+      <input type="file" id="cvPhoto">
+
+      <button class="primary-btn" onclick="saveCV()">Save CV</button>
+      <button class="secondary-btn" onclick="downloadPDF()">Download PDF</button>
+    </div>
+
+    <div class="card">
+      <h3>Live Preview</h3>
+      <div id="cvPreview"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= JOBS ================= -->
+
+<div class="section" id="jobsSection" style="display:none;">
+  <h1>Jobs Portal</h1>
+
+  <div class="two-column">
+
+    <div class="card">
+      <h3>Search & Apply Jobs</h3>
+      <input type="text" id="jobSearch" placeholder="Search Job">
+      <button class="apply-btn" onclick="searchJobs()">Search</button>
+      <div class="job-list" id="jobList"></div>
+    </div>
+
+    <div class="card">
+      <h3>Post New Job</h3>
+      <input type="text" id="jobTitle" placeholder="Job Title">
+      <input type="text" id="jobCompany" placeholder="Company">
+      <input type="text" id="jobLocation" placeholder="Location">
+      <input type="text" id="jobSalary" placeholder="Salary">
+      <textarea id="jobDescription" placeholder="Job Description"></textarea>
+      <button class="post-btn" onclick="postJob()">Post Job</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= INTERNSHIPS ================= -->
+
+<div class="section" id="internSection" style="display:none;">
+  <h1>Internships Portal</h1>
+
+  <div class="two-column">
+
+    <div class="card">
+      <h3>Search & Apply Internships</h3>
+      <input type="text" id="internSearch" placeholder="Search Internship">
+      <button class="intern-btn" onclick="searchInternships()">Search</button>
+      <div class="intern-list" id="internList"></div>
+    </div>
+
+    <div class="card">
+      <h3>Post Internship</h3>
+      <input type="text" id="internTitle" placeholder="Internship Title">
+      <input type="text" id="internCompany" placeholder="Company">
+      <input type="text" id="internLocation" placeholder="Location">
+      <input type="text" id="internDuration" placeholder="Duration">
+      <textarea id="internDescription" placeholder="Internship Description"></textarea>
+      <button class="intern-btn" onclick="postInternship()">Post Internship</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+/* ===== SECTION SWITCH ===== */
+
+function showSection(section){
+  document.getElementById("cvSection").style.display="none";
+  document.getElementById("jobsSection").style.display="none";
+  document.getElementById("internSection").style.display="none";
+
+  if(section==="cv") document.getElementById("cvSection").style.display="block";
+  if(section==="jobs") document.getElementById("jobsSection").style.display="block";
+  if(section==="internships") document.getElementById("internSection").style.display="block";
+}
+
+/* ===== CV PREVIEW ===== */
+
+document.querySelectorAll("#cvSection input, #cvSection textarea").forEach(el=>{
+  el.addEventListener("input", updatePreview);
+});
+
+function updatePreview(){
+  document.getElementById("cvPreview").innerHTML=`
+    <h2>${cvName.value}</h2>
+    <p><b>${cvTitle.value}</b></p>
+    <p>${cvSummary.value}</p>
+    <p><b>Skills:</b> ${cvSkills.value}</p>
+    <p><b>Experience:</b> ${cvExperience.value}</p>
+    <p><b>Education:</b> ${cvEducation.value}</p>
+  `;
+}
+
+function saveCV(){
+  alert("CV Saved (connect backend API)");
+}
+
+function downloadPDF(){
+  alert("PDF download (connect backend API)");
+}
+
+/* ===== JOBS ===== */
+
+let jobs=[];
+
+function postJob(){
+  jobs.push({
+    title:jobTitle.value,
+    company:jobCompany.value,
+    location:jobLocation.value,
+    salary:jobSalary.value,
+    description:jobDescription.value
+  });
+  alert("Job Posted");
+  renderJobs(jobs);
+}
+
+function renderJobs(list){
+  jobList.innerHTML="";
+  list.forEach(job=>{
+    jobList.innerHTML+=`
+      <div class="card">
+        <h3>${job.title}</h3>
+        <p>${job.company} - ${job.location}</p>
+        <p>${job.salary}</p>
+        <p>${job.description}</p>
+        <button class="apply-btn">Apply</button>
+      </div>
+    `;
+  });
+}
+
+function searchJobs(){
+  const keyword=jobSearch.value.toLowerCase();
+  const filtered=jobs.filter(j=>j.title.toLowerCase().includes(keyword));
+  renderJobs(filtered);
+}
+
+/* ===== INTERNSHIPS ===== */
+
+let internships=[];
+
+function postInternship(){
+  internships.push({
+    title:internTitle.value,
+    company:internCompany.value,
+    location:internLocation.value,
+    duration:internDuration.value,
+    description:internDescription.value
+  });
+  alert("Internship Posted");
+  renderInternships(internships);
+}
+
+function renderInternships(list){
+  internList.innerHTML="";
+  list.forEach(intern=>{
+    internList.innerHTML+=`
+      <div class="card">
+        <h3>${intern.title}</h3>
+        <p>${intern.company} - ${intern.location}</p>
+        <p>${intern.duration}</p>
+        <p>${intern.description}</p>
+        <button class="intern-btn">Apply</button>
+      </div>
+    `;
+  });
+}
+
+function searchInternships(){
+  const keyword=internSearch.value.toLowerCase();
+  const filtered=internships.filter(i=>i.title.toLowerCase().includes(keyword));
+  renderInternships(filtered);
+}
+
+</script>
+
 </body>
 </html>
