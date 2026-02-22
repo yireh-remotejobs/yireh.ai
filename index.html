@@ -135,35 +135,234 @@ input, textarea, select{
   </div>
 </div>
 
-<!-- ================= CV BUILDER ================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro CV Builder</title>
 
-<div class="section" id="cvSection">
-  <h1>Professional CV Builder</h1>
-  <div class="two-column">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
-    <div class="card">
-      <h3>Build Your CV</h3>
-      <input type="text" id="cvName" placeholder="Full Name">
-      <input type="text" id="cvTitle" placeholder="Professional Title">
-      <input type="email" id="cvEmail" placeholder="Email">
-      <input type="text" id="cvPhone" placeholder="Phone">
-      <textarea id="cvSummary" placeholder="Professional Summary"></textarea>
-      <textarea id="cvSkills" placeholder="Skills (comma separated)"></textarea>
-      <textarea id="cvExperience" placeholder="Experience"></textarea>
-      <textarea id="cvEducation" placeholder="Education"></textarea>
-      <input type="file" id="cvPhoto">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 20px;
+}
 
-      <button class="primary-btn" onclick="saveCV()">Save CV</button>
-      <button class="secondary-btn" onclick="downloadPDF()">Download PDF</button>
-    </div>
+.wrapper {
+    display: flex;
+    gap: 20px;
+}
 
-    <div class="card">
-      <h3>Live Preview</h3>
-      <div id="cvPreview"></div>
-    </div>
+.container {
+    width: 50%;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
 
-  </div>
+.preview {
+    width: 50%;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow-y: auto;
+}
+
+.section {
+    margin-bottom: 20px;
+    cursor: grab;
+}
+
+.section h2 {
+    background: #1B1464;
+    color: white;
+    padding: 6px;
+    font-size: 15px;
+    border-radius: 4px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background: #00A8FF;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.template-select {
+    margin-bottom: 15px;
+}
+
+.photo-preview {
+    width: 120px;
+    height: 140px;
+    border: 1px solid #ccc;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Templates */
+.template-modern { font-family: Arial; }
+.template-classic { font-family: Georgia; }
+.template-minimal { font-family: Calibri; }
+</style>
+</head>
+
+<body>
+
+<h2>Professional CV Builder - PRO</h2>
+
+<div class="template-select">
+<select onchange="changeTemplate(this.value)">
+<option value="template-modern">Modern</option>
+<option value="template-classic">Classic</option>
+<option value="template-minimal">Minimal</option>
+</select>
+<button onclick="downloadPDF()">Export to PDF</button>
 </div>
+
+<div class="wrapper">
+
+<!-- LEFT SIDE FORM (YOUR ORIGINAL STRUCTURE KEPT) -->
+<div class="container" id="formSections">
+
+<div class="section">
+<h2>Header</h2>
+<img id="photoPreview" class="photo-preview">
+<input type="file" accept="image/*" onchange="previewPhoto(event)">
+<input placeholder="Full Name" oninput="updatePreview()">
+<input placeholder="Professional Title" oninput="updatePreview()">
+<input placeholder="Phone" oninput="updatePreview()">
+<input placeholder="Email" oninput="updatePreview()">
+<input placeholder="Location" oninput="updatePreview()">
+<input placeholder="LinkedIn" oninput="updatePreview()">
+<input placeholder="Portfolio/GitHub" oninput="updatePreview()">
+</div>
+
+<div class="section">
+<h2>Professional Summary</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Technical Skills</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Soft Skills</h2>
+<input oninput="updatePreview()">
+</div>
+
+<div class="section">
+<h2>Work Experience</h2>
+<textarea placeholder="Add experience details..." oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Projects</h2>
+<textarea placeholder="Add project details..." oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Education</h2>
+<textarea placeholder="Add education details..." oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Certifications</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Languages</h2>
+<input oninput="updatePreview()">
+</div>
+
+<div class="section">
+<h2>Additional Info</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
+
+</div>
+
+<!-- RIGHT SIDE LIVE PREVIEW -->
+<div class="preview template-modern" id="cvPreview">
+<h2>Live CV Preview</h2>
+<div id="previewContent"></div>
+</div>
+
+</div>
+
+<script>
+
+// Drag & Drop
+new Sortable(document.getElementById('formSections'), {
+    animation: 150
+});
+
+// Photo Preview
+function previewPhoto(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+        document.getElementById('photoPreview').src = reader.result;
+        updatePreview();
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// Live Preview Update
+function updatePreview() {
+    const inputs = document.querySelectorAll("#formSections input, #formSections textarea");
+    let content = "";
+    inputs.forEach(input => {
+        if(input.value) {
+            content += "<p>" + input.value + "</p>";
+        }
+    });
+
+    const photo = document.getElementById("photoPreview").src;
+    if(photo){
+        content = "<img src='"+photo+"' style='width:120px;height:140px;'><br>" + content;
+    }
+
+    document.getElementById("previewContent").innerHTML = content;
+}
+
+// Template Switch
+function changeTemplate(template) {
+    const preview = document.getElementById("cvPreview");
+    preview.className = "preview " + template;
+}
+
+// Export PDF
+function downloadPDF() {
+    const element = document.getElementById("cvPreview");
+    html2pdf().from(element).save("My_CV.pdf");
+}
+
+</script>
+
+</body>
+</html>
 
 <!-- ================= JOBS ================= -->
 
