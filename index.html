@@ -115,17 +115,58 @@ button{
 <img id="photoPreview" width="120" height="140">
 <input type="file" accept="image/*" onchange="previewPhoto(event)">
 
-<input placeholder="Full Name" id="fullName" oninput="updatePreview()">
-<input placeholder="Professional Title" id="title" oninput="updatePreview()">
-<input placeholder="Phone" id="phone" oninput="updatePreview()">
-<input placeholder="Email" id="email" oninput="updatePreview()">
-<input placeholder="Location" id="location" oninput="updatePreview()">
+<input placeholder="Full Name" oninput="updatePreview()">
+<input placeholder="Professional Title" oninput="updatePreview()">
+<input placeholder="Phone" oninput="updatePreview()">
+<input placeholder="Email" oninput="updatePreview()">
+<input placeholder="Location" oninput="updatePreview()">
+<input placeholder="LinkedIn" oninput="updatePreview()">
+</div>
 
-<textarea placeholder="Professional Summary" id="summary" oninput="updatePreview()"></textarea>
-<textarea placeholder="Skills" id="skills" oninput="updatePreview()"></textarea>
-<textarea placeholder="Experience" id="experience" oninput="updatePreview()"></textarea>
-<textarea placeholder="Education" id="education" oninput="updatePreview()"></textarea>
+<div class="section">
+<h2>Professional Summary</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
 
+<div class="section">
+<h2>Technical Skills</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Soft Skills</h2>
+<input oninput="updatePreview()">
+</div>
+
+<div class="section">
+<h2>Work Experience</h2>
+<textarea placeholder="Add experience details..." oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Projects</h2>
+<textarea placeholder="Add project details..." oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Education</h2>
+<textarea placeholder="Add education details..." oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Certifications</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
+
+<div class="section">
+<h2>Languages</h2>
+<input oninput="updatePreview()">
+</div>
+
+<div class="section">
+<h2>Additional Info</h2>
+<textarea oninput="updatePreview()"></textarea>
+</div>
 <button class="primary-btn" onclick="downloadPDF()">Export PDF</button>
 
 </div>
@@ -202,14 +243,21 @@ function previewPhoto(event){
 /* LIVE PREVIEW */
 function updatePreview(){
   document.getElementById("previewContent").innerHTML = `
+    <h2>${photo.value}</h2>
     <h2>${fullName.value}</h2>
     <p><b>${title.value}</b></p>
-    <p>${phone.value} | ${email.value} | ${location.value}</p>
+    <p>${phone.value} | ${email.value} | ${location.value}</p> | ${linkedin.value}</p>
     <hr>
     <p><b>Summary:</b> ${summary.value}</p>
-    <p><b>Skills:</b> ${skills.value}</p>
+    <p><b>Technical Skills:</b> ${skills.value}</p>
+    <p><b>Soft Skills:</b> ${skills.value}</p>
     <p><b>Experience:</b> ${experience.value}</p>
+    <p><b>Projects:</b> ${projects.value}</p>
     <p><b>Education:</b> ${education.value}</p>
+    <p><b>Certifications:</b> ${certifications.value}</p>
+    <p><b>Languages:</b> ${languages.value}</p>
+    <p><b>Additional Info:</b> ${additional info.value}</p>
+    
   `;
 }
 
