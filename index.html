@@ -1,43 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>YIREH JOBS SITE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YIREH JOBS SITE</title>
+
+<!-- Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
 <style>
 
 /* ===== GLOBAL ===== */
-
 body{
   margin:0;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
-  color:#333;
 }
-
-h1,h2,h3{
-  margin:0 0 15px 0;
-}
-
-button{
-  padding:12px 18px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-input, textarea, select{
-  padding:12px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:14px;
-  width:100%;
-  margin-bottom:10px;
-}
-
-/* ===== NAVBAR ===== */
 
 .navbar{
   background:#111827;
@@ -45,420 +24,201 @@ input, textarea, select{
   padding:15px 30px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
-}
-
-.navbar h2{
-  color:#fff;
 }
 
 .navbar a{
-  color:#fff;
-  text-decoration:none;
+  color:white;
   margin-left:20px;
-  font-weight:500;
   cursor:pointer;
+  text-decoration:none;
 }
-
-/* ===== SECTION LAYOUT ===== */
 
 .section{
-  margin:40px auto;
+  display:none;
+  margin:30px auto;
   width:90%;
   background:white;
-  border-radius:15px;
+  padding:25px;
+  border-radius:12px;
   box-shadow:0 10px 40px rgba(0,0,0,0.2);
-  padding:30px;
 }
 
-.two-column{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
+.wrapper{
+  display:flex;
+  gap:20px;
 }
+
+.container, .preview{
+  width:50%;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+input, textarea{
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+button{
+  padding:8px 14px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.primary-btn{ background:#1e3c72;color:white; }
+.apply-btn{ background:#16a34a;color:white; }
+.post-btn{ background:#7c3aed;color:white; }
+.intern-btn{ background:#ec4899;color:white; }
 
 .card{
   background:#f8fafc;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+  padding:15px;
+  margin-top:10px;
+  border-radius:8px;
 }
 
-.primary-btn{
-  background:#1e3c72;
-  color:white;
-}
-
-.secondary-btn{
-  background:#2a5298;
-  color:white;
-}
-
-.apply-btn{
-  background:#16a34a;
-  color:white;
-}
-
-.post-btn{
-  background:#7c3aed;
-  color:white;
-}
-
-.intern-btn{
-  background:#ec4899;
-  color:white;
-}
-
-.job-list, .intern-list{
-  max-height:300px;
-  overflow:auto;
-}
-
-/* Responsive */
 @media(max-width:900px){
-  .two-column{
-    grid-template-columns:1fr;
-  }
+  .wrapper{flex-direction:column;}
+  .container,.preview{width:100%;}
 }
 
 </style>
 </head>
-
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
-  <h2>YIREH JOBS SITE</h2>
+  <div><b>YIREH JOBS SITE</b></div>
   <div>
-    <a onclick="showSection('cv')">CV Builder</a>
-    <a onclick="showSection('jobs')">Jobs</a>
-    <a onclick="showSection('internships')">Internships</a>
+    <a onclick="showSection('cvSection')">CV Builder</a>
+    <a onclick="showSection('jobsSection')">Jobs</a>
+    <a onclick="showSection('internSection')">Internships</a>
   </div>
 </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro CV Builder</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    margin: 0;
-    padding: 20px;
-}
-
-.wrapper {
-    display: flex;
-    gap: 20px;
-}
-
-.container {
-    width: 50%;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.preview {
-    width: 50%;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    overflow-y: auto;
-}
-
-.section {
-    margin-bottom: 20px;
-    cursor: grab;
-}
-
-.section h2 {
-    background: #1B1464;
-    color: white;
-    padding: 6px;
-    font-size: 15px;
-    border-radius: 4px;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 6px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    background: #00A8FF;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 5px;
-}
-
-.template-select {
-    margin-bottom: 15px;
-}
-
-.photo-preview {
-    width: 120px;
-    height: 140px;
-    border: 1px solid #ccc;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-/* Templates */
-.template-modern { font-family: Arial; }
-.template-classic { font-family: Georgia; }
-.template-minimal { font-family: Calibri; }
-</style>
-</head>
-
-<body>
-
-<h2>Professional CV Builder - PRO</h2>
-
-<div class="template-select">
-<select onchange="changeTemplate(this.value)">
-<option value="template-modern">Modern</option>
-<option value="template-classic">Classic</option>
-<option value="template-minimal">Minimal</option>
-</select>
-<button onclick="downloadPDF()">Export to PDF</button>
-</div>
+<!-- ================= CV BUILDER ================= -->
+<div class="section" id="cvSection" style="display:block;">
+<h2>Professional CV Builder</h2>
 
 <div class="wrapper">
 
-<!-- LEFT SIDE FORM (YOUR ORIGINAL STRUCTURE KEPT) -->
 <div class="container" id="formSections">
 
-<div class="section">
-<h2>Header</h2>
-<img id="photoPreview" class="photo-preview">
+<img id="photoPreview" width="120" height="140">
 <input type="file" accept="image/*" onchange="previewPhoto(event)">
-<input placeholder="Full Name" oninput="updatePreview()">
-<input placeholder="Professional Title" oninput="updatePreview()">
-<input placeholder="Phone" oninput="updatePreview()">
-<input placeholder="Email" oninput="updatePreview()">
-<input placeholder="Location" oninput="updatePreview()">
-<input placeholder="LinkedIn" oninput="updatePreview()">
-<input placeholder="Portfolio/GitHub" oninput="updatePreview()">
-</div>
 
-<div class="section">
-<h2>Professional Summary</h2>
-<textarea oninput="updatePreview()"></textarea>
-</div>
+<input placeholder="Full Name" id="fullName" oninput="updatePreview()">
+<input placeholder="Professional Title" id="title" oninput="updatePreview()">
+<input placeholder="Phone" id="phone" oninput="updatePreview()">
+<input placeholder="Email" id="email" oninput="updatePreview()">
+<input placeholder="Location" id="location" oninput="updatePreview()">
 
-<div class="section">
-<h2>Technical Skills</h2>
-<textarea oninput="updatePreview()"></textarea>
-</div>
+<textarea placeholder="Professional Summary" id="summary" oninput="updatePreview()"></textarea>
+<textarea placeholder="Skills" id="skills" oninput="updatePreview()"></textarea>
+<textarea placeholder="Experience" id="experience" oninput="updatePreview()"></textarea>
+<textarea placeholder="Education" id="education" oninput="updatePreview()"></textarea>
 
-<div class="section">
-<h2>Soft Skills</h2>
-<input oninput="updatePreview()">
-</div>
-
-<div class="section">
-<h2>Work Experience</h2>
-<textarea placeholder="Add experience details..." oninput="updatePreview()"></textarea>
-</div>
-
-<div class="section">
-<h2>Projects</h2>
-<textarea placeholder="Add project details..." oninput="updatePreview()"></textarea>
-</div>
-
-<div class="section">
-<h2>Education</h2>
-<textarea placeholder="Add education details..." oninput="updatePreview()"></textarea>
-</div>
-
-<div class="section">
-<h2>Certifications</h2>
-<textarea oninput="updatePreview()"></textarea>
-</div>
-
-<div class="section">
-<h2>Languages</h2>
-<input oninput="updatePreview()">
-</div>
-
-<div class="section">
-<h2>Additional Info</h2>
-<textarea oninput="updatePreview()"></textarea>
-</div>
+<button class="primary-btn" onclick="downloadPDF()">Export PDF</button>
 
 </div>
 
-<!-- RIGHT SIDE LIVE PREVIEW -->
-<div class="preview template-modern" id="cvPreview">
-<h2>Live CV Preview</h2>
+<div class="preview" id="cvPreview">
+<h2>Live Preview</h2>
 <div id="previewContent"></div>
 </div>
 
 </div>
-
-<script>
-
-// Drag & Drop
-new Sortable(document.getElementById('formSections'), {
-    animation: 150
-});
-
-// Photo Preview
-function previewPhoto(event) {
-    const reader = new FileReader();
-    reader.onload = function(){
-        document.getElementById('photoPreview').src = reader.result;
-        updatePreview();
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-// Live Preview Update
-function updatePreview() {
-    const inputs = document.querySelectorAll("#formSections input, #formSections textarea");
-    let content = "";
-    inputs.forEach(input => {
-        if(input.value) {
-            content += "<p>" + input.value + "</p>";
-        }
-    });
-
-    const photo = document.getElementById("photoPreview").src;
-    if(photo){
-        content = "<img src='"+photo+"' style='width:120px;height:140px;'><br>" + content;
-    }
-
-    document.getElementById("previewContent").innerHTML = content;
-}
-
-// Template Switch
-function changeTemplate(template) {
-    const preview = document.getElementById("cvPreview");
-    preview.className = "preview " + template;
-}
-
-// Export PDF
-function downloadPDF() {
-    const element = document.getElementById("cvPreview");
-    html2pdf().from(element).save("My_CV.pdf");
-}
-
-</script>
-
-</body>
-</html>
+</div>
 
 <!-- ================= JOBS ================= -->
+<div class="section" id="jobsSection">
+<h2>Jobs Portal</h2>
 
-<div class="section" id="jobsSection" style="display:none;">
-  <h1>Jobs Portal</h1>
+<input type="text" id="jobSearch" placeholder="Search Job">
+<button class="apply-btn" onclick="searchJobs()">Search</button>
 
-  <div class="two-column">
+<div id="jobList"></div>
 
-    <div class="card">
-      <h3>Search & Apply Jobs</h3>
-      <input type="text" id="jobSearch" placeholder="Search Job">
-      <button class="apply-btn" onclick="searchJobs()">Search</button>
-      <div class="job-list" id="jobList"></div>
-    </div>
+<h3>Post Job</h3>
+<input id="jobTitle" placeholder="Job Title">
+<input id="jobCompany" placeholder="Company">
+<input id="jobLocation" placeholder="Location">
+<input id="jobSalary" placeholder="Salary">
+<textarea id="jobDescription" placeholder="Description"></textarea>
+<button class="post-btn" onclick="postJob()">Post Job</button>
 
-    <div class="card">
-      <h3>Post New Job</h3>
-      <input type="text" id="jobTitle" placeholder="Job Title">
-      <input type="text" id="jobCompany" placeholder="Company">
-      <input type="text" id="jobLocation" placeholder="Location">
-      <input type="text" id="jobSalary" placeholder="Salary">
-      <textarea id="jobDescription" placeholder="Job Description"></textarea>
-      <button class="post-btn" onclick="postJob()">Post Job</button>
-    </div>
-
-  </div>
 </div>
 
 <!-- ================= INTERNSHIPS ================= -->
+<div class="section" id="internSection">
+<h2>Internships Portal</h2>
 
-<div class="section" id="internSection" style="display:none;">
-  <h1>Internships Portal</h1>
+<input type="text" id="internSearch" placeholder="Search Internship">
+<button class="intern-btn" onclick="searchInternships()">Search</button>
 
-  <div class="two-column">
+<div id="internList"></div>
 
-    <div class="card">
-      <h3>Search & Apply Internships</h3>
-      <input type="text" id="internSearch" placeholder="Search Internship">
-      <button class="intern-btn" onclick="searchInternships()">Search</button>
-      <div class="intern-list" id="internList"></div>
-    </div>
+<h3>Post Internship</h3>
+<input id="internTitle" placeholder="Internship Title">
+<input id="internCompany" placeholder="Company">
+<input id="internLocation" placeholder="Location">
+<input id="internDuration" placeholder="Duration">
+<textarea id="internDescription" placeholder="Description"></textarea>
+<button class="intern-btn" onclick="postInternship()">Post Internship</button>
 
-    <div class="card">
-      <h3>Post Internship</h3>
-      <input type="text" id="internTitle" placeholder="Internship Title">
-      <input type="text" id="internCompany" placeholder="Company">
-      <input type="text" id="internLocation" placeholder="Location">
-      <input type="text" id="internDuration" placeholder="Duration">
-      <textarea id="internDescription" placeholder="Internship Description"></textarea>
-      <button class="intern-btn" onclick="postInternship()">Post Internship</button>
-    </div>
-
-  </div>
 </div>
 
 <script>
 
-/* ===== SECTION SWITCH ===== */
-
-function showSection(section){
+/* SECTION SWITCH */
+function showSection(id){
   document.getElementById("cvSection").style.display="none";
   document.getElementById("jobsSection").style.display="none";
   document.getElementById("internSection").style.display="none";
-
-  if(section==="cv") document.getElementById("cvSection").style.display="block";
-  if(section==="jobs") document.getElementById("jobsSection").style.display="block";
-  if(section==="internships") document.getElementById("internSection").style.display="block";
+  document.getElementById(id).style.display="block";
 }
 
-/* ===== CV PREVIEW ===== */
+/* DRAG DROP */
+new Sortable(document.getElementById('formSections'), { animation:150 });
 
-document.querySelectorAll("#cvSection input, #cvSection textarea").forEach(el=>{
-  el.addEventListener("input", updatePreview);
-});
+/* PHOTO */
+function previewPhoto(event){
+  const reader = new FileReader();
+  reader.onload=function(){
+    document.getElementById("photoPreview").src=reader.result;
+    updatePreview();
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
 
+/* LIVE PREVIEW */
 function updatePreview(){
-  document.getElementById("cvPreview").innerHTML=`
-    <h2>${cvName.value}</h2>
-    <p><b>${cvTitle.value}</b></p>
-    <p>${cvSummary.value}</p>
-    <p><b>Skills:</b> ${cvSkills.value}</p>
-    <p><b>Experience:</b> ${cvExperience.value}</p>
-    <p><b>Education:</b> ${cvEducation.value}</p>
+  document.getElementById("previewContent").innerHTML = `
+    <h2>${fullName.value}</h2>
+    <p><b>${title.value}</b></p>
+    <p>${phone.value} | ${email.value} | ${location.value}</p>
+    <hr>
+    <p><b>Summary:</b> ${summary.value}</p>
+    <p><b>Skills:</b> ${skills.value}</p>
+    <p><b>Experience:</b> ${experience.value}</p>
+    <p><b>Education:</b> ${education.value}</p>
   `;
 }
 
-function saveCV(){
-  alert("CV Saved (connect backend API)");
-}
-
+/* PDF */
 function downloadPDF(){
-  alert("PDF download (connect backend API)");
+  html2pdf().from(document.getElementById("cvPreview")).save("My_CV.pdf");
 }
 
-/* ===== JOBS ===== */
-
+/* JOBS */
 let jobs=[];
 
 function postJob(){
@@ -469,7 +229,6 @@ function postJob(){
     salary:jobSalary.value,
     description:jobDescription.value
   });
-  alert("Job Posted");
   renderJobs(jobs);
 }
 
@@ -490,12 +249,10 @@ function renderJobs(list){
 
 function searchJobs(){
   const keyword=jobSearch.value.toLowerCase();
-  const filtered=jobs.filter(j=>j.title.toLowerCase().includes(keyword));
-  renderJobs(filtered);
+  renderJobs(jobs.filter(j=>j.title.toLowerCase().includes(keyword)));
 }
 
-/* ===== INTERNSHIPS ===== */
-
+/* INTERNSHIPS */
 let internships=[];
 
 function postInternship(){
@@ -506,7 +263,6 @@ function postInternship(){
     duration:internDuration.value,
     description:internDescription.value
   });
-  alert("Internship Posted");
   renderInternships(internships);
 }
 
@@ -527,8 +283,7 @@ function renderInternships(list){
 
 function searchInternships(){
   const keyword=internSearch.value.toLowerCase();
-  const filtered=internships.filter(i=>i.title.toLowerCase().includes(keyword));
-  renderInternships(filtered);
+  renderInternships(internships.filter(i=>i.title.toLowerCase().includes(keyword)));
 }
 
 </script>
