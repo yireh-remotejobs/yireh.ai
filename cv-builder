@@ -1,1 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YIREH CV BUILDER</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
+}
+
+.header{
+background:#111;
+color:#fff;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+}
+
+.container{
+display:flex;
+padding:20px;
+gap:20px;
+}
+
+.builder{
+width:50%;
+background:#fff;
+padding:20px;
+border-radius:10px;
+overflow-y:auto;
+height:85vh;
+}
+
+.preview{
+width:50%;
+background:#f4f4f4;
+padding:20px;
+border-radius:10px;
+overflow:auto;
+height:85vh;
+}
+
+h1{
+text-align:center;
+margin-bottom:10px;
+}
+
+.subtitle{
+text-align:center;
+margin-bottom:20px;
+font-style:italic;
+color:#444;
+}
+
+.section{
+border:1px solid #ddd;
+margin-bottom:10px;
+border-radius:8px;
+}
+
+.section-header{
+background:#2a5298;
+color:#fff;
+padding:10px;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.section-content{
+padding:10px;
+display:none;
+}
+
+textarea, input{
+width:100%;
+padding:8px;
+margin-bottom:8px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+.toggle-btn{
+background:#ffd700;
+border:none;
+padding:5px 10px;
+cursor:pointer;
+border-radius:15px;
+}
+
+.photo-upload{
+text-align:center;
+margin-bottom:15px;
+}
+
+.photo-upload img{
+width:120px;
+height:120px;
+object-fit:cover;
+border-radius:50%;
+cursor:move;
+}
+
+.template-selector{
+margin-bottom:15px;
+}
+
+button{
+padding:8px 15px;
+margin:5px 0;
+border:none;
+border-radius:20px;
+cursor:pointer;
+}
+
+.download-btn{
+background:#2a5298;
+color:#fff;
+}
+
+.save-btn{
+background:#28a745;
+color:#fff;
+}
+
+.share-btn{
+background:#d4af37;
+}
+
+.preview-area{
+background:#fff;
+padding:20px;
+min-height:100%;
+}
+
+.classic {color:#000;}
+.modern {border-left:20px solid #2a5298;}
+.creative {background:linear-gradient(135deg,#6dd5fa,#ffffff);}
+.executive {border-top:10px solid #d4af37;}
+
+@media(max-width:900px){
+.container{flex-direction:column;}
+.builder,.preview{width:100%;height:auto;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div class="logo">🌟 YIREH CAREERS</div>
+<div>support@yirehcareers.com</div>
+</div>
+
+<h1>YIREH CV BUILDER</h1>
+<div class="subtitle">"Design Your Future Professionally"</div>
+
+<div class="container">
+
+<div class="builder">
+
+<div class="photo-upload">
+<input type="file" id="photoInput">
+<br>
+<img id="photoPreview" src="" style="display:none;">
+</div>
+
+<div class="template-selector">
+<select id="templateSelect">
+<option value="classic">Classic Professional</option>
+<option value="modern">Modern Blue</option>
+<option value="creative">Creative Gradient</option>
+<option value="executive">Executive Gold</option>
+</select>
+</div>
+
+<div id="sections">
+
+<script>
+const sectionNames=[
+"Full Name","Professional Title","Phone","Email","Location","LinkedIn",
+"Professional Summary","Technical Skills","Soft Skills",
+"Work Experience","Projects","Education",
+"Certifications","Languages","Additional Info"
+];
+
+document.write(sectionNames.map(name=>`
+<div class="section">
+<div class="section-header">
+<span>${name}</span>
+<button class="toggle-btn">Show</button>
+</div>
+<div class="section-content">
+<textarea maxlength="6000" placeholder="Enter ${name}..."></textarea>
+</div>
+</div>
+`).join(""));
+</script>
+
+</div>
+
+<button class="download-btn" onclick="downloadPDF()">Download High Quality PDF</button>
+<button class="save-btn">Save to Dashboard</button>
+<button class="share-btn">Share CV Link</button>
+
+</div>
+
+<div class="preview">
+<div id="previewArea" class="preview-area classic"></div>
+</div>
+
+</div>
+
+<script>
+const sections=document.querySelectorAll(".section");
+
+sections.forEach(section=>{
+const header=section.querySelector(".section-header");
+const content=section.querySelector(".section-content");
+const btn=section.querySelector(".toggle-btn");
+
+header.addEventListener("click",()=>{
+content.style.display=content.style.display==="block"?"none":"block";
+btn.textContent=content.style.display==="block"?"Hide":"Show";
+});
+});
+
+new Sortable(document.getElementById("sections"),{animation:150});
+
+document.addEventListener("input",updatePreview);
+
+function updatePreview(){
+let html="";
+sections.forEach(section=>{
+const title=section.querySelector(".section-header span").innerText;
+const text=section.querySelector("textarea").value;
+if(text.trim()!==""){
+html+=`<h3>${title}</h3><p>${text}</p>`;
+}
+});
+document.getElementById("previewArea").innerHTML=html;
+}
+
+document.getElementById("templateSelect").addEventListener("change",function(){
+const preview=document.getElementById("previewArea");
+preview.className="preview-area "+this.value;
+});
+
+document.getElementById("photoInput").addEventListener("change",function(e){
+const reader=new FileReader();
+reader.onload=function(){
+const img=document.getElementById("photoPreview");
+img.src=reader.result;
+img.style.display="block";
+document.getElementById("previewArea").innerHTML=`<img src="${reader.result}" style="width:120px;border-radius:50%;"><br>`+document.getElementById("previewArea").innerHTML;
+};
+reader.readAsDataURL(e.target.files[0]);
+});
+
+async function downloadPDF(){
+const {jsPDF}=window.jspdf;
+const pdf=new jsPDF("p","pt","a4");
+const canvas=await html2canvas(document.getElementById("previewArea"));
+const imgData=canvas.toDataURL("image/png");
+pdf.addImage(imgData,"PNG",20,20,550,0);
+pdf.save("Yireh_CV.pdf");
+}
+</script>
+
+</body>
+</html>
