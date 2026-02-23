@@ -5,13 +5,11 @@ This is the full static website (Version B).
 Upload the following files to the GitHub repo root:
 
 - index.html
-- jobs.html
-- services.html
-- about.html
-- contact.html
-- styles.css
-- script.js
+- cv-builder
+- jobs
+- internships
 - CNAME
-- favicon.ico
 - logo.png
+- server.js
+- admin
 Custom domain: yireh.site
