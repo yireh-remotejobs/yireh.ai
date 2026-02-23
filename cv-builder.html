@@ -32,7 +32,7 @@ align-items:center;
 }
 
 .logo{
-font-size:30px;
+font-size:60px;
 font-weight:700;
 }
 
@@ -67,9 +67,11 @@ margin-bottom:10px;
 
 .subtitle{
 text-align:center;
-margin-bottom:20px;
+margin-bottom:25px;
 font-style:italic;
-color:#444;
+color:#ffffff;   /* White text */
+font-weight:600;
+}
 }
 
 .section{
@@ -170,8 +172,10 @@ min-height:100%;
 
 <div class="header">
 <div class="logo">
-  <a href="index.html" style="color:white;text-decoration:none;">
-    🌟 YIREH CAREERS
+  <a href="index.html">
+    <img src="logo.png" style="height:55px;">
+  </a>
+</div>
   </a>
 </div>
 <div>yireh.remotejobs@gmail.com</div>
@@ -255,15 +259,30 @@ new Sortable(document.getElementById("sections"),{animation:150});
 document.addEventListener("input",updatePreview);
 
 function updatePreview(){
-let html="";
-sections.forEach(section=>{
-const title=section.querySelector(".section-header span").innerText;
-const text=section.querySelector("textarea").value;
-if(text.trim()!==""){
-html+=`<h3>${title}</h3><p>${text}</p>`;
-}
-});
-document.getElementById("previewArea").innerHTML=html;
+    let html = "";
+
+    if(uploadedPhoto){
+        html += `<div style="text-align:center;margin-bottom:20px;">
+                    <img src="${uploadedPhoto}" 
+                    style="width:130px;height:130px;border-radius:50%;object-fit:cover;">
+                 </div>`;
+    }
+
+    sections.forEach(section=>{
+        const title = section.querySelector(".section-header span").innerText;
+        const text = section.querySelector("textarea").value;
+
+        if(text.trim() !== ""){
+            html += `
+                <div style="margin-bottom:15px;">
+                    <h3 style="margin-bottom:5px;">${title}</h3>
+                    <p style="white-space:pre-wrap;">${text}</p>
+                </div>
+            `;
+        }
+    });
+
+    document.getElementById("previewArea").innerHTML = html;
 }
 
 document.getElementById("templateSelect").addEventListener("change",function(){
@@ -271,24 +290,40 @@ const preview=document.getElementById("previewArea");
 preview.className="preview-area "+this.value;
 });
 
-document.getElementById("photoInput").addEventListener("change",function(e){
-const reader=new FileReader();
-reader.onload=function(){
-const img=document.getElementById("photoPreview");
-img.src=reader.result;
-img.style.display="block";
-document.getElementById("previewArea").innerHTML=`<img src="${reader.result}" style="width:120px;border-radius:50%;"><br>`+document.getElementById("previewArea").innerHTML;
-};
-reader.readAsDataURL(e.target.files[0]);
+let uploadedPhoto = "";
+
+document.getElementById("photoInput").addEventListener("change", function(e){
+    const reader = new FileReader();
+    reader.onload = function(){
+        uploadedPhoto = reader.result;
+        document.getElementById("photoPreview").src = uploadedPhoto;
+        document.getElementById("photoPreview").style.display = "block";
+        updatePreview();
+    };
+    reader.readAsDataURL(e.target.files[0]);
 });
 
 async function downloadPDF(){
-const {jsPDF}=window.jspdf;
-const pdf=new jsPDF("p","pt","a4");
-const canvas=await html2canvas(document.getElementById("previewArea"));
-const imgData=canvas.toDataURL("image/png");
-pdf.addImage(imgData,"PNG",20,20,550,0);
-pdf.save("Yireh_CV.pdf");
+    const { jsPDF } = window.jspdf;
+
+    const element = document.getElementById("previewArea");
+
+    const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p","pt","a4");
+
+    const imgWidth = 595; 
+    const pageHeight = 842;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+    pdf.addImage(imgData,"PNG",0,0,imgWidth,imgHeight);
+
+    pdf.save("Yireh_CV.pdf");
 }
 </script>
 
