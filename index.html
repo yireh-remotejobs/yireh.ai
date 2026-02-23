@@ -3,298 +3,307 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YIREH JOBS SITE</title>
+<title>YIREH CAREERS | Empowering Talent</title>
 
-<!-- Libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-/* ===== GLOBAL ===== */
-body{
+*{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
+
+body{
+  background: linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
+  color:#333;
+}
+
+/* ===== NAVBAR ===== */
 
 .navbar{
-  background:#111827;
-  color:white;
-  padding:15px 30px;
   display:flex;
   justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  color:#fff;
 }
 
-.navbar a{
-  color:white;
-  margin-left:20px;
-  cursor:pointer;
+.logo{
+  font-size:22px;
+  font-weight:700;
+}
+
+.nav-links a{
+  color:#fff;
+  margin:0 10px;
   text-decoration:none;
+  font-weight:500;
+  transition:0.3s;
 }
 
-.section{
-  display:none;
-  margin:30px auto;
-  width:90%;
-  background:white;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+.nav-links a:hover{
+  color:#ffd700;
 }
 
-.wrapper{
-  display:flex;
-  gap:20px;
-}
-
-.container, .preview{
-  width:50%;
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-input, textarea{
-  width:100%;
-  padding:8px;
-  margin-bottom:10px;
-  border:1px solid #ccc;
-  border-radius:6px;
-}
-
-button{
-  padding:8px 14px;
+.support-buttons button{
+  margin-left:10px;
+  padding:6px 12px;
   border:none;
-  border-radius:6px;
+  border-radius:20px;
   cursor:pointer;
-  font-weight:bold;
-  margin-top:5px;
+  font-size:12px;
+  font-weight:600;
 }
 
-.primary-btn{ background:#1e3c72;color:white; }
-.apply-btn{ background:#16a34a;color:white; }
-.post-btn{ background:#7c3aed;color:white; }
-.intern-btn{ background:#ec4899;color:white; }
-
-.card{
-  background:#f8fafc;
-  padding:15px;
-  margin-top:10px;
-  border-radius:8px;
+.paypal{
+  background:#ffc439;
 }
 
-@media(max-width:900px){
-  .wrapper{flex-direction:column;}
-  .container,.preview{width:100%;}
+.gpay{
+  background:#000;
+  color:#fff;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+  text-align:center;
+  padding:80px 20px;
+  color:#fff;
+}
+
+.hero h1{
+  font-size:48px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  font-size:18px;
+  margin-bottom:30px;
+}
+
+.hero-buttons button{
+  padding:12px 25px;
+  margin:10px;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.primary-btn{
+  background:#ffd700;
+}
+
+.secondary-btn{
+  background:#fff;
+}
+
+.hero-buttons button:hover{
+  transform:scale(1.05);
+}
+
+/* ===== FEATURES ===== */
+
+.features{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:60px 20px;
+  background:#f4f4f4;
+}
+
+.feature-box{
+  background:#fff;
+  width:300px;
+  margin:20px;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
+
+.feature-box:hover{
+  transform:translateY(-10px);
+}
+
+.feature-box img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.feature-content{
+  padding:20px;
+  text-align:center;
+}
+
+.feature-content h3{
+  margin-bottom:10px;
+}
+
+.feature-content p{
+  font-size:14px;
+  margin-bottom:15px;
+}
+
+.feature-content button{
+  padding:8px 15px;
+  border:none;
+  border-radius:20px;
+  background:#2a5298;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* ===== SCAM ALERT ===== */
+
+.scam-alert{
+  background:#b00020;
+  color:#fff;
+  text-align:center;
+  padding:25px 15px;
+}
+
+.scam-alert h2{
+  margin-bottom:10px;
+}
+
+/* ===== INSPIRATION ===== */
+
+.inspiration{
+  text-align:center;
+  padding:60px 20px;
+  background:#fff;
+}
+
+.inspiration h2{
+  margin-bottom:20px;
+  color:#2a5298;
+}
+
+.quote{
+  font-size:18px;
+  margin:10px 0;
+  font-style:italic;
+}
+
+/* ===== FOOTER ===== */
+
+.footer{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+}
+
+.footer p{
+  margin:5px 0;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:768px){
+  .hero h1{
+    font-size:32px;
+  }
+  .features{
+    flex-direction:column;
+    align-items:center;
+  }
 }
 
 </style>
 </head>
+
 <body>
 
 <!-- NAVBAR -->
 <div class="navbar">
-  <div><b>YIREH JOBS SITE</b></div>
-  <div>
-    <a onclick="showSection('cvSection')">CV Builder</a>
-    <a onclick="showSection('jobsSection')">Jobs</a>
-    <a onclick="showSection('internSection')">Internships</a>
+  <div class="logo">YIREH CAREERS</div>
+
+  <div class="nav-links">
+    <a href="#">CV Builder</a>
+    <a href="#">Jobs</a>
+    <a href="#">Internships</a>
+    <a href="#">Scam Alerts</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <div class="support-buttons">
+    <button class="paypal">PayPal</button>
+    <button class="gpay">Google Pay</button>
   </div>
 </div>
 
-<!-- ================= CV BUILDER ================= -->
-<div class="section" id="cvSection" style="display:block;">
-<h2>Professional CV Builder</h2>
+<!-- HERO -->
+<section class="hero">
+  <h1>Empowering Talent. Building Futures.</h1>
+  <p>Your career journey starts here. Build stunning resumes and discover verified opportunities worldwide.</p>
 
-<div class="wrapper">
+  <div class="hero-buttons">
+    <button class="primary-btn">Build CV Now</button>
+    <button class="secondary-btn">Find Jobs</button>
+    <button class="secondary-btn">Explore Internships</button>
+  </div>
+</section>
 
-<div class="container" id="formSections">
+<!-- FEATURES -->
+<section class="features">
 
-<img id="photoPreview" width="120" height="140">
-<input type="file" accept="image/*" onchange="previewPhoto(event)">
+  <div class="feature-box">
+    <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4" alt="CV Builder">
+    <div class="feature-content">
+      <h3>CV Builder</h3>
+      <p>Create professional resumes with multiple premium templates and high-quality PDF export.</p>
+      <button>Start Building</button>
+    </div>
+  </div>
 
-<input placeholder="Full Name" oninput="updatePreview()">
-<input placeholder="Professional Title" oninput="updatePreview()">
-<input placeholder="Phone" oninput="updatePreview()">
-<input placeholder="Email" oninput="updatePreview()">
-<input placeholder="Location" oninput="updatePreview()">
-<input placeholder="LinkedIn" oninput="updatePreview()">
-<input placeholder="Professional Summary" oninput="updatePreview()">
-<input placeholder="Technical Skills" oninput="updatePreview()">
-<input placeholder="Soft Skills" oninput="updatePreview()">
-<input placeholder="Work Experience" oninput="updatePreview()">
-<input placeholder="Projects" oninput="updatePreview()">
-<input placeholder="Education" oninput="updatePreview()">
-<input placeholder="Certifications" oninput="updatePreview()">
-<input placeholder="Languages" oninput="updatePreview()">
-<input placeholder="Additional Info" oninput="updatePreview()">
-  
-<div class="preview" id="cvPreview">
-<h2>Live Preview</h2>
-<div id="previewContent"></div>
+  <div class="feature-box">
+    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" alt="Jobs">
+    <div class="feature-content">
+      <h3>Verified Jobs</h3>
+      <p>Discover trusted job opportunities from verified employers across industries.</p>
+      <button>Browse Jobs</button>
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" alt="Internships">
+    <div class="feature-content">
+      <h3>Internships</h3>
+      <p>Gain real-world experience and kickstart your career with curated internships.</p>
+      <button>Explore Internships</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- SCAM ALERT -->
+<section class="scam-alert">
+  <h2>⚠ Scam Alert Notice</h2>
+  <p>Yireh Careers will NEVER ask for payment for job offers. Always verify recruiters and report suspicious listings.</p>
+</section>
+
+<!-- INSPIRATION -->
+<section class="inspiration">
+  <h2>Be Inspired</h2>
+  <div class="quote">"Success is not given. It is built."</div>
+  <div class="quote">"Your future is created by what you do today."</div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>📧 support@yirehcareers.com</p>
+  <p>© 2026 YIREH CAREERS. All Rights Reserved.</p>
 </div>
-
-</div>
-</div>
-
-<!-- ================= JOBS ================= -->
-<div class="section" id="jobsSection">
-<h2>Jobs Portal</h2>
-
-<input type="text" id="jobSearch" placeholder="Search Job">
-<button class="apply-btn" onclick="searchJobs()">Search</button>
-
-<div id="jobList"></div>
-
-<h3>Post Job</h3>
-<input id="jobTitle" placeholder="Job Title">
-<input id="jobCompany" placeholder="Company">
-<input id="jobLocation" placeholder="Location">
-<input id="jobSalary" placeholder="Salary">
-<textarea id="jobDescription" placeholder="Description"></textarea>
-<button class="post-btn" onclick="postJob()">Post Job</button>
-
-</div>
-
-<!-- ================= INTERNSHIPS ================= -->
-<div class="section" id="internSection">
-<h2>Internships Portal</h2>
-
-<input type="text" id="internSearch" placeholder="Search Internship">
-<button class="intern-btn" onclick="searchInternships()">Search</button>
-
-<div id="internList"></div>
-
-<h3>Post Internship</h3>
-<input id="internTitle" placeholder="Internship Title">
-<input id="internCompany" placeholder="Company">
-<input id="internLocation" placeholder="Location">
-<input id="internDuration" placeholder="Duration">
-<textarea id="internDescription" placeholder="Description"></textarea>
-<button class="intern-btn" onclick="postInternship()">Post Internship</button>
-
-</div>
-
-<script>
-
-/* SECTION SWITCH */
-function showSection(id){
-  document.getElementById("cvSection").style.display="none";
-  document.getElementById("jobsSection").style.display="none";
-  document.getElementById("internSection").style.display="none";
-  document.getElementById(id).style.display="block";
-}
-
-/* DRAG DROP */
-new Sortable(document.getElementById('formSections'), { animation:150 });
-
-/* PHOTO */
-function previewPhoto(event){
-  const reader = new FileReader();
-  reader.onload=function(){
-    document.getElementById("photoPreview").src=reader.result;
-    updatePreview();
-  };
-  reader.readAsDataURL(event.target.files[0]);
-}
-
-/* LIVE PREVIEW */
-function updatePreview(){
-  document.getElementById("previewContent").innerHTML = `
-    <h2>${photo.value}</h2>
-    <h2>${fullName.value}</h2>
-    <p><b>${title.value}</b></p>
-    <p>${phone.value} | ${email.value} | ${location.value}</p> | ${linkedin.value}</p>
-    <hr>
-    <p><b>Summary:</b> ${summary.value}</p>
-    <p><b>Technical Skills:</b> ${skills.value}</p>
-    <p><b>Soft Skills:</b> ${skills.value}</p>
-    <p><b>Experience:</b> ${experience.value}</p>
-    <p><b>Projects:</b> ${projects.value}</p>
-    <p><b>Education:</b> ${education.value}</p>
-    <p><b>Certifications:</b> ${certifications.value}</p>
-    <p><b>Languages:</b> ${languages.value}</p>
-    <p><b>Additional Info:</b> ${additional info.value}</p>
-    
-  `;
-}
-
-/* PDF */
-function downloadPDF(){
-  html2pdf().from(document.getElementById("cvPreview")).save("My_CV.pdf");
-}
-
-/* JOBS */
-let jobs=[];
-
-function postJob(){
-  jobs.push({
-    title:jobTitle.value,
-    company:jobCompany.value,
-    location:jobLocation.value,
-    salary:jobSalary.value,
-    description:jobDescription.value
-  });
-  renderJobs(jobs);
-}
-
-function renderJobs(list){
-  jobList.innerHTML="";
-  list.forEach(job=>{
-    jobList.innerHTML+=`
-      <div class="card">
-        <h3>${job.title}</h3>
-        <p>${job.company} - ${job.location}</p>
-        <p>${job.salary}</p>
-        <p>${job.description}</p>
-        <button class="apply-btn">Apply</button>
-      </div>
-    `;
-  });
-}
-
-function searchJobs(){
-  const keyword=jobSearch.value.toLowerCase();
-  renderJobs(jobs.filter(j=>j.title.toLowerCase().includes(keyword)));
-}
-
-/* INTERNSHIPS */
-let internships=[];
-
-function postInternship(){
-  internships.push({
-    title:internTitle.value,
-    company:internCompany.value,
-    location:internLocation.value,
-    duration:internDuration.value,
-    description:internDescription.value
-  });
-  renderInternships(internships);
-}
-
-function renderInternships(list){
-  internList.innerHTML="";
-  list.forEach(intern=>{
-    internList.innerHTML+=`
-      <div class="card">
-        <h3>${intern.title}</h3>
-        <p>${intern.company} - ${intern.location}</p>
-        <p>${intern.duration}</p>
-        <p>${intern.description}</p>
-        <button class="intern-btn">Apply</button>
-      </div>
-    `;
-  });
-}
-
-function searchInternships(){
-  const keyword=internSearch.value.toLowerCase();
-  renderInternships(internships.filter(i=>i.title.toLowerCase().includes(keyword)));
-}
-
-</script>
 
 </body>
 </html>
