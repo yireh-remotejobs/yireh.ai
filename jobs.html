@@ -155,6 +155,50 @@ input[type="file"]{ padding:6px; }
     </select>
     <button class="search-btn" onclick="filterJobs()">Search</button>
   </div>
+  <section class="jobs-container">
+
+  <!-- LEFT SIDE JOB LIST -->
+  <div class="job-list-section">
+
+    <div id="jobList"></div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <button onclick="prevPage()">Previous</button>
+      <span id="pageNumber">1</span>
+      <button onclick="nextPage()">Next</button>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDE POST JOB FORM -->
+  <div class="post-job-sidebar">
+
+    <h2>Post a Job</h2>
+
+    <form id="jobForm">
+
+      <input type="text" placeholder="Company Name" required>
+      <input type="text" placeholder="Job Title" required>
+      <input type="text" placeholder="Location" required>
+      <input type="text" placeholder="Salary">
+      <input type="email" placeholder="Contact Email" required>
+      <input type="date" placeholder="Application Deadline" required>
+
+      <textarea placeholder="Job Description" required></textarea>
+
+      <label>Upload Company Logo</label>
+      <input type="file" id="logoUpload" accept="image/*">
+
+      <img id="logoPreview" style="display:none; width:80px; margin-top:10px;"/>
+
+      <button type="submit">Submit Job</button>
+
+    </form>
+
+  </div>
+
+</section>
 </section>
 
 <!-- MAIN -->
