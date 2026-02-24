@@ -70,6 +70,16 @@
 .jobs-wrapper{
   flex:1;
 }
+  /* ===== RIGHT JOB POST ===== */
+.post-job-sidebar{
+  width:320px;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  position:sticky;
+  top:20px;
+}
 .job-card{
   background:#fff;
   padding:20px;
@@ -90,7 +100,24 @@
 .apply-btn{ background:#28a745; color:#fff; }
 .save-btn{ background:#ff9800; color:#fff; }
 .share-btn{ background:#2a5298; color:#fff; }
-
+/* ===== POST JOB FORM ===== */
+.post-job-sidebar input,
+.post-job-sidebar textarea{
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+.post-job-sidebar button{
+  width:100%;
+  padding:10px;
+  background:#2a5298;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
 /* ===== MODALS ===== */
 .modal{
   display:none;
@@ -134,7 +161,6 @@ input[type="file"]{ padding:6px; }
     <a href="cv-builder.html">CV Builder</a>
     <a href="jobs.html">Jobs</a>
     <a href="internships.html">Internships</a>
-    <a href="#">Post a Job</a>
     <a href="#">Login/Register</a>
     <a href="#">Contact</a>
   </div>
@@ -172,8 +198,28 @@ input[type="file"]{ padding:6px; }
 
   <!-- LEFT SIDE JOB LIST -->
   <div class="job-list-section">
-
     <div id="jobList"></div>
+    <!-- RIGHT SIDE POST JOB -->
+  <div class="post-job-sidebar">
+    <h2>Post a Job</h2>
+    <form id="jobForm">
+      <input type="text" placeholder="Company Name" required>
+      <input type="text" placeholder="Job Title" required>
+      <input type="text" placeholder="Location" required>
+      <input type="text" placeholder="Salary">
+      <input type="email" placeholder="Contact Email" required>
+      <input type="date" required>
+      <textarea placeholder="Job Description" required></textarea>
+
+      <label>Upload Company Logo</label>
+      <input type="file" id="logoUpload" accept="image/*">
+      <img id="logoPreview" style="display:none; width:80px; margin-top:10px;"/>
+
+      <button type="submit">Submit Job</button>
+    </form>
+  </div>
+
+</div>
 
     <!-- PAGINATION -->
     <div class="pagination">
@@ -181,33 +227,6 @@ input[type="file"]{ padding:6px; }
       <span id="pageNumber">1</span>
       <button onclick="nextPage()">Next</button>
     </div>
-
-  </div>
-
-  <!-- RIGHT SIDE POST JOB FORM -->
-  <div class="post-job-sidebar">
-
-    <h2>Post a Job</h2>
-
-    <form id="jobForm">
-
-      <input type="text" placeholder="Company Name" required>
-      <input type="text" placeholder="Job Title" required>
-      <input type="text" placeholder="Location" required>
-      <input type="text" placeholder="Salary">
-      <input type="email" placeholder="Contact Email" required>
-      <input type="date" placeholder="Application Deadline" required>
-
-      <textarea placeholder="Job Description" required></textarea>
-
-      <label>Upload Company Logo</label>
-      <input type="file" id="logoUpload" accept="image/*">
-
-      <img id="logoPreview" style="display:none; width:80px; margin-top:10px;"/>
-
-      <button type="submit">Submit Job</button>
-
-    </form>
 
   </div>
 
