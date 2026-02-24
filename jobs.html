@@ -1,1 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YIREH CAREERS | Jobs</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+
+/* ===== HEADER ===== */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 40px;
+  background:#111;
+  color:#fff;
+}
+.logo img{ height:50px; }
+.nav-links a{
+  color:#fff; margin:0 12px; text-decoration:none; font-weight:500; transition:0.3s;
+}
+.nav-links a:hover{ color:#ffd700; }
+
+.search-btn{
+  padding:6px 12px; background:#ffd700; border:none; border-radius:20px; cursor:pointer;
+}
+
+/* ===== HERO ===== */
+.hero{
+  padding:60px 40px;
+  background:linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
+  color:#fff;
+  text-align:center;
+}
+.hero h1{ font-size:38px; margin-bottom:15px; }
+.search-bar{ display:flex; gap:15px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+.search-bar input, .search-bar select{
+  padding:10px 15px; border-radius:6px; border:none; min-width:220px;
+}
+
+/* ===== MAIN CONTENT ===== */
+.container{
+  display:flex;
+  gap:20px;
+  padding:30px 40px;
+}
+
+/* ==== FILTERS ===== */
+.filters{
+  width:280px;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+.filters h3{ margin-bottom:15px; }
+.filters label{ display:block; margin:8px 0 4px; font-size:14px; font-weight:600; }
+.filters input, .filters select{
+  width:100%; padding:8px 10px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;
+}
+.filters button{
+  width:100%; padding:10px; background:#2a5298; color:#fff; border:none; border-radius:6px; cursor:pointer;
+}
+
+/* ===== JOB LISTINGS ===== */
+.jobs-wrapper{
+  flex:1;
+}
+.job-card{
+  background:#fff;
+  padding:20px;
+  margin-bottom:18px;
+  border-radius:8px;
+  box-shadow:0 5px 18px rgba(0,0,0,0.1);
+  position:relative;
+}
+.job-card h3{margin-bottom:6px;}
+.job-meta{
+  display:flex; gap:15px; margin:8px 0;
+  font-size:14px; color:#555;
+}
+.job-desc{ font-size:14px; margin-bottom:10px; }
+.job-actions button{
+  padding:8px 14px; margin-right:8px; border:none; border-radius:20px; cursor:pointer;
+}
+.apply-btn{ background:#28a745; color:#fff; }
+.save-btn{ background:#ff9800; color:#fff; }
+.share-btn{ background:#2a5298; color:#fff; }
+
+/* ===== MODALS ===== */
+.modal{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center; align-items:center;
+  padding:20px;
+}
+.modal-content{
+  width:100%; max-width:600px;
+  background:#fff; padding:30px; border-radius:8px;
+  position:relative;
+}
+modal-close{
+  position:absolute; top:15px; right:20px;
+  font-size:18px; cursor:pointer;
+}
+
+/* ===== FORM ===== */
+input[type="file"]{ padding:6px; }
+
+/* ===== RESP ===== */
+@media(max-width:900px){
+  .container{ flex-direction:column; }
+  .filters{ width:100%; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="navbar">
+  <div class="logo">
+    <a href="index.html"><img src="logo.png" alt="Yireh Careers"></a>
+  </div>
+
+  <div class="nav-links">
+    <a href="cv-builder.html">CV Builder</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="internships.html">Internships</a>
+    <a href="#">Post a Job</a>
+    <a href="#">Login/Register</a>
+    <a href="#">Contact</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Find Jobs Worldwide</h1>
+  <div class="search-bar">
+    <input type="text" id="keyword" placeholder="🔎 Job title or keyword">
+    <input type="text" id="location" placeholder="🌍 Location (City or Country)">
+    <select id="jobType">
+      <option value="">All Types</option>
+      <option>Full-Time</option>
+      <option>Part-Time</option>
+      <option>Contract</option>
+      <option>Remote</option>
+    </select>
+    <button class="search-btn" onclick="filterJobs()">Search</button>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- FILTERS -->
+  <aside class="filters">
+    <h3>Filter Results</h3>
+    <label>Country</label>
+    <input type="text" id="filterCountry">
+
+    <label>Salary Range</label>
+    <select id="filterSalary">
+      <option value="">Any</option>
+      <option>30K - 50K</option>
+      <option>50K - 80K</option>
+      <option>80K - 120K</option>
+    </select>
+
+    <label>Job Type</label>
+    <select id="filterType">
+      <option value="">Any</option>
+      <option>Full-Time</option>
+      <option>Part-Time</option>
+      <option>Contract</option>
+      <option>Remote</option>
+    </select>
+
+    <label>Date Posted</label>
+    <select id="filterDate">
+      <option value="">Any</option>
+      <option>Last 24 Hours</option>
+      <option>Last 7 Days</option>
+      <option>Last 30 Days</option>
+    </select>
+
+    <button onclick="filterJobs()">Apply Filters</button>
+  </aside>
+
+  <!-- JOB LISTINGS -->
+  <div class="jobs-wrapper" id="jobsWrapper">
+    <!-- dynamic job cards inserted here -->
+  </div>
+
+</div>
+
+<!-- JOB DETAILS MODAL -->
+<div class="modal" id="jobModal">
+  <div class="modal-content">
+    <span onclick="closeModal('jobModal')" style="cursor:pointer; float:right;">✖</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+    <button class="apply-btn" onclick="openApplyModal()">Apply Now</button>
+  </div>
+</div>
+
+<!-- APPLY MODAL -->
+<div class="modal" id="applyModal">
+  <div class="modal-content">
+    <span onclick="closeModal('applyModal')" style="cursor:pointer; float:right;">✖</span>
+    <h2>Apply For Job</h2>
+
+    <input type="text" id="appName" placeholder="Full Name"><br><br>
+    <input type="email" id="appEmail" placeholder="Email"><br><br>
+    <input type="text" id="appPhone" placeholder="Phone"><br><br>
+    <input type="text" id="appCountry" placeholder="Country"><br><br>
+
+    <label>Upload CV (PDF/DOC)</label><br>
+    <input type="file" id="appCV"><br><br>
+
+    <button onclick="submitApplication()">Submit Application</button>
+  </div>
+</div>
+
+<script>
+// === SAMPLE JOB DATA ===
+const jobsData = [
+  {
+    id:1, title:"Front End Developer", company:"Tech Corp",
+    country:"USA", location:"New York", type:"Full-Time",
+    salary:"80K - 100K", posted:"5 days ago",
+    short:"Build responsive web apps using modern web technologies.",
+    description:"Full detailed description goes here including responsibilities, requirements, education, etc."
+  },
+  {
+    id:2, title:"Backend Engineer", company:"InnoSoft",
+    country:"Canada", location:"Toronto", type:"Remote",
+    salary:"70K - 90K", posted:"2 days ago",
+    short:"Work with REST APIs, databases and scalable backend services.",
+    description:"Responsibilities, experience required, education details included here."
+  }
+];
+
+// ===== RENDER JOB CARDS =====
+function renderJobs(list){
+  document.getElementById('jobsWrapper').innerHTML = "";
+  list.forEach(job=>{
+    document.getElementById('jobsWrapper').innerHTML += `
+    <div class="job-card">
+      <h3>${job.title}</h3>
+      <div class="job-meta">${job.company} • ${job.location}, ${job.country}</div>
+      <div class="job-meta">${job.type} • ${job.salary} • ${job.posted}</div>
+      <p class="job-desc">${job.short}</p>
+      <div class="job-actions">
+        <button class="apply-btn" onclick="openJobDetails(${job.id})">View Details</button>
+        <button class="save-btn">Save</button>
+        <button class="share-btn">Share</button>
+      </div>
+    </div>`;
+  });
+}
+renderJobs(jobsData);
+
+// ===== FILTER FUNCTION =====
+function filterJobs(){
+  const kw = document.getElementById('keyword').value.toLowerCase();
+  const loc = document.getElementById('location').value.toLowerCase();
+  const type = document.getElementById('jobType').value;
+  const fc = document.getElementById('filterCountry').value.toLowerCase();
+  const ft = document.getElementById('filterType').value;
+
+  const filtered = jobsData.filter(job=>{
+    return (job.title.toLowerCase().includes(kw) || job.company.toLowerCase().includes(kw))
+      && (job.location.toLowerCase().includes(loc))
+      && (type==="" || job.type===type)
+      && (fc==="" || job.country.toLowerCase().includes(fc))
+      && (ft==="" || job.type===ft);
+  });
+  renderJobs(filtered);
+}
+
+// ===== JOB DETAILS =====
+function openJobDetails(id){
+  const job = jobsData.find(j=>j.id===id);
+  document.getElementById('modalTitle').innerText = `${job.title} at ${job.company}`;
+  document.getElementById('modalDesc').innerText = job.description;
+  document.getElementById('jobModal').style.display = "flex";
+}
+
+function closeModal(id){
+  document.getElementById(id).style.display = "none";
+}
+
+function openApplyModal(){
+  closeModal('jobModal');
+  document.getElementById('applyModal').style.display = "flex";
+}
+
+// ===== APPLY FORM =====
+function submitApplication(){
+  const name = document.getElementById('appName').value;
+  const email = document.getElementById('appEmail').value;
+  const phone = document.getElementById('appPhone').value;
+  const country = document.getElementById('appCountry').value;
+  const cvFile = document.getElementById('appCV').files[0];
+
+  if(!name||!email||!phone||!country||!cvFile){
+    alert("Please fill all required fields and upload a CV.");
+    return;
+  }
+  if(!["application/pdf","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document"].includes(cvFile.type)){
+    alert("Invalid file type. Upload PDF/DOC only.");
+    return;
+  }
+  if(cvFile.size > 5 * 1024 * 1024){
+    alert("Max file size is 5MB.");
+    return;
+  }
+
+  alert("Application submitted successfully! (Demo only)");
+
+  closeModal('applyModal');
+}
+</script>
+
+</body>
+</html>
