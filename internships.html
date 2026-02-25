@@ -1,1 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yireh Internships | Worldwide Opportunities</title>
 
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#f4f6f9;
+}
+
+/* HEADER */
+header{
+  background:#0d6efd;
+  color:white;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header img{
+  height:45px;
+}
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:500;
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#0d6efd,#00c6ff);
+  color:white;
+  text-align:center;
+  padding:60px 20px;
+}
+.hero h1{
+  margin-bottom:20px;
+}
+.search-bar{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+.search-bar input,
+.search-bar select{
+  padding:10px;
+  border:none;
+  border-radius:5px;
+}
+.search-bar button{
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  background:#ffc107;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* LAYOUT */
+.container{
+  width:95%;
+  max-width:1200px;
+  margin:auto;
+  padding:30px 0;
+  display:flex;
+  gap:30px;
+}
+
+/* LIST */
+.internship-list{
+  flex:70%;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom:20px;
+}
+.card h3{
+  margin-top:0;
+}
+.card button{
+  background:#0d6efd;
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+/* SIDEBAR */
+.sidebar{
+  flex:30%;
+  position:sticky;
+  top:20px;
+}
+.sidebar form{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+.sidebar input,
+.sidebar textarea,
+.sidebar select{
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+}
+
+/* APPLY MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+.modal-content{
+  background:white;
+  width:90%;
+  max-width:600px;
+  padding:20px;
+  border-radius:10px;
+  max-height:90vh;
+  overflow-y:auto;
+}
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:20px;
+  font-weight:bold;
+}
+
+/* FOOTER */
+footer{
+  background:#0d6efd;
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <img src="logo.png">
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="internships.html">Internships</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Login/Register</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Find Internships Worldwide</h1>
+  <div class="search-bar">
+    <input type="text" id="keyword" placeholder="Keyword">
+    <input type="text" id="location" placeholder="Country">
+    <select id="type">
+      <option value="">Internship Type</option>
+      <option>Remote</option>
+      <option>On-site</option>
+      <option>Hybrid</option>
+    </select>
+    <select id="category">
+      <option value="">Category</option>
+      <option>IT</option>
+      <option>Marketing</option>
+      <option>Engineering</option>
+      <option>Business</option>
+    </select>
+    <button onclick="searchInternships()">Search</button>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- LEFT LIST -->
+  <div class="internship-list" id="internshipList"></div>
+
+  <!-- RIGHT POST FORM -->
+  <div class="sidebar">
+    <form id="postForm">
+      <h3>Post Internship</h3>
+      <input type="text" placeholder="Company Name" required>
+      <input type="url" placeholder="Website">
+      <input type="email" placeholder="HR Email" required>
+      <input type="text" placeholder="Internship Title" required>
+      <input type="text" placeholder="Location" required>
+      <input type="text" placeholder="Duration">
+      <input type="text" placeholder="Stipend">
+      <select>
+        <option>Remote</option>
+        <option>On-site</option>
+        <option>Hybrid</option>
+      </select>
+      <textarea placeholder="Skills Required"></textarea>
+      <textarea placeholder="Description" required></textarea>
+      <input type="date" required>
+      <input type="file" accept="image/*">
+      <button type="submit">Submit Internship</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- APPLY MODAL -->
+<div class="modal" id="applyModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Apply for Internship</h3>
+    <form id="applyForm">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <input type="text" placeholder="Country">
+      <input type="text" placeholder="University / College">
+      <input type="text" placeholder="Degree">
+      <input type="text" placeholder="Graduation Year">
+      <input type="url" placeholder="LinkedIn">
+      <input type="url" placeholder="Portfolio">
+      <textarea placeholder="Cover Letter"></textarea>
+      <input type="file" accept=".pdf,.doc,.docx" required>
+      <button type="submit">Submit Application</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  © 2026 Yireh Global Careers | Connecting Students Worldwide
+</footer>
+
+<script>
+
+// Sample demo data
+let internships = [
+  {
+    title:"Software Developer Intern",
+    company:"Tech Global",
+    location:"USA",
+    type:"Remote",
+    duration:"6 Months",
+    stipend:"Paid",
+    description:"Work with development team building modern web applications."
+  }
+];
+
+function loadInternships(){
+  const list = document.getElementById("internshipList");
+  list.innerHTML="";
+  internships.forEach((i,index)=>{
+    list.innerHTML+=`
+      <div class="card">
+        <h3>${i.title}</h3>
+        <p><strong>${i.company}</strong> | ${i.location}</p>
+        <p>${i.type} | ${i.duration} | ${i.stipend}</p>
+        <p>${i.description}</p>
+        <button onclick="openModal()">Apply</button>
+      </div>
+    `;
+  });
+}
+
+function openModal(){
+  document.getElementById("applyModal").style.display="flex";
+}
+
+function closeModal(){
+  document.getElementById("applyModal").style.display="none";
+}
+
+function searchInternships(){
+  alert("Search system ready for backend integration.");
+}
+
+document.getElementById("postForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  alert("Internship submitted (Admin approval required).");
+});
+
+document.getElementById("applyForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  alert("Application submitted successfully.");
+  closeModal();
+});
+
+loadInternships();
+
+</script>
+
+</body>
+</html>
