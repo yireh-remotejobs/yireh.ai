@@ -273,6 +273,25 @@ document.getElementById("jobForm").addEventListener("submit",function(e){
   alert("Job Posted Successfully! (Demo)");
 });
 </script>
+<!-- APPLY MODAL -->
+<div class="modal" id="applyModal">
+  <div class="modal-content">
+    <h2>Apply for Job</h2>
+    <form id="applyForm">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="tel" placeholder="Phone Number" required>
 
+      <label>Select Country</label>
+      <select id="applicantCountry" required></select>
+
+      <input type="file" accept=".pdf,.doc,.docx" required>
+      <textarea placeholder="Cover Letter"></textarea>
+
+      <button type="submit" class="apply-btn">Submit Application</button>
+      <button type="button" onclick="closeApplyModal()">Cancel</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
