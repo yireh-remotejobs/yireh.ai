@@ -281,7 +281,26 @@ document.getElementById("jobForm").addEventListener("submit",function(e){
       <input type="text" placeholder="Full Name" required>
       <input type="email" placeholder="Email" required>
       <input type="tel" placeholder="Phone Number" required>
-
+<div class="modal" id="applyModal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <h3>Apply for Internship</h3>
+    <form id="applyForm">
+      <input type="text" placeholder="Full Name" required="">
+      <input type="email" placeholder="Email" required="">
+      <input type="tel" placeholder="Phone Number" required="">
+      <input type="text" placeholder="Country">
+      <input type="text" placeholder="University / College">
+      <input type="text" placeholder="Degree">
+      <input type="text" placeholder="Graduation Year">
+      <input type="url" placeholder="LinkedIn">
+      <input type="url" placeholder="Portfolio">
+      <textarea placeholder="Cover Letter"></textarea>
+      <input type="file" accept=".pdf,.doc,.docx" required="">
+      <button type="submit">Submit Application</button>
+    </form>
+  </div>
+</div>
       <label>Select Country</label>
       <select id="applicantCountry" required></select>
 
