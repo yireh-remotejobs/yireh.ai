@@ -188,6 +188,79 @@ min-height:100%;
 .container{flex-direction:column;}
 .builder,.preview{width:100%;height:auto;}
 }
+  /* ===== TWO COLUMN LAYOUT FIX ===== */
+.container{
+  display:flex;
+  gap:20px;
+  padding:20px;
+}
+
+.builder{
+  width:50%;
+  background:#ffffff;
+  padding:20px;
+  border-radius:10px;
+  height:80vh;
+  overflow:auto;
+}
+
+.preview{
+  width:50%;
+  background:#f4f4f4;
+  padding:20px;
+  border-radius:10px;
+  height:80vh;
+  overflow:auto;
+}
+
+/* ===== PREVIEW PROFESSIONAL STYLING ===== */
+
+.preview-area{
+  background:#fff;
+  padding:40px;
+  min-height:100%;
+  position:relative;
+}
+
+/* Name & Title */
+.cv-name{
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+}
+
+.cv-title{
+  text-align:center;
+  font-size:16px;
+  margin-bottom:20px;
+  color:#555;
+}
+
+/* Photo top-left */
+.cv-photo{
+  position:absolute;
+  top:40px;
+  left:40px;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+/* Contact row */
+.contact-row{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin-bottom:25px;
+  font-size:14px;
+}
+
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 </style>
 </head>
 
@@ -244,7 +317,7 @@ min-height:100%;
 
 <script>
 const sectionNames=[
-"Full Name","Professional Title","Phone","Email","Location","LinkedIn",
+"Full Name","Professional Title","Phone","Email","D.O.B","Location","LinkedIn",
 "Professional Summary","Technical Skills","Soft Skills",
 "Work Experience","Projects","Education",
 "Certifications","Languages","Additional Info"
