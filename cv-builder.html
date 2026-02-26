@@ -296,36 +296,63 @@ new Sortable(document.getElementById("sections"),{animation:150});
 document.addEventListener("input",updatePreview);
 
 function updatePreview(){
-    let html = "";
-
-    if(uploadedPhoto){
-        html += `<div style="text-align:center;margin-bottom:20px;">
-                    <img src="${uploadedPhoto}" 
-                    style="width:130px;height:130px;border-radius:50%;object-fit:cover;">
-                 </div>`;
-    }
+    let fullName = "";
+    let title = "";
+    let phone = "";
+    let email = "";
+    let dob = "";
+    let otherSections = "";
 
     sections.forEach(section=>{
-        const title = section.querySelector(".section-header span").innerText;
-        const text = section.querySelector("textarea").value;
+        const sectionTitle = section.querySelector(".section-header span").innerText;
+        const text = section.querySelector("textarea").value.trim();
 
-        if(text.trim() !== ""){
-            html += `
+        if(sectionTitle === "Full Name") fullName = text;
+        else if(sectionTitle === "Professional Title") title = text;
+        else if(sectionTitle === "Phone") phone = text;
+        else if(sectionTitle === "Email") email = text;
+        else if(sectionTitle === "D.O.B") dob = text;
+        else if(text !== ""){
+            otherSections += `
                 <div style="margin-bottom:15px;">
-                    <h3 style="margin-bottom:5px;">${title}</h3>
+                    <h3 style="margin-bottom:5px;">${sectionTitle}</h3>
                     <p style="white-space:pre-wrap;">${text}</p>
                 </div>
             `;
         }
     });
 
+    let html = "";
+
+    /* Photo */
+    if(uploadedPhoto){
+        html += `<img src="${uploadedPhoto}" class="cv-photo">`;
+    }
+
+    /* Name & Title (Centered, no labels) */
+    if(fullName){
+        html += `<div class="cv-name">${fullName}</div>`;
+    }
+
+    if(title){
+        html += `<div class="cv-title">${title}</div>`;
+    }
+
+    /* Contact Row */
+    if(phone || email || dob){
+        html += `
+        <div class="contact-row">
+            ${phone ? `<div class="contact-item">📞 ${phone}</div>` : ""}
+            ${email ? `<div class="contact-item">✉ ${email}</div>` : ""}
+            ${dob ? `<div class="contact-item">🎂 ${dob}</div>` : ""}
+        </div>
+        `;
+    }
+
+    html += otherSections;
+
     document.getElementById("previewArea").innerHTML = html;
 }
-
-document.getElementById("templateSelect").addEventListener("change",function(){
-const preview=document.getElementById("previewArea");
-preview.className="preview-area "+this.value;
-});
 
 let uploadedPhoto = "";
 
