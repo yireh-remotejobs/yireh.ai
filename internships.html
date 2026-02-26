@@ -12,23 +12,23 @@ body{
   background:#f4f6f9;
 }
 
-/* HEADER */
-header{
-  background:#0d6efd;
-  color:white;
-  padding:15px 40px;
+/* ===== HEADER ===== */
+.navbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:12px 40px;
+  background:#111;
+  color:#fff;
 }
-header img{
-  height:45px;
+.logo img{ height:50px; }
+.nav-links a{
+  color:#fff; margin:0 12px; text-decoration:none; font-weight:500; transition:0.3s;
 }
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:20px;
-  font-weight:500;
+.nav-links a:hover{ color:#ffd700; }
+
+.search-btn{
+  padding:6px 12px; background:#ffd700; border:none; border-radius:20px; cursor:pointer;
 }
 
 /* HERO */
