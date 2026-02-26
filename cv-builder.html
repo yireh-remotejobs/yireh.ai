@@ -22,35 +22,53 @@ body{
 background:linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
 }
 
-.header{
-background:#111;
-color:#fff;
-padding:15px 30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+/* ===== NAVBAR ===== */
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  color:#fff;
 }
 
-.logo{
-font-size:10px;
-font-weight:700;
+.heading{
+  font-size:35px;
+  font-weight:700;
 }
 
-.container{
-display:flex;
-padding:20px;
-gap:20px;
+.nav-links a{
+  color:#fff;
+  margin:0 10px;
+  text-decoration:none;
+  font-weight:500;
+  transition:0.3s;
 }
 
-.builder{
-width:50%;
-background:#fff;
-padding:20px;
-border-radius:10px;
-overflow-y:auto;
-height:50vh;
+.nav-links a:hover{
+  color:#ffd700;
 }
 
+.support-buttons button{
+  margin-left:10px;
+  padding:6px 12px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+}
+
+.paypal{
+  background:#ffc439;
+}
+
+.gpay{
+  background:#000;
+  color:#fff;
+}
 .preview{
 width:50%;
 background:#f4f4f4;
