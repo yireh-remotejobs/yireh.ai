@@ -145,14 +145,29 @@
 
 <body>
 
-<div id="header"></div>
+<!-- COMMON HEADER -->
+<div class="navbar">
+  <div class="logo">
+    <a href="index.html">
+      <img src="logo.png" alt="Yireh Careers Logo">
+    </a>
+  </div>
 
-<script>
-fetch("header.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("header").innerHTML = data;
-  });
+  <div class="heading">YIREH CAREERS</div>
+
+  <div class="nav-links">
+    <a href="cv-builder.html">CV Builder</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="internships.html">Internships</a>
+    <a href="#">Scam Alerts</a>
+    <a href="mailto:yireh.remotejobs@gmail.com">Contact</a>
+  </div>
+
+  <div class="support-buttons">
+    <button class="paypal">PayPal</button>
+    <button class="gpay">Google Pay</button>
+  </div>
+</div>
 </script>
 
 <!-- HERO -->
