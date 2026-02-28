@@ -1,37 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Yireh Admin Dashboard</title>
-<style>
-body{font-family:Arial;background:#f4f6f9;padding:20px;}
-table{width:100%;background:white;border-collapse:collapse;}
-th,td{padding:10px;border:1px solid #ccc;}
-button{padding:6px 10px;margin:3px;}
-</style>
-</head>
-<body>
-
-<h2>Admin Dashboard - Applications</h2>
-<table id="appTable">
-<thead>
-<tr>
-<th>Name</th>
-<th>Email</th>
-<th>Job</th>
-<th>Date</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-
 <script>
 const token = localStorage.getItem("adminToken");
 
+const API = "https://yireh-backend-1.onrender.com";
+
 async function loadApps(){
-  const res = await fetch("http://localhost:5000/api/admin/applications",{
-    headers:{ Authorization:token }
+  const res = await fetch(`${API}/api/admin/applications`,{
+    headers:{ 
+      Authorization: "Bearer " + token 
+    }
   });
+
   const data = await res.json();
 
   const tbody = document.querySelector("#appTable tbody");
@@ -53,19 +31,28 @@ async function loadApps(){
 }
 
 function downloadCV(id){
-  window.open(`http://localhost:5000/api/admin/download/${id}?token=${token}`);
+  fetch(`${API}/api/admin/download/${id}`,{
+    headers:{
+      Authorization: "Bearer " + token
+    }
+  })
+  .then(res => res.blob())
+  .then(blob => {
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  });
 }
 
 async function deleteApp(id){
-  await fetch(`http://localhost:5000/api/admin/application/${id}`,{
+  await fetch(`${API}/api/admin/application/${id}`,{
     method:"DELETE",
-    headers:{ Authorization:token }
+    headers:{ 
+      Authorization: "Bearer " + token 
+    }
   });
+
   loadApps();
 }
 
 loadApps();
 </script>
-
-</body>
-</html>
