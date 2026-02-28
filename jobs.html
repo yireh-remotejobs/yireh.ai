@@ -279,10 +279,41 @@ document.getElementById("logoUpload").addEventListener("change",function(e){
   reader.readAsDataURL(e.target.files[0]);
 });
 
-document.getElementById("jobForm").addEventListener("submit",function(e){
+<script>
+const form = document.getElementById("jobForm");
+
+form.addEventListener("submit", async function(e) {
   e.preventDefault();
-  alert("Job Posted Successfully! (Demo)");
+
+  const token = localStorage.getItem("adminToken");
+
+  const jobData = {
+    title: document.getElementById("title").value,
+    company: document.getElementById("company").value,
+    location: document.getElementById("location").value,
+    salary: document.getElementById("salary").value,
+    type: document.getElementById("type").value,
+    description: document.getElementById("description").value
+  };
+
+  const res = await fetch("https://yireh-backend-1.onrender.com/api/jobs", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify(jobData)
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    alert("Job Posted Successfully!");
+  } else {
+    alert(data.message);
+  }
 });
+</script>
 </script>
 <!-- APPLY MODAL -->
 <div class="modal" id="applyModal">
