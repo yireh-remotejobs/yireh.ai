@@ -8,224 +8,150 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-/* ===== HEADER ===== */
+body{background:#f5f7fa;}
+
 .navbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 40px;
-  background:#111;
-  color:#fff;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 40px;background:#111;color:#fff;
 }
-.logo img{ height:50px; }
+.logo img{height:50px;}
 .nav-links a{
-  color:#fff; margin:0 12px; text-decoration:none; font-weight:500; transition:0.3s;
+  color:#fff;margin:0 12px;text-decoration:none;font-weight:500;
 }
-.nav-links a:hover{ color:#ffd700; }
+.nav-links a:hover{color:#ffd700;}
 
-.search-btn{
-  padding:6px 12px; background:#ffd700; border:none; border-radius:20px; cursor:pointer;
-}
-
-/* ===== HERO ===== */
 .hero{
   padding:60px 40px;
   background:linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
-  color:#fff;
-  text-align:center;
+  color:#fff;text-align:center;
 }
-.hero h1{ font-size:38px; margin-bottom:15px; }
-.search-bar{ display:flex; gap:15px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
-.search-bar input, .search-bar select{
-  padding:10px 15px; border-radius:6px; border:none; min-width:220px;
+.hero h1{font-size:38px;margin-bottom:20px;}
+
+.search-bar{
+  display:flex;gap:15px;justify-content:center;flex-wrap:wrap;
+}
+.search-bar input,.search-bar select{
+  padding:10px;border-radius:6px;border:none;min-width:200px;
 }
 
-/* ===== MAIN CONTENT ===== */
 .container{
-  display:flex;
-  gap:20px;
-  padding:30px 40px;
-  align-items:flex-start;
+  display:flex;gap:20px;padding:30px 40px;align-items:flex-start;
 }
 
-/* ==== FILTERS ===== */
-.filters{
-  width:280px;
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-.filters h3{ margin-bottom:15px; }
-.filters label{ display:block; margin:8px 0 4px; font-size:14px; font-weight:600; }
-.filters input, .filters select{
-  width:100%; padding:8px 10px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;
-}
-.filters button{
-  width:100%; padding:10px; background:#2a5298; color:#fff; border:none; border-radius:6px; cursor:pointer;
-}
+.jobs-wrapper{flex:1;}
 
-/* ===== JOB LISTINGS ===== */
-.jobs-wrapper{
-  flex:1;
-}
 .job-card{
-  background:#fff;
-  padding:20px;
-  margin-bottom:18px;
-  border-radius:8px;
-  box-shadow:0 5px 18px rgba(0,0,0,0.1);
+  display:flex;gap:15px;
+  background:#fff;padding:20px;margin-bottom:18px;
+  border-radius:8px;box-shadow:0 5px 18px rgba(0,0,0,0.1);
 }
-.job-card h3{margin-bottom:6px;}
-.job-meta{
-  display:flex; gap:15px; margin:8px 0;
-  font-size:14px; color:#555;
+.job-card img{
+  width:70px;height:70px;object-fit:cover;border-radius:8px;
 }
-.job-desc{ font-size:14px; margin-bottom:10px; }
-.job-actions button{
-  padding:8px 14px; margin-right:8px; border:none; border-radius:20px; cursor:pointer;
-}
-.apply-btn{ background:#28a745; color:#fff; }
-.save-btn{ background:#ff9800; color:#fff; }
-.share-btn{ background:#2a5298; color:#fff; }
+.job-meta{font-size:14px;color:#555;margin:4px 0;}
+.job-desc{margin-top:6px;font-size:14px;}
 
-/* ===== RIGHT JOB POST ===== */
-.post-job-sidebar{
-  width:320px;
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-  position:sticky;
-  top:20px;
-}
-.post-job-sidebar input,
-.post-job-sidebar textarea{
-  width:100%;
-  padding:8px;
-  margin-bottom:10px;
-  border:1px solid #ccc;
-  border-radius:5px;
-}
-.post-job-sidebar button{
-  width:100%;
-  padding:10px;
+.apply-btn{
+  margin-top:10px;
+  padding:8px 14px;
   background:#2a5298;
   color:#fff;
   border:none;
-  border-radius:6px;
+  border-radius:5px;
   cursor:pointer;
 }
 
-/* ===== MODALS ===== */
+.post-job-sidebar{
+  width:350px;background:#fff;padding:20px;border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);position:sticky;top:20px;
+}
+.post-job-sidebar input,
+.post-job-sidebar textarea,
+.post-job-sidebar select{
+  width:100%;padding:8px;margin-bottom:10px;
+  border:1px solid #ccc;border-radius:5px;
+}
+.post-job-sidebar button{
+  width:100%;padding:10px;background:#2a5298;
+  color:#fff;border:none;border-radius:6px;cursor:pointer;
+}
+
+/* APPLY MODAL */
 .modal{
   display:none;
   position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
+  top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.6);
-  justify-content:center; align-items:center;
-  padding:20px;
+  justify-content:center;
+  align-items:center;
 }
 .modal-content{
-  width:100%; max-width:600px;
-  background:#fff; padding:30px; border-radius:8px;
+  background:#fff;
+  padding:25px;
+  width:400px;
+  border-radius:8px;
 }
 
-/* ===== RESP ===== */
 @media(max-width:900px){
-  .container{ flex-direction:column; }
-  .filters{ width:100%; }
-  .post-job-sidebar{ width:100%; position:relative; }
+  .container{flex-direction:column;}
+  .post-job-sidebar{width:100%;}
 }
 </style>
 </head>
-
 <body>
 
-<!-- COMMON HEADER -->
 <div class="navbar">
   <div class="logo">
-    <a href="index.html">
-      <img src="logo.png" alt="Yireh Careers Logo">
-    </a>
+    <a href="index.html"><img src="logo.png"></a>
   </div>
-
-  <div class="heading">YIREH CAREERS</div>
-
   <div class="nav-links">
-    <a href="cv-builder.html">CV Builder</a>
     <a href="jobs.html">Jobs</a>
     <a href="internships.html">Internships</a>
-    <a href="#">Scam Alerts</a>
-    <a href="mailto:yireh.remotejobs@gmail.com">Contact</a>
-  </div>
-
-  <div class="support-buttons">
-    <button class="paypal">PayPal</button>
-    <button class="gpay">Google Pay</button>
   </div>
 </div>
-</script>
 
-<!-- HERO -->
 <section class="hero">
   <h1>Find Jobs Worldwide</h1>
   <div class="search-bar">
-    <input type="text" id="keyword" placeholder="🔎 Job title or keyword">
-    <input type="text" id="location" placeholder="🌍 Location (City or Country)">
-    <select id="jobType">
-      <option value="">All Types</option>
-      <option>Full-Time</option>
-      <option>Part-Time</option>
-      <option>Contract</option>
-      <option>Remote</option>
+    <input type="text" id="searchKeyword" placeholder="Job title">
+    <select id="searchCountry">
+      <option value="">All Countries</option>
     </select>
-    <button class="search-btn" onclick="filterJobs()">Search</button>
+    <button onclick="filterJobs()">Search</button>
   </div>
 </section>
 
-<!-- MAIN -->
 <div class="container">
 
-  <!-- FILTERS -->
-  <aside class="filters">
-    <h3>Filter Results</h3>
-    <label>Country</label>
-    <input type="text" id="filterCountry">
-
-    <label>Job Type</label>
-    <select id="filterType">
-      <option value="">Any</option>
-      <option>Full-Time</option>
-      <option>Part-Time</option>
-      <option>Contract</option>
-      <option>Remote</option>
-    </select>
-
-    <button onclick="filterJobs()">Apply Filters</button>
-  </aside>
-
-  <!-- JOB LIST -->
   <div class="jobs-wrapper" id="jobsWrapper"></div>
 
-  <!-- RIGHT SIDE JOB POST -->
   <div class="post-job-sidebar">
     <h2>Post a Job</h2>
     <form id="jobForm">
-      <input type="text" placeholder="Company Name" required>
-      <input type="text" placeholder="Job Title" required>
-      <input type="text" placeholder="Location" required>
-      <input type="text" placeholder="Salary">
-      <input type="email" placeholder="Contact Email" required>
-      <input type="date" required>
-      <textarea placeholder="Job Description" required></textarea>
+
+      <input type="text" id="company" placeholder="Company Name" required>
+      <input type="email" id="email" placeholder="Contact Email" required>
+      <input type="text" id="title" placeholder="Job Title" required>
+
+      <select id="country" required></select>
+      <input type="text" id="city" placeholder="City">
+
+      <input type="text" id="salary" placeholder="Salary">
+
+      <select id="type" required>
+        <option value="">Job Type</option>
+        <option>Full-Time</option>
+        <option>Part-Time</option>
+        <option>Contract</option>
+        <option>Remote</option>
+      </select>
+
+      <textarea id="description" placeholder="Job Description" required></textarea>
 
       <label>Upload Company Logo</label>
       <input type="file" id="logoUpload" accept="image/*">
-      <img id="logoPreview" style="display:none; width:80px; margin-top:10px;"/>
 
       <button type="submit">Submit Job</button>
     </form>
@@ -233,126 +159,114 @@
 
 </div>
 
-<script>
-// === SAMPLE JOB DATA ===
-const jobsData = [
-  {
-    id:1, title:"Front End Developer", company:"Tech Corp",
-    country:"USA", location:"New York", type:"Full-Time",
-    salary:"80K - 100K",
-    short:"Build responsive web apps.",
-    description:"Full detailed description."
-  }
-];
-
-function renderJobs(list){
-  document.getElementById('jobsWrapper').innerHTML="";
-  list.forEach(job=>{
-    document.getElementById('jobsWrapper').innerHTML+=`
-    <div class="job-card">
-      <h3>${job.title}</h3>
-      <div class="job-meta">${job.company} • ${job.location}, ${job.country}</div>
-      <div class="job-meta">${job.type} • ${job.salary}</div>
-      <p class="job-desc">${job.short}</p>
-    </div>`;
-  });
-}
-renderJobs(jobsData);
-
-function filterJobs(){
-  const fc = document.getElementById('filterCountry').value.toLowerCase();
-  const ft = document.getElementById('filterType').value;
-  const filtered = jobsData.filter(job=>{
-    return (fc==="" || job.country.toLowerCase().includes(fc))
-      && (ft==="" || job.type===ft);
-  });
-  renderJobs(filtered);
-}
-
-document.getElementById("logoUpload").addEventListener("change",function(e){
-  const reader = new FileReader();
-  reader.onload=function(){
-    const preview=document.getElementById("logoPreview");
-    preview.src=reader.result;
-    preview.style.display="block";
-  }
-  reader.readAsDataURL(e.target.files[0]);
-});
-
-<script>
-const form = document.getElementById("jobForm");
-
-form.addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const token = localStorage.getItem("adminToken");
-
-  const jobData = {
-    title: document.getElementById("title").value,
-    company: document.getElementById("company").value,
-    location: document.getElementById("location").value,
-    salary: document.getElementById("salary").value,
-    type: document.getElementById("type").value,
-    description: document.getElementById("description").value
-  };
-
-  const res = await fetch("https://yireh-backend-1.onrender.com/api/jobs", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
-    },
-    body: JSON.stringify(jobData)
-  });
-
-  const data = await res.json();
-
-  if (res.ok) {
-    alert("Job Posted Successfully!");
-  } else {
-    alert(data.message);
-  }
-});
-</script>
-</script>
 <!-- APPLY MODAL -->
 <div class="modal" id="applyModal">
   <div class="modal-content">
-    <h2>Apply for Job</h2>
+    <h3>Apply for Job</h3>
     <form id="applyForm">
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="tel" placeholder="Phone Number" required>
-<div class="modal" id="applyModal" style="display: none;">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">×</span>
-    <h3>Apply for Internship</h3>
-    <form id="applyForm">
-      <input type="text" placeholder="Full Name" required="">
-      <input type="email" placeholder="Email" required="">
-      <input type="tel" placeholder="Phone Number" required="">
-      <input type="text" placeholder="Country">
-      <input type="text" placeholder="University / College">
-      <input type="text" placeholder="Degree">
-      <input type="text" placeholder="Graduation Year">
-      <input type="url" placeholder="LinkedIn">
-      <input type="url" placeholder="Portfolio">
-      <textarea placeholder="Cover Letter"></textarea>
-      <input type="file" accept=".pdf,.doc,.docx" required="">
+      <input type="text" id="applicantName" placeholder="Full Name" required>
+      <input type="email" id="applicantEmail" placeholder="Your Email" required>
+      <input type="file" id="cvUpload" required>
       <button type="submit">Submit Application</button>
     </form>
   </div>
 </div>
-      <label>Select Country</label>
-      <select id="applicantCountry" required></select>
 
-      <input type="file" accept=".pdf,.doc,.docx" required>
-      <textarea placeholder="Cover Letter"></textarea>
+<script>
 
-      <button type="submit" class="apply-btn">Submit Application</button>
-      <button type="button" onclick="closeApplyModal()">Cancel</button>
-    </form>
-  </div>
-</div>
+const countries = ["United States","United Kingdom","Canada","Australia","Germany","France","India","Nigeria","South Africa","Kenya","Ghana","Brazil","Mexico","Japan","China","UAE","Saudi Arabia","Singapore"];
+
+function populateCountries(){
+  ["country","searchCountry"].forEach(id=>{
+    const select=document.getElementById(id);
+    countries.forEach(c=>{
+      const option=document.createElement("option");
+      option.value=c;
+      option.textContent=c;
+      select.appendChild(option);
+    });
+  });
+}
+populateCountries();
+
+const jobsData=[];
+let logoBase64="";
+let selectedJobEmail="";
+
+document.getElementById("logoUpload").addEventListener("change",function(e){
+  const reader=new FileReader();
+  reader.onload=()=>logoBase64=reader.result;
+  if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+});
+
+function renderJobs(list){
+  const wrapper=document.getElementById("jobsWrapper");
+  wrapper.innerHTML="";
+  list.forEach(job=>{
+    wrapper.innerHTML+=`
+      <div class="job-card">
+        ${job.logo?`<img src="${job.logo}">`:""}
+        <div>
+          <h3>${job.title}</h3>
+          <div class="job-meta">${job.company}</div>
+          <div class="job-meta">${job.city||""}, ${job.country}</div>
+          <div class="job-meta">${job.type} • ${job.salary||"Not specified"}</div>
+          <p class="job-desc">${job.description}</p>
+          <button class="apply-btn" onclick="openApply('${job.email}')">Apply</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function filterJobs(){
+  const keyword=document.getElementById("searchKeyword").value.toLowerCase();
+  const country=document.getElementById("searchCountry").value;
+  const filtered=jobsData.filter(job=>
+    (keyword===""||job.title.toLowerCase().includes(keyword)) &&
+    (country===""||job.country===country)
+  );
+  renderJobs(filtered);
+}
+
+document.getElementById("jobForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  const newJob={
+    id:Date.now(),
+    company:company.value,
+    email:email.value,
+    title:title.value,
+    country:country.value,
+    city:city.value,
+    salary:salary.value,
+    type:type.value,
+    description:description.value,
+    logo:logoBase64
+  };
+  jobsData.push(newJob);
+  renderJobs(jobsData);
+  this.reset();
+  logoBase64="";
+  alert("Job Posted Successfully!");
+});
+
+function openApply(email){
+  selectedJobEmail=email;
+  document.getElementById("applyModal").style.display="flex";
+}
+
+document.getElementById("applyForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  const name=applicantName.value;
+  const email=applicantEmail.value;
+
+  window.location.href=`mailto:${selectedJobEmail}?subject=Job Application&body=Name: ${name}%0AEmail: ${email}`;
+
+  alert("Application Sent!");
+  document.getElementById("applyModal").style.display="none";
+  this.reset();
+});
+
+</script>
 </body>
 </html>
