@@ -53,6 +53,50 @@ async function deleteApp(id){
 
   loadApps();
 }
+<h2>Internship Applications</h2>
 
+<div id="apps"></div>
+
+<script>
+const token = localStorage.getItem("token");
+
+async function loadApps(){
+  const res = await fetch("https://your-backend/api/admin/internship-applications",{
+    headers:{ Authorization: "Bearer " + token }
+  });
+
+  const data = await res.json();
+
+  document.getElementById("apps").innerHTML = data.map(app=>`
+    <div style="border:1px solid #ccc;margin:10px;padding:10px;">
+      <h3>${app.fullName}</h3>
+      <p>${app.email}</p>
+      <p>Status: ${app.status}</p>
+
+      <button onclick="updateStatus('${app._id}','Accepted')">Accept</button>
+      <button onclick="updateStatus('${app._id}','Rejected')">Reject</button>
+
+      <a href="https://your-backend/api/admin/download-cv/${app._id}" target="_blank">
+        Download CV
+      </a>
+    </div>
+  `).join("");
+}
+
+async function updateStatus(id,status){
+  await fetch(`https://your-backend/api/admin/internship-application/${id}`,{
+    method:"PUT",
+    headers:{
+      "Content-Type":"application/json",
+      Authorization:"Bearer "+token
+    },
+    body:JSON.stringify({status})
+  });
+
+  loadApps();
+}
+
+loadApps();
+</script>
 loadApps();
 </script>
