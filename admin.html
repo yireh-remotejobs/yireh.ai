@@ -1,32 +1,58 @@
-<h2>Admin Dashboard</h2>
-
-<div id="apps"></div>
-
 <script>
 const API = "https://yireh-backend-1.onrender.com";
 const token = localStorage.getItem("adminToken");
 
 async function load(){
-  const res = await fetch(API+"/api/admin/applications",{
-    headers:{ Authorization:"Bearer "+token }
-  });
 
-  const data = await res.json();
+  const container = document.getElementById("apps");
 
-  document.getElementById("apps").innerHTML = data.map(a=>`
-    <div style="border:1px solid #ccc;margin:10px;padding:10px;">
-      <h3>${a.fullName}</h3>
-      <p>${a.email}</p>
-      <p>Status: ${a.status}</p>
+  // Loading state
+  container.innerHTML = "<p>Loading applications...</p>";
 
-      <button onclick="update('${a._id}','Accepted')">Accept</button>
-      <button onclick="update('${a._id}','Rejected')">Reject</button>
+  if(!token){
+    container.innerHTML = "<p style='color:red;'>❌ Not logged in</p>";
+    return;
+  }
 
-      <a href="${API}/api/admin/download/${a._id}" target="_blank">
-        Download CV
-      </a>
-    </div>
-  `).join("");
+  try{
+    const res = await fetch(API+"/api/admin/applications",{
+      headers:{ Authorization:"Bearer "+token }
+    });
+
+    if(!res.ok){
+      container.innerHTML = "<p style='color:red;'>❌ Unauthorized / Token expired</p>";
+      return;
+    }
+
+    const data = await res.json();
+
+    if(data.length === 0){
+      container.innerHTML = "<p>No applications yet</p>";
+      return;
+    }
+
+    container.innerHTML = data.map(a=>`
+      <div style="border:1px solid #ccc;margin:10px;padding:10px;border-radius:8px;">
+        <h3>${a.fullName}</h3>
+        <p><b>Email:</b> ${a.email}</p>
+        <p><b>Status:</b> ${a.status}</p>
+
+        <button onclick="update('${a._id}','Accepted')">Accept</button>
+        <button onclick="update('${a._id}','Rejected')">Reject</button>
+
+        <br><br>
+
+        <button onclick="downloadCV('${a._id}')">Download CV</button>
+      </div>
+    `).join("");
+
+  } catch(err){
+    container.innerHTML = "<p style='color:red;'>❌ Server error</p>";
+  }
+}
+
+function downloadCV(id){
+  window.open(`${API}/api/admin/download/${id}?token=${token}`);
 }
 
 async function update(id,status){
