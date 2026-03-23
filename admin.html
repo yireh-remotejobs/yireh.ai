@@ -1,90 +1,36 @@
-<script>
-const token = localStorage.getItem("adminToken");
-
-const API = "https://yireh-backend-1.onrender.com";
-
-async function loadApps(){
-  const res = await fetch(`${API}/api/admin/applications`,{
-    headers:{ 
-      Authorization: "Bearer " + token 
-    }
-  });
-
-  const data = await res.json();
-
-  const tbody = document.querySelector("#appTable tbody");
-  tbody.innerHTML="";
-
-  data.forEach(app=>{
-    tbody.innerHTML+=`
-    <tr>
-      <td>${app.fullName}</td>
-      <td>${app.email}</td>
-      <td>${app.jobId?.title || ''}</td>
-      <td>${new Date(app.appliedAt).toLocaleDateString()}</td>
-      <td>
-        <button onclick="downloadCV('${app._id}')">Download CV</button>
-        <button onclick="deleteApp('${app._id}')">Delete</button>
-      </td>
-    </tr>`;
-  });
-}
-
-function downloadCV(id){
-  fetch(`${API}/api/admin/download/${id}`,{
-    headers:{
-      Authorization: "Bearer " + token
-    }
-  })
-  .then(res => res.blob())
-  .then(blob => {
-    const url = window.URL.createObjectURL(blob);
-    window.open(url);
-  });
-}
-
-async function deleteApp(id){
-  await fetch(`${API}/api/admin/application/${id}`,{
-    method:"DELETE",
-    headers:{ 
-      Authorization: "Bearer " + token 
-    }
-  });
-
-  loadApps();
-}
-<h2>Internship Applications</h2>
+<h2>Admin Dashboard</h2>
 
 <div id="apps"></div>
 
 <script>
-const token = localStorage.getItem("token");
+const API = "https://yireh-backend-1.onrender.com";
+const token = localStorage.getItem("adminToken");
 
-async function loadApps(){
-  const res = await fetch("https://your-backend/api/admin/internship-applications",{
-    headers:{ Authorization: "Bearer " + token }
+async function load(){
+  const res = await fetch(API+"/api/admin/applications",{
+    headers:{ Authorization:"Bearer "+token }
   });
 
   const data = await res.json();
 
-  document.getElementById("apps").innerHTML = data.map(app=>`
+  document.getElementById("apps").innerHTML = data.map(a=>`
     <div style="border:1px solid #ccc;margin:10px;padding:10px;">
-      <h3>${app.fullName}</h3>
-      <p>${app.email}</p>
-      <p>Status: ${app.status}</p>
+      <h3>${a.fullName}</h3>
+      <p>${a.email}</p>
+      <p>Status: ${a.status}</p>
 
-      <button onclick="updateStatus('${app._id}','Accepted')">Accept</button>
-      <button onclick="updateStatus('${app._id}','Rejected')">Reject</button>
+      <button onclick="update('${a._id}','Accepted')">Accept</button>
+      <button onclick="update('${a._id}','Rejected')">Reject</button>
 
-      <a href="https://your-backend/api/admin/download-cv/${app._id}" target="_blank">
+      <a href="${API}/api/admin/download/${a._id}" target="_blank">
         Download CV
       </a>
     </div>
   `).join("");
 }
 
-async function updateStatus(id,status){
-  await fetch(`https://your-backend/api/admin/internship-application/${id}`,{
+async function update(id,status){
+  await fetch(API+"/api/admin/application/"+id,{
     method:"PUT",
     headers:{
       "Content-Type":"application/json",
@@ -93,10 +39,8 @@ async function updateStatus(id,status){
     body:JSON.stringify({status})
   });
 
-  loadApps();
+  load();
 }
 
-loadApps();
-</script>
-loadApps();
+load();
 </script>
