@@ -3,23 +3,66 @@
 <head>
 <title>Admin Dashboard</title>
 </head>
-<body style="font-family:Arial;text-align:center;margin-top:50px;">
+
+<body style="font-family:Arial;padding:20px;">
 
 <h2>Admin Dashboard</h2>
 
-<div id="content"></div>
+<button onclick="logout()">Logout</button>
+
+<h3>Posted Jobs</h3>
+<div id="jobs"></div>
+
+<h3>Applications</h3>
+<div id="apps"></div>
 
 <script>
+// 🔐 Protect page
 if(localStorage.getItem("admin") !== "true"){
   alert("Please login first");
   window.location.href = "admin-login.html";
 }
 
-document.getElementById("content").innerHTML = `
-  <p>✅ Admin Logged In</p>
-  <button onclick="logout()">Logout</button>
-`;
+// 🧠 GET DATA FROM LOCAL STORAGE
+const jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+const apps = JSON.parse(localStorage.getItem("applications") || "[]");
 
+// 📌 SHOW JOBS
+document.getElementById("jobs").innerHTML = jobs.map(j => `
+  <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+    <b>${j.title}</b><br>
+    ${j.company}<br>
+    ${j.country}<br>
+  </div>
+`).join("");
+
+// 📌 SHOW APPLICATIONS
+document.getElementById("apps").innerHTML = apps.map(a => `
+  <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+    <b>${a.fullName}</b><br>
+    ${a.email}<br>
+    Job: ${a.jobTitle}<br>
+    
+    <button onclick="updateStatus('${a.id}','Accepted')">Accept</button>
+    <button onclick="updateStatus('${a.id}','Rejected')">Reject</button>
+  </div>
+`).join("");
+
+// ✅ UPDATE STATUS
+function updateStatus(id, status){
+  const updated = apps.map(a=>{
+    if(a.id === id){
+      a.status = status;
+    }
+    return a;
+  });
+
+  localStorage.setItem("applications", JSON.stringify(updated));
+  alert("Updated!");
+  location.reload();
+}
+
+// 🚪 LOGOUT
 function logout(){
   localStorage.removeItem("admin");
   window.location.href = "admin-login.html";
