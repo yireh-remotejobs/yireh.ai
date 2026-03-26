@@ -3,7 +3,7 @@
 <head>
 <title>Admin Login</title>
 </head>
-<body>
+<body style="font-family:Arial;text-align:center;margin-top:100px;">
 
 <h2>Admin Login</h2>
 
@@ -13,23 +13,17 @@
 <button onclick="login()">Login</button>
 
 <script>
-async function login(){
-  const res = await fetch("https://yireh-backend-1.onrender.com/api/admin/login",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    })
-  });
+function login(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  const data = await res.json();
-
-  if(res.ok){
-    localStorage.setItem("adminToken", data.token);
-    alert("Login Success");
+  // SIMPLE LOCAL LOGIN (NO SERVER)
+  if(email === "yireh.remotejobs@gmail.com" && password === "5002190"){
+    localStorage.setItem("admin", "true");
+    alert("Login Success ✅");
+    window.location.href = "admin.html";
   }else{
-    alert("Login failed");
+    alert("Wrong credentials ❌");
   }
 }
 </script>
