@@ -13,17 +13,31 @@
 
 <script>
 async function create(){
-  const res = await fetch("https://yireh-backend-1.onrender.com/api/admin/register",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    })
-  });
+  const msg = document.getElementById("msg");
 
-  const data = await res.json();
-  document.getElementById("msg").innerText = data.message || "Done";
+  msg.innerText = "Processing...";
+
+  try{
+    const res = await fetch("https://yireh-backend-1.onrender.com/api/admin/register",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      })
+    });
+
+    const data = await res.json();
+
+    if(res.ok){
+      msg.innerText = "✅ " + data.message;
+    }else{
+      msg.innerText = "❌ " + (data.message || "Error");
+    }
+
+  } catch(err){
+    msg.innerText = "❌ Server not responding";
+  }
 }
 </script>
 
