@@ -1,33 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+
+<style>
+body{
+  font-family: Arial;
+  background:#f4f6f9;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.box{
+  background:white;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  width:300px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  background:#2a5298;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Admin Login</h2>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+</div>
+
 <script>
 const API = "https://yireh-backend-1.onrender.com";
 
-async function login() {
+async function login(){
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  try {
+  try{
     const res = await fetch(API + "/api/admin/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
       body: JSON.stringify({ email, password })
     });
 
     const data = await res.json();
 
-    if (res.ok) {
+    if(res.ok){
       localStorage.setItem("adminToken", data.token);
       alert("Login Success ✅");
-
       window.location.href = "admin.html";
-    } else {
-      alert(data.message || "Login failed ❌");
+    }else{
+      alert(data.message || "Login failed");
     }
 
-  } catch (error) {
-    console.error(error);
+  }catch(err){
+    console.error(err);
     alert("❌ Server not responding");
   }
 }
 </script>
+
+</body>
+</html>
