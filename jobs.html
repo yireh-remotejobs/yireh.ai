@@ -129,7 +129,24 @@ body{background:#f5f7fa;}
 
   <div class="post-job-sidebar">
     <h2>Post a Job</h2>
-    <form id="jobForm">
+    <input type="text" id="company" placeholder="Company Name" required>
+<input type="email" id="email" placeholder="Contact Email" required>
+<input type="text" id="title" placeholder="Job Title" required>
+
+<select id="country" required></select>
+
+<input type="text" id="city" placeholder="City">
+<input type="text" id="salary" placeholder="Salary">
+
+<select id="type">
+  <option value="">Job Type</option>
+  <option>Full-Time</option>
+  <option>Part-Time</option>
+  <option>Contract</option>
+  <option>Remote</option>
+</select>
+
+<textarea id="description" placeholder="Job Description"></textarea>
 
       <input type="text" id="company" placeholder="Company Name" required>
       <input type="email" id="email" placeholder="Contact Email" required>
