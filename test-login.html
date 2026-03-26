@@ -1,0 +1,17 @@
+<button onclick="test()">Test Login</button>
+
+<script>
+function test(){
+fetch("https://yireh-backend-1.onrender.com/api/admin/login",{
+  method:"POST",
+  headers:{ "Content-Type":"application/json" },
+  body: JSON.stringify({
+    email:"yireh.remotejobs@gmail.com",
+    password:"5002190"
+  })
+})
+.then(res=>res.json())
+.then(data=>alert(JSON.stringify(data)))
+.catch(err=>alert("FAILED"));
+}
+</script>
