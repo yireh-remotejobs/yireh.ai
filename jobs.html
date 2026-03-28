@@ -128,8 +128,11 @@ body{background:#f5f7fa;}
   <div class="jobs-wrapper" id="jobsWrapper"></div>
 
   <div class="post-job-sidebar">
-    <h2>Post a Job</h2>
-    <input type="text" id="company" placeholder="Company Name" required>
+<h2>Post a Job</h2>
+
+<form id="jobForm">
+
+<input type="text" id="company" placeholder="Company Name" required>
 <input type="email" id="email" placeholder="Contact Email" required>
 <input type="text" id="title" placeholder="Job Title" required>
 
@@ -139,89 +142,80 @@ body{background:#f5f7fa;}
 <input type="text" id="salary" placeholder="Salary">
 
 <select id="type">
-  <option value="">Job Type</option>
-  <option>Full-Time</option>
-  <option>Part-Time</option>
-  <option>Contract</option>
-  <option>Remote</option>
+<option value="">Job Type</option>
+<option>Full-Time</option>
+<option>Part-Time</option>
+<option>Contract</option>
+<option>Remote</option>
 </select>
 
 <textarea id="description" placeholder="Job Description"></textarea>
 
-      <label>Upload Company Logo</label>
-      <input type="file" id="logoUpload" accept="image/*">
+<label>Upload Company Logo</label>
+<input type="file" id="logoUpload">
 
-      <button type="submit">Submit Job</button>
-    </form>
-  </div>
+<button type="submit">Submit Job</button>
+
+</form>
+</div>
 
 </div>
 
 <!-- APPLY MODAL -->
 <div class="modal" id="applyModal">
-  <div class="modal-content">
-    <h3>Apply for Job</h3>
-    <form id="applyForm">
-      <input type="text" id="applicantName" placeholder="Full Name" required>
-      <input type="email" id="applicantEmail" placeholder="Your Email" required>
-      <input type="file" id="cvUpload" required>
-      <button type="submit">Submit Application</button>
-    </form>
-  </div>
+<div class="modal-content">
+<h3>Apply for Job</h3>
+<form id="applyForm">
+<input type="text" id="applicantName" placeholder="Full Name" required>
+<input type="email" id="applicantEmail" placeholder="Your Email" required>
+<input type="file" id="cvUpload" required>
+<button type="submit">Submit Application</button>
+</form>
+</div>
 </div>
 
 <script>
 
 const API_URL = "https://yireh-backend.onrender.com/api";
 
+/* FULL COUNTRY LIST */
 const countries = [
-"United States","United Kingdom","Canada","Australia","Germany",
-"France","India","Nigeria","South Africa","Kenya","Ghana","Brazil",
-"Mexico","Japan","China","UAE","Saudi Arabia","Singapore"
+"United States","United Kingdom","India","Canada","Australia","Germany",
+"France","Italy","Spain","Netherlands","Sweden","Norway","Denmark",
+"Switzerland","UAE","Saudi Arabia","Qatar","Singapore","Malaysia",
+"Philippines","Indonesia","China","Japan","South Korea","Brazil",
+"Mexico","Argentina","South Africa","Nigeria","Kenya","Ghana",
+"Pakistan","Bangladesh","Sri Lanka","Nepal","New Zealand"
 ];
 
-function populateCountries(){
-  ["country","searchCountry"].forEach(id=>{
-    const select=document.getElementById(id);
-    countries.forEach(c=>{
-      const option=document.createElement("option");
-      option.value=c;
-      option.textContent=c;
-      select.appendChild(option);
-    });
-  });
-}
-populateCountries();
+const countrySelect = document.getElementById("country");
+countries.forEach(c=>{
+  const option=document.createElement("option");
+  option.value=c;
+  option.textContent=c;
+  countrySelect.appendChild(option);
+});
 
-let selectedJobId = null;
-
+/* LOAD JOBS */
 async function loadJobs(){
   const res = await fetch(`${API_URL}/jobs`);
   const jobs = await res.json();
-  renderJobs(jobs);
-}
 
-function renderJobs(list){
-  const wrapper=document.getElementById("jobsWrapper");
-  wrapper.innerHTML="";
-  list.forEach(job=>{
-    wrapper.innerHTML+=`
+  document.getElementById("jobsWrapper").innerHTML =
+    jobs.map(job=>`
       <div class="job-card">
-        ${job.logo?`<img src="${job.logo}">`:""}
         <div>
           <h3>${job.title}</h3>
-          <div class="job-meta">${job.company}</div>
-          <div class="job-meta">${job.city||""}, ${job.country}</div>
-          <div class="job-meta">${job.type} • ${job.salary||"Not specified"}</div>
-          <p class="job-desc">${job.description}</p>
+          <p>${job.company}</p>
+          <p>${job.country}</p>
           <button class="apply-btn" onclick="openApply('${job._id}')">Apply</button>
         </div>
       </div>
-    `;
-  });
+    `).join("");
 }
 
-document.getElementById("jobForm").addEventListener("submit",async function(e){
+/* POST JOB */
+document.getElementById("jobForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   const formData = new FormData();
@@ -247,12 +241,15 @@ document.getElementById("jobForm").addEventListener("submit",async function(e){
   loadJobs();
 });
 
-function openApply(jobId){
-  selectedJobId = jobId;
+/* APPLY */
+let selectedJobId = null;
+
+function openApply(id){
+  selectedJobId=id;
   document.getElementById("applyModal").style.display="flex";
 }
 
-document.getElementById("applyForm").addEventListener("submit",async function(e){
+document.getElementById("applyForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   const formData = new FormData();
@@ -276,5 +273,6 @@ document.getElementById("applyForm").addEventListener("submit",async function(e)
 loadJobs();
 
 </script>
+
 </body>
 </html>
