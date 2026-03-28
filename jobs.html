@@ -227,7 +227,6 @@ document.getElementById("jobForm").addEventListener("submit", async function(e){
   formData.append("salary", salary.value);
   formData.append("type", type.value);
   formData.append("description", description.value);
-  formData.append("logo", logoUpload.files[0]);
 
   const res = await fetch(`${API_URL}/jobs`,{
     method:"POST",
