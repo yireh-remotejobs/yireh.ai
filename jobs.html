@@ -280,7 +280,7 @@ document.getElementById("applyForm").addEventListener("submit", async function(e
   formData.append("jobId", selectedJobId);
   formData.append("name", applicantName.value);
   formData.append("email", applicantEmail.value);
-  formData.append("cv", cvUpload.files[0]);
+  formData.append("cv", "");
 
   const res = await fetch(`${API_URL}/apply`,{
     method:"POST",
