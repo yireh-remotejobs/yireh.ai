@@ -11,43 +11,47 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:#f5f7fa;}
 
+/* HEADER */
 .navbar{
   display:flex;justify-content:space-between;align-items:center;
-  padding:12px 40px;background:#111;color:#fff;
+  padding:15px 40px;background:#111;color:#fff;
 }
-.logo{font-weight:700;font-size:20px;}
-.nav-links a{color:#fff;margin:0 12px;text-decoration:none;}
+.logo{font-size:22px;font-weight:700;}
+.nav-links a{
+  color:#fff;margin:0 12px;text-decoration:none;
+}
 .nav-links a:hover{color:#ffd700;}
 
+/* HERO */
 .hero{
   padding:60px;text-align:center;color:#fff;
   background:linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
 }
-.search-bar{
-  margin-top:20px;
-}
 .search-bar input{
-  padding:10px;width:250px;
+  margin-top:15px;
+  padding:10px;width:260px;border:none;border-radius:6px;
 }
 
+/* LAYOUT */
 .container{display:flex;gap:20px;padding:30px;flex-wrap:wrap;}
 .jobs-wrapper{flex:1;}
 
+/* JOB CARD */
 .job-card{
   background:#fff;padding:20px;margin-bottom:15px;
   border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 .job-card img{
-  width:60px;height:60px;object-fit:cover;border-radius:6px;
+  width:60px;height:60px;border-radius:6px;margin-bottom:10px;
 }
-
 .apply-btn{
   margin-top:10px;padding:8px 12px;
   background:#2a5298;color:#fff;border:none;cursor:pointer;
 }
 
+/* POST JOB */
 .post-job-sidebar{
-  width:320px;background:#fff;padding:20px;
+  width:340px;background:#fff;padding:20px;
   border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 .post-job-sidebar input,
@@ -56,26 +60,30 @@ body{background:#f5f7fa;}
   width:100%;margin-bottom:10px;padding:8px;
 }
 
+/* MODAL */
 .modal{
   display:none;position:fixed;top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.6);justify-content:center;align-items:center;
 }
 .modal-content{
-  background:#fff;padding:20px;border-radius:8px;width:300px;
+  background:#fff;padding:20px;border-radius:8px;width:320px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="navbar">
   <div class="logo">JobSearch</div>
   <div class="nav-links">
+    <a href="index.html">Home</a>
     <a href="jobs.html">Jobs</a>
     <a href="internships.html">Internships</a>
   </div>
 </div>
 
+<!-- HERO -->
 <section class="hero">
   <h1>Find Jobs Worldwide</h1>
   <div class="search-bar">
@@ -85,8 +93,10 @@ body{background:#f5f7fa;}
 
 <div class="container">
 
+  <!-- JOB LIST -->
   <div class="jobs-wrapper" id="jobsWrapper"></div>
 
+  <!-- POST JOB -->
   <div class="post-job-sidebar">
     <h2>Post a Job</h2>
 
@@ -126,125 +136,130 @@ body{background:#f5f7fa;}
     <form id="applyForm">
       <input type="text" id="applicantName" placeholder="Full Name" required>
       <input type="email" id="applicantEmail" placeholder="Email" required>
-
-      <!-- CV UPLOAD -->
       <input type="file" id="cvUpload" required>
-
       <button type="submit">Submit</button>
     </form>
   </div>
 </div>
 
 <script>
-
 const API_URL = "https://yireh-backend-1.onrender.com/api";
 
-/* COUNTRIES */
-const countries = [
-"India","United States","United Kingdom","Canada","Australia",
-"Germany","France","UAE","Saudi Arabia","Singapore","Malaysia"
-];
+document.addEventListener("DOMContentLoaded", () => {
 
-function populateCountries(){
-  const select = document.getElementById("country");
+  /* COUNTRIES */
+  const countries = ["India","USA","UK","Canada","Australia","Germany","France","UAE","Singapore"];
+  const countrySelect = document.getElementById("country");
   countries.forEach(c=>{
-    const option = document.createElement("option");
-    option.value = c;
-    option.textContent = c;
-    select.appendChild(option);
+    const o=document.createElement("option");
+    o.value=c; o.textContent=c;
+    countrySelect.appendChild(o);
   });
-}
-populateCountries();
 
-/* LOAD JOBS */
-async function loadJobs(){
-  const res = await fetch(`${API_URL}/jobs`);
-  const jobs = await res.json();
+  /* LOAD JOBS */
+  async function loadJobs(){
+    try{
+      const res = await fetch(`${API_URL}/jobs`);
+      const jobs = await res.json();
 
-  const wrapper = document.getElementById("jobsWrapper");
-  wrapper.innerHTML = "";
+      const wrapper=document.getElementById("jobsWrapper");
+      wrapper.innerHTML="";
 
-  jobs.forEach(job=>{
-    wrapper.innerHTML += `
-      <div class="job-card">
-        ${job.logo ? `<img src="${job.logo}">` : ""}
-        <h3>${job.title}</h3>
-        <p>${job.company}</p>
-        <p>${job.country}</p>
-        <button class="apply-btn" onclick="openApply('${job._id}')">Apply</button>
-      </div>
-    `;
-  });
-}
-loadJobs();
-
-/* LOGO TO BASE64 */
-let logoBase64 = "";
-document.getElementById("logoUpload").addEventListener("change", function(e){
-  const reader = new FileReader();
-  reader.onload = ()=> logoBase64 = reader.result;
-  if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
-});
-
-/* POST JOB */
-document.getElementById("jobForm").addEventListener("submit", async function(e){
-  e.preventDefault();
-
-  const res = await fetch(`${API_URL}/jobs`,{
-  method:"POST",
-  headers:{
-    "Content-Type":"application/json"
-  },
-  body: JSON.stringify({
-    company: document.getElementById("company").value,
-    email: document.getElementById("email").value,
-    title: document.getElementById("title").value,
-    country: document.getElementById("country").value,
-    city: document.getElementById("city").value,
-    salary: document.getElementById("salary").value,
-    type: document.getElementById("type").value,
-    description: document.getElementById("description").value,
-    logo: logoBase64 || ""
-  })
-});
-
-const data = await res.json();
-alert(data.message || "Job posted successfully");
-
-  alert("Job posted successfully");
-  this.reset();
-  logoBase64="";
+      jobs.forEach(job=>{
+        wrapper.innerHTML += `
+          <div class="job-card">
+            ${job.logo ? `<img src="${job.logo}">` : ""}
+            <h3>${job.title}</h3>
+            <p>${job.company}</p>
+            <p>${job.country}</p>
+            <button class="apply-btn" onclick="openApply('${job._id}')">Apply</button>
+          </div>
+        `;
+      });
+    }catch(err){
+      console.error(err);
+      alert("Error loading jobs");
+    }
+  }
   loadJobs();
-});
 
-/* APPLY WITH CV */
-let selectedJobId=null;
-
-function openApply(id){
-  selectedJobId=id;
-  document.getElementById("applyModal").style.display="flex";
-}
-
-document.getElementById("applyForm").addEventListener("submit", async function(e){
-  e.preventDefault();
-
-  const formData = new FormData();
-  formData.append("jobId", selectedJobId);
-  formData.append("name", applicantName.value);
-  formData.append("email", applicantEmail.value);
-  formData.append("cv", cvUpload.files[0]);
-
-  await fetch(`${API_URL}/apply`,{
-    method:"POST",
-    body: formData
+  /* LOGO */
+  let logoBase64="";
+  document.getElementById("logoUpload").addEventListener("change", e=>{
+    const reader=new FileReader();
+    reader.onload=()=>logoBase64=reader.result;
+    if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
   });
 
-  alert("Application submitted");
-  document.getElementById("applyModal").style.display="none";
-  this.reset();
-});
+  /* POST JOB */
+  document.getElementById("jobForm").addEventListener("submit", async e=>{
+    e.preventDefault();
 
+    try{
+      const res = await fetch(`${API_URL}/jobs`,{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({
+          company: company.value,
+          email: email.value,
+          title: title.value,
+          country: country.value,
+          city: city.value,
+          salary: salary.value,
+          type: type.value,
+          description: description.value,
+          logo: logoBase64
+        })
+      });
+
+      await res.json();
+      alert("Job posted successfully");
+
+      e.target.reset();
+      logoBase64="";
+      loadJobs();
+
+    }catch(err){
+      console.error(err);
+      alert("Job post failed");
+    }
+  });
+
+  /* APPLY */
+  let selectedJobId=null;
+
+  window.openApply = function(id){
+    selectedJobId=id;
+    document.getElementById("applyModal").style.display="flex";
+  };
+
+  document.getElementById("applyForm").addEventListener("submit", async e=>{
+    e.preventDefault();
+
+    try{
+      const formData=new FormData();
+      formData.append("jobId",selectedJobId);
+      formData.append("name",applicantName.value);
+      formData.append("email",applicantEmail.value);
+      formData.append("cv",cvUpload.files[0]);
+
+      await fetch(`${API_URL}/apply`,{
+        method:"POST",
+        body:formData
+      });
+
+      alert("Application submitted");
+      document.getElementById("applyModal").style.display="none";
+      e.target.reset();
+
+    }catch(err){
+      console.error(err);
+      alert("Apply failed");
+    }
+  });
+
+});
 </script>
-document.getElementById
+
 </body>
 </html>
