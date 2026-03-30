@@ -15,13 +15,19 @@ body{background:#f5f7fa;}
   display:flex;justify-content:space-between;align-items:center;
   padding:12px 40px;background:#111;color:#fff;
 }
-.logo img{height:50px;}
+.logo{font-weight:700;font-size:20px;}
 .nav-links a{color:#fff;margin:0 12px;text-decoration:none;}
 .nav-links a:hover{color:#ffd700;}
 
 .hero{
   padding:60px;text-align:center;color:#fff;
   background:linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
+}
+.search-bar{
+  margin-top:20px;
+}
+.search-bar input{
+  padding:10px;width:250px;
 }
 
 .container{display:flex;gap:20px;padding:30px;flex-wrap:wrap;}
@@ -63,7 +69,7 @@ body{background:#f5f7fa;}
 <body>
 
 <div class="navbar">
-  <div class="logo"><img src="logo.png"></div>
+  <div class="logo">JobSearch</div>
   <div class="nav-links">
     <a href="jobs.html">Jobs</a>
     <a href="internships.html">Internships</a>
@@ -72,6 +78,9 @@ body{background:#f5f7fa;}
 
 <section class="hero">
   <h1>Find Jobs Worldwide</h1>
+  <div class="search-bar">
+    <input type="text" placeholder="Search jobs...">
+  </div>
 </section>
 
 <div class="container">
@@ -101,7 +110,6 @@ body{background:#f5f7fa;}
 
       <textarea id="description" placeholder="Job Description"></textarea>
 
-      <!-- LOGO UPLOAD -->
       <label>Upload Company Logo</label>
       <input type="file" id="logoUpload" accept="image/*">
 
@@ -114,10 +122,14 @@ body{background:#f5f7fa;}
 <!-- APPLY MODAL -->
 <div class="modal" id="applyModal">
   <div class="modal-content">
-    <h3>Apply</h3>
+    <h3>Apply for Job</h3>
     <form id="applyForm">
       <input type="text" id="applicantName" placeholder="Full Name" required>
       <input type="email" id="applicantEmail" placeholder="Email" required>
+
+      <!-- CV UPLOAD -->
+      <input type="file" id="cvUpload" required>
+
       <button type="submit">Submit</button>
     </form>
   </div>
@@ -166,28 +178,21 @@ async function loadJobs(){
 }
 loadJobs();
 
-/* CONVERT IMAGE TO BASE64 */
+/* LOGO TO BASE64 */
 let logoBase64 = "";
-
 document.getElementById("logoUpload").addEventListener("change", function(e){
   const reader = new FileReader();
-  reader.onload = function(){
-    logoBase64 = reader.result;
-  };
-  if(e.target.files[0]){
-    reader.readAsDataURL(e.target.files[0]);
-  }
+  reader.onload = ()=> logoBase64 = reader.result;
+  if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
 });
 
 /* POST JOB */
 document.getElementById("jobForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
-  const res = await fetch(`${API_URL}/jobs`,{
+  await fetch(`${API_URL}/jobs`,{
     method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
+    headers:{ "Content-Type":"application/json" },
     body: JSON.stringify({
       company: company.value,
       email: email.value,
@@ -201,40 +206,35 @@ document.getElementById("jobForm").addEventListener("submit", async function(e){
     })
   });
 
-  const data = await res.json();
   alert("Job posted successfully");
-
   this.reset();
-  logoBase64 = "";
+  logoBase64="";
   loadJobs();
 });
 
-/* APPLY */
-let selectedJobId = null;
+/* APPLY WITH CV */
+let selectedJobId=null;
 
 function openApply(id){
-  selectedJobId = id;
-  document.getElementById("applyModal").style.display = "flex";
+  selectedJobId=id;
+  document.getElementById("applyModal").style.display="flex";
 }
 
 document.getElementById("applyForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
-  const res = await fetch(`${API_URL}/apply`,{
+  const formData = new FormData();
+  formData.append("jobId", selectedJobId);
+  formData.append("name", applicantName.value);
+  formData.append("email", applicantEmail.value);
+  formData.append("cv", cvUpload.files[0]);
+
+  await fetch(`${API_URL}/apply`,{
     method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body: JSON.stringify({
-      jobId: selectedJobId,
-      name: applicantName.value,
-      email: applicantEmail.value
-    })
+    body: formData
   });
 
-  const data = await res.json();
   alert("Application submitted");
-
   document.getElementById("applyModal").style.display="none";
   this.reset();
 });
