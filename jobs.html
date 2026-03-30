@@ -190,21 +190,26 @@ document.getElementById("logoUpload").addEventListener("change", function(e){
 document.getElementById("jobForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
-  await fetch(`${API_URL}/jobs`,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({
-      company: company.value,
-      email: email.value,
-      title: title.value,
-      country: country.value,
-      city: city.value,
-      salary: salary.value,
-      type: type.value,
-      description: description.value,
-      logo: logoBase64
-    })
-  });
+  const res = await fetch(`${API_URL}/jobs`,{
+  method:"POST",
+  headers:{
+    "Content-Type":"application/json"
+  },
+  body: JSON.stringify({
+    company: document.getElementById("company").value,
+    email: document.getElementById("email").value,
+    title: document.getElementById("title").value,
+    country: document.getElementById("country").value,
+    city: document.getElementById("city").value,
+    salary: document.getElementById("salary").value,
+    type: document.getElementById("type").value,
+    description: document.getElementById("description").value,
+    logo: logoBase64 || ""
+  })
+});
+
+const data = await res.json();
+alert(data.message || "Job posted successfully");
 
   alert("Job posted successfully");
   this.reset();
