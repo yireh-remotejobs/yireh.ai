@@ -3,329 +3,738 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YIREH CAREERS | Empowering Talent</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>.logo img{
-  height:55px;
-  width:auto;
-  display:block;
+<title>Yireh CV Builder – Design Your Future</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0b1d3a;
+  --navy2:#142547;
+  --gold:#c9a84c;
+  --gold2:#e6c87a;
+  --white:#ffffff;
+  --off:#f7f6f2;
+  --surface:#1a2e52;
+  --text-dark:#0b1d3a;
+  --text-mid:#4a5568;
+  --text-light:#8898aa;
+  --border:#d1d9e6;
+  --accent:#3a7bd5;
+  --success:#22c55e;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 4px 24px rgba(11,29,58,0.10);
+  --shadow-md:0 8px 40px rgba(11,29,58,0.16);
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;color:var(--text-dark);}
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
-
-body{
-  background: linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
-  color:#333;
-}
-
-/* ===== NAVBAR ===== */
-
+/* ═══ NAVBAR ═══ */
 .navbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 40px;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(10px);
-  color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:64px;
+  background:rgba(11,29,58,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(201,168,76,0.2);
+  position:sticky;top:0;z-index:100;
 }
-
-.heading{
-  font-size:35px;
-  font-weight:700;
-}
-
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:36px;width:auto;object-fit:contain;}
+.nav-brand{font-family:'Playfair Display',serif;color:var(--gold);font-size:20px;letter-spacing:0.03em;}
+.nav-links{display:flex;align-items:center;gap:4px;}
 .nav-links a{
-  color:#fff;
-  margin:0 10px;
-  text-decoration:none;
-  font-weight:500;
-  transition:0.3s;
+  color:rgba(255,255,255,0.75);font-size:13px;font-weight:500;
+  text-decoration:none;padding:6px 14px;border-radius:30px;
+  transition:all 0.2s;
 }
-
-.nav-links a:hover{
-  color:#ffd700;
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.1);}
+.nav-links a.active{color:var(--gold);background:rgba(201,168,76,0.12);}
+.nav-actions{display:flex;gap:8px;}
+.btn-ghost{
+  padding:6px 16px;border-radius:30px;border:1px solid rgba(201,168,76,0.4);
+  background:transparent;color:var(--gold);font-size:13px;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:all 0.2s;font-weight:500;
 }
-
-.support-buttons button{
-  margin-left:10px;
-  padding:6px 12px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:600;
+.btn-ghost:hover{background:rgba(201,168,76,0.12);}
+.btn-primary-nav{
+  padding:7px 18px;border-radius:30px;border:none;
+  background:var(--gold);color:var(--navy);font-size:13px;font-family:'DM Sans',sans-serif;
+  cursor:pointer;font-weight:600;transition:all 0.2s;
 }
+.btn-primary-nav:hover{background:var(--gold2);transform:translateY(-1px);}
 
-.paypal{
-  background:#ffc439;
-}
-
-.gpay{
-  background:#000;
-  color:#fff;
-}
-
-/* ===== HERO ===== */
-
+/* ═══ HERO BANNER ═══ */
 .hero{
-  text-align:center;
-  padding:80px 20px;
-  color:#fff;
+  text-align:center;padding:48px 20px 36px;
+  background:linear-gradient(180deg,rgba(11,29,58,0) 0%,rgba(26,46,82,0.3) 100%);
 }
-
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);
+  color:var(--gold);font-size:12px;font-weight:500;padding:4px 14px;
+  border-radius:30px;margin-bottom:16px;letter-spacing:0.04em;
+}
 .hero h1{
-  font-size:48px;
-  margin-bottom:20px;
+  font-family:'Playfair Display',serif;font-size:42px;color:#fff;
+  line-height:1.2;margin-bottom:10px;
 }
+.hero h1 span{color:var(--gold);}
+.hero p{color:rgba(255,255,255,0.6);font-size:15px;max-width:500px;margin:0 auto;}
 
-.hero p{
-  font-size:18px;
-  margin-bottom:30px;
+/* ═══ MAIN LAYOUT ═══ */
+.app-container{
+  display:grid;grid-template-columns:420px 1fr;
+  gap:20px;padding:0 20px 40px;max-width:1400px;margin:0 auto;
 }
+@media(max-width:1000px){.app-container{grid-template-columns:1fr;}}
 
-.hero-buttons button{
-  padding:12px 25px;
-  margin:10px;
-  border:none;
-  border-radius:30px;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.3s;
+/* ═══ BUILDER PANEL ═══ */
+.builder-panel{
+  background:#fff;border-radius:var(--radius);
+  box-shadow:var(--shadow-md);overflow:hidden;
+  display:flex;flex-direction:column;
+  position:sticky;top:84px;height:calc(100vh - 104px);
 }
-
-.primary-btn{
-  background:#ffd700;
+.panel-tabs{
+  display:flex;border-bottom:1px solid var(--border);background:#fff;
 }
-
-.secondary-btn{
-  background:#fff;
+.panel-tab{
+  flex:1;padding:14px 0;text-align:center;font-size:13px;font-weight:500;
+  color:var(--text-mid);cursor:pointer;transition:all 0.2s;
+  border-bottom:2px solid transparent;
 }
+.panel-tab.active{color:var(--navy);border-bottom-color:var(--gold);}
+.panel-tab:hover:not(.active){background:var(--off);}
+.panel-body{flex:1;overflow:auto;padding:20px;}
 
-.hero-buttons button:hover{
-  transform:scale(1.05);
+/* Photo Upload */
+.photo-zone{
+  text-align:center;padding:20px 0 16px;
 }
-
-/* ===== FEATURES ===== */
-
-.features{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  padding:60px 20px;
-  background:#f4f4f4;
+.photo-ring{
+  width:90px;height:90px;border-radius:50%;margin:0 auto 12px;
+  background:var(--off);border:2px dashed var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:all 0.2s;overflow:hidden;position:relative;
 }
+.photo-ring:hover{border-color:var(--gold);}
+.photo-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.photo-ring .photo-icon{font-size:28px;color:var(--text-light);}
+.photo-hint{font-size:12px;color:var(--text-light);}
+#photoInput{display:none;}
 
-.feature-box{
-  background:#fff;
-  width:300px;
-  margin:20px;
-  border-radius:15px;
-  overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
-  transition:0.3s;
+/* Template Selector */
+.template-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  margin-bottom:16px;
 }
-
-.feature-box:hover{
-  transform:translateY(-10px);
+.tpl-card{
+  border:2px solid var(--border);border-radius:var(--radius-sm);
+  padding:8px 4px;text-align:center;cursor:pointer;transition:all 0.2s;
 }
+.tpl-card.active{border-color:var(--gold);background:rgba(201,168,76,0.06);}
+.tpl-card:hover:not(.active){border-color:var(--accent);}
+.tpl-swatch{height:32px;border-radius:4px;margin-bottom:5px;}
+.tpl-classic .tpl-swatch{background:linear-gradient(135deg,#1a3a6e,#2a5298);}
+.tpl-modern .tpl-swatch{background:linear-gradient(135deg,#1d1d1d,#444);}
+.tpl-creative .tpl-swatch{background:linear-gradient(135deg,#6366f1,#8b5cf6);}
+.tpl-executive .tpl-swatch{background:linear-gradient(135deg,#c9a84c,#8b6914);}
+.tpl-card span{font-size:10px;color:var(--text-mid);font-weight:500;}
 
-.feature-box img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
+/* Form Sections */
+.form-section{
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  margin-bottom:8px;overflow:hidden;transition:all 0.2s;
 }
-
-.feature-content{
-  padding:20px;
-  text-align:center;
+.form-section:hover{border-color:#b0bfd6;}
+.section-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 14px;cursor:pointer;background:#fff;
+  transition:background 0.15s;
 }
-
-.feature-content h3{
-  margin-bottom:10px;
+.section-header:hover{background:var(--off);}
+.section-icon{
+  width:28px;height:28px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;margin-right:10px;
 }
-
-.feature-content p{
-  font-size:14px;
-  margin-bottom:15px;
+.section-title-wrap{display:flex;align-items:center;flex:1;}
+.section-name{font-size:13px;font-weight:500;color:var(--text-dark);}
+.section-toggle{
+  font-size:11px;font-weight:600;color:var(--text-light);
+  background:var(--off);border:none;padding:4px 10px;
+  border-radius:20px;cursor:pointer;transition:all 0.15s;
 }
-
-.feature-content button{
-  padding:8px 15px;
-  border:none;
-  border-radius:20px;
-  background:#2a5298;
-  color:#fff;
-  cursor:pointer;
+.section-toggle:hover{background:var(--border);}
+.section-body{display:none;padding:12px 14px;border-top:1px solid var(--border);}
+.section-body.open{display:block;}
+.field-label{font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;}
+.field-input, .field-textarea{
+  width:100%;padding:9px 12px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);font-family:'DM Sans',sans-serif;
+  font-size:13px;color:var(--text-dark);background:#fff;
+  transition:border-color 0.15s;outline:none;resize:none;
 }
+.field-input:focus,.field-textarea:focus{border-color:var(--accent);}
+.field-textarea{min-height:90px;line-height:1.5;}
 
-/* ===== SCAM ALERT ===== */
-
-.scam-alert{
-  background:#b00020;
-  color:#fff;
-  text-align:center;
-  padding:25px 15px;
+/* Action Buttons */
+.panel-footer{
+  padding:16px;border-top:1px solid var(--border);
+  display:flex;gap:8px;flex-wrap:wrap;
 }
-
-.scam-alert h2{
-  margin-bottom:10px;
+.btn-download{
+  flex:1;padding:11px 0;background:var(--navy);color:#fff;
+  border:none;border-radius:var(--radius-sm);cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;
 }
-
-/* ===== INSPIRATION ===== */
-
-.inspiration{
-  text-align:center;
-  padding:60px 20px;
-  background:#fff;
+.btn-download:hover{background:var(--surface);}
+.btn-save{
+  padding:11px 18px;background:var(--success);color:#fff;
+  border:none;border-radius:var(--radius-sm);cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;
 }
-
-.inspiration h2{
-  margin-bottom:20px;
-  color:#2a5298;
+.btn-save:hover{filter:brightness(1.1);}
+.btn-share{
+  padding:11px 18px;background:var(--gold);color:var(--navy);
+  border:none;border-radius:var(--radius-sm);cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;
 }
+.btn-share:hover{background:var(--gold2);}
 
-.quote{
-  font-size:18px;
-  margin:10px 0;
-  font-style:italic;
+/* ═══ PREVIEW PANEL ═══ */
+.preview-panel{
+  background:#e8ecf0;border-radius:var(--radius);
+  padding:24px;display:flex;flex-direction:column;gap:16px;
+  min-height:calc(100vh - 104px);
 }
-
-/* ===== FOOTER ===== */
-
-.footer{
-  background:#111;
-  color:#fff;
-  text-align:center;
-  padding:20px;
+.preview-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
 }
-
-.footer p{
-  margin:5px 0;
+.preview-label{color:rgba(255,255,255,0.6);font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;}
+.preview-actions{display:flex;gap:8px;}
+.zoom-btn{
+  width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;transition:all 0.15s;
 }
-
-/* ===== RESPONSIVE ===== */
-
-@media(max-width:768px){
-  .hero h1{
-    font-size:32px;
-  }
-  .features{
-    flex-direction:column;
-    align-items:center;
-  }
+.zoom-btn:hover{background:rgba(255,255,255,0.2);}
+.cv-paper-wrap{
+  flex:1;display:flex;align-items:flex-start;justify-content:center;
 }
+.cv-paper{
+  background:#fff;width:595px;min-height:842px;
+  border-radius:4px;box-shadow:0 12px 48px rgba(0,0,0,0.25);
+  overflow:hidden;position:relative;
+  transition:transform 0.2s;
+}
+.cv-paper.zoom-out{transform:scale(0.85);transform-origin:top center;}
 
+/* ═══ CV TEMPLATE STYLES ═══ */
+
+/* CLASSIC BLUE */
+.cv-paper.tpl-classic .cv-header{
+  background:linear-gradient(135deg,#1a3a6e,#2a5298);
+  padding:36px 40px 28px;color:#fff;position:relative;
+}
+.cv-paper.tpl-classic .cv-header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#c9a84c,#e6c87a,#c9a84c);
+}
+.cv-paper.tpl-classic .cv-photo-wrap{
+  position:absolute;top:28px;right:40px;
+  width:90px;height:90px;border-radius:50%;border:3px solid rgba(255,255,255,0.3);overflow:hidden;
+}
+.cv-paper.tpl-classic .cv-name{font-size:26px;font-weight:700;margin-bottom:4px;}
+.cv-paper.tpl-classic .cv-jobtitle{font-size:13px;opacity:0.8;margin-bottom:14px;font-weight:300;}
+.cv-paper.tpl-classic .cv-contact-bar{display:flex;gap:20px;flex-wrap:wrap;}
+.cv-paper.tpl-classic .cv-contact-item{font-size:11px;opacity:0.85;display:flex;align-items:center;gap:5px;}
+.cv-paper.tpl-classic .cv-body{padding:28px 40px;}
+.cv-paper.tpl-classic .cv-section{margin-bottom:22px;}
+.cv-paper.tpl-classic .cv-section-title{
+  font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:#2a5298;border-bottom:2px solid #c9a84c;padding-bottom:5px;margin-bottom:12px;
+}
+.cv-paper.tpl-classic .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+
+/* MODERN DARK */
+.cv-paper.tpl-modern{display:flex;}
+.cv-paper.tpl-modern .cv-sidebar{
+  width:180px;min-height:842px;background:#1d1d1d;padding:32px 18px;
+  display:flex;flex-direction:column;flex-shrink:0;
+}
+.cv-paper.tpl-modern .cv-photo-wrap{
+  width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 16px;
+  border:2px solid #444;
+}
+.cv-paper.tpl-modern .cv-sidebar .cv-name{font-size:15px;font-weight:700;color:#fff;text-align:center;margin-bottom:4px;}
+.cv-paper.tpl-modern .cv-sidebar .cv-jobtitle{font-size:11px;color:#888;text-align:center;margin-bottom:20px;}
+.cv-paper.tpl-modern .cv-sidebar-section{margin-bottom:18px;}
+.cv-paper.tpl-modern .cv-sidebar-title{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #333;padding-bottom:4px;}
+.cv-paper.tpl-modern .cv-sidebar-content{font-size:11px;color:#aaa;line-height:1.6;white-space:pre-wrap;}
+.cv-paper.tpl-modern .cv-main{flex:1;padding:32px 24px;}
+.cv-paper.tpl-modern .cv-section{margin-bottom:20px;}
+.cv-paper.tpl-modern .cv-section-title{
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:#1d1d1d;font-weight:700;border-left:3px solid #1d1d1d;padding-left:8px;margin-bottom:10px;
+}
+.cv-paper.tpl-modern .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+
+/* CREATIVE PURPLE */
+.cv-paper.tpl-creative .cv-header{
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  padding:32px 36px 24px;color:#fff;
+}
+.cv-paper.tpl-creative .cv-name{font-size:28px;font-weight:700;margin-bottom:2px;}
+.cv-paper.tpl-creative .cv-jobtitle{font-size:13px;opacity:0.8;margin-bottom:12px;}
+.cv-paper.tpl-creative .cv-contact-bar{display:flex;gap:14px;flex-wrap:wrap;}
+.cv-paper.tpl-creative .cv-contact-item{font-size:11px;opacity:0.85;background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;}
+.cv-paper.tpl-creative .cv-body{padding:26px 36px;}
+.cv-paper.tpl-creative .cv-section{margin-bottom:20px;}
+.cv-paper.tpl-creative .cv-section-title{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+  color:#6366f1;margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.cv-paper.tpl-creative .cv-section-title::after{content:'';flex:1;height:1px;background:#e5e7eb;}
+.cv-paper.tpl-creative .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+
+/* EXECUTIVE GOLD */
+.cv-paper.tpl-executive .cv-header{
+  border-top:6px solid #c9a84c;padding:32px 40px 24px;background:#fff;
+}
+.cv-paper.tpl-executive .cv-name{font-size:28px;font-weight:700;color:#1a1a1a;font-family:'Playfair Display',serif;margin-bottom:4px;}
+.cv-paper.tpl-executive .cv-jobtitle{font-size:14px;color:#c9a84c;font-weight:500;margin-bottom:14px;letter-spacing:0.04em;}
+.cv-paper.tpl-executive .cv-divider{height:1px;background:linear-gradient(90deg,#c9a84c,transparent);margin-bottom:12px;}
+.cv-paper.tpl-executive .cv-contact-bar{display:flex;gap:20px;flex-wrap:wrap;}
+.cv-paper.tpl-executive .cv-contact-item{font-size:11px;color:#555;display:flex;align-items:center;gap:5px;}
+.cv-paper.tpl-executive .cv-body{padding:24px 40px;}
+.cv-paper.tpl-executive .cv-section{margin-bottom:22px;}
+.cv-paper.tpl-executive .cv-section-title{
+  font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;
+  color:#1a1a1a;border-bottom:1px solid #c9a84c;padding-bottom:6px;margin-bottom:12px;
+}
+.cv-paper.tpl-executive .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+
+/* ═══ TOAST ═══ */
+.toast{
+  position:fixed;bottom:32px;right:32px;z-index:999;
+  background:var(--navy);color:#fff;padding:12px 20px;border-radius:var(--radius-sm);
+  font-size:13px;font-weight:500;box-shadow:var(--shadow-md);
+  transform:translateY(20px);opacity:0;pointer-events:none;transition:all 0.3s;
+  border-left:3px solid var(--gold);
+}
+.toast.show{transform:translateY(0);opacity:1;}
+.drag-handle{cursor:grab;color:var(--text-light);font-size:14px;margin-right:8px;}
 </style>
 </head>
-
 <body>
 
-<!-- COMMON HEADER -->
-<div class="navbar">
-  <div class="logo">
-    <a href="index.html">
-      <img src="logo.png" alt="Yireh Careers Logo">
-    </a>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <img src="logo.png" alt="Yireh" onerror="this.style.display='none'">
+    <span class="nav-brand">YIREH CAREERS</span>
   </div>
-
-  <div class="heading">YIREH CAREERS</div>
-
   <div class="nav-links">
-    <a href="cv-builder.html">CV Builder</a>
+    <a href="cv-builder.html" class="active">CV Builder</a>
     <a href="jobs.html">Jobs</a>
     <a href="internships.html">Internships</a>
     <a href="#">Scam Alerts</a>
     <a href="mailto:yireh.remotejobs@gmail.com">Contact</a>
   </div>
-
-  <div class="support-buttons">
-    <button class="paypal">PayPal</button>
-    <button class="gpay">Google Pay</button>
+  <div class="nav-actions">
+    <button class="btn-ghost" onclick="loginModal()">Sign In</button>
+    <button class="btn-primary-nav" onclick="loginModal()">Save My CV</button>
   </div>
-</div>
+</nav>
 
 <!-- HERO -->
-<section class="hero">
-  <h1>Empowering Talent. Building Futures.</h1>
-  <p>Your career journey starts here. Build stunning resumes and discover verified opportunities worldwide.</p>
-
-  <div class="hero-buttons">
-    <a href="cv-builder.html">
-  <button class="primary-btn">Build CV Now</button>
-</a>
-    <a href="jobs.html">
-  <button class="secondary-btn">Find Jobs</button>
-</a>
-    <a href="internships.html">
-  <button class="secondary-btn">Explore Internships</button>
-</a>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features">
-
-  <div class="feature-box">
-    <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4" alt="CV Builder">
-    <div class="feature-content">
-      <h3>CV Builder</h3>
-      <p>Create professional resumes with multiple premium templates and high-quality PDF export.</p>
-      <a href="cv-builder.html">
-  <button>Start Building</button>
-</a>
-    </div>
-  </div>
-
-  <div class="feature-box">
-    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" alt="Jobs">
-    <div class="feature-content">
-      <h3>Verified Jobs</h3>
-      <p>Discover trusted job opportunities from verified employers across industries.</p>
-      <a href="jobs.html">
-  <button>Browse Jobs</button>
-</a>
-    </div>
-  </div>
-
-  <div class="feature-box">
-    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" alt="Internships">
-    <div class="feature-content">
-      <h3>Internships</h3>
-      <p>Gain real-world experience and kickstart your career with curated internships.</p>
-      <a href="internships.html">
-  <button>Explore Internships</button>
-</a>
-    </div>
-  </div>
-
-</section>
-
-<!-- SCAM ALERT -->
-<section class="scam-alert">
-  <h2>⚠ Scam Alert Notice</h2>
-  <p>Yireh Careers will NEVER ask for payment for job offers. Always verify recruiters and report suspicious listings.</p>
-</section>
-
-<!-- INSPIRATION -->
-<section class="inspiration">
-  <h2>Be Inspired</h2>
-  <div class="quote">"Success is not given. It is built."</div>
-  <div class="quote">"Your future is created by what you do today."</div>
-</section>
-
-<!-- FOOTER -->
-<div class="footer">
-  <p>📧 support@yirehcareers.com</p>
-  <p>© 2026 YIREH CAREERS. All Rights Reserved.</p>
+<div class="hero">
+  <div class="hero-tag">✦ Free Professional CV Builder</div>
+  <h1>Design Your Future <span>Professionally</span></h1>
+  <p>Build a stunning, ATS-optimized CV in minutes. Choose a template, fill in your details, download as PDF.</p>
 </div>
 
+<!-- APP -->
+<div class="app-container">
+
+  <!-- LEFT: BUILDER PANEL -->
+  <div class="builder-panel">
+    <div class="panel-tabs">
+      <div class="panel-tab active" onclick="switchTab('content',this)">Content</div>
+      <div class="panel-tab" onclick="switchTab('template',this)">Template</div>
+      <div class="panel-tab" onclick="switchTab('settings',this)">Settings</div>
+    </div>
+
+    <div class="panel-body" id="tabContent">
+
+      <!-- Photo upload -->
+      <div class="photo-zone">
+        <div class="photo-ring" onclick="document.getElementById('photoInput').click()">
+          <img id="photoPreview" src="" style="display:none;">
+          <span class="photo-icon" id="photoIcon">📷</span>
+        </div>
+        <div class="photo-hint">Click to upload photo (optional)</div>
+        <input type="file" id="photoInput" accept="image/*">
+      </div>
+
+      <!-- Sections -->
+      <div id="sectionsContainer"></div>
+    </div>
+
+    <div class="panel-footer">
+      <button class="btn-download" onclick="downloadPDF()">
+        <span>⬇</span> Download PDF
+      </button>
+      <button class="btn-save" onclick="saveCV()">💾 Save</button>
+      <button class="btn-share" onclick="shareCV()">🔗 Share</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: PREVIEW PANEL -->
+  <div class="preview-panel">
+    <div class="preview-toolbar">
+      <span class="preview-label">Live Preview</span>
+      <div class="preview-actions">
+        <button class="zoom-btn" onclick="toggleZoom()" title="Toggle zoom">⊖</button>
+      </div>
+    </div>
+
+    <div class="cv-paper-wrap">
+      <div class="cv-paper tpl-classic" id="cvPaper">
+        <!-- Rendered by JS -->
+        <div style="display:flex;align-items:center;justify-content:center;height:200px;color:#aaa;font-size:13px;">
+          Start filling in your details to see your CV here
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://yireh-backend-1.onrender.com'; // Update to your Render backend URL
+
+const SECTIONS = [
+  {id:'fullName',     name:'Full Name',           icon:'👤', color:'#e8f4fd', side:false},
+  {id:'title',        name:'Professional Title',   icon:'💼', color:'#fdf6e3', side:false},
+  {id:'phone',        name:'Phone',                icon:'📞', color:'#f0fdf4', side:false},
+  {id:'email',        name:'Email',                icon:'✉️', color:'#fdf6e3', side:false},
+  {id:'dob',          name:'Date of Birth',        icon:'📅', color:'#fce7f3', side:false},
+  {id:'location',     name:'Location',             icon:'📍', color:'#fff7ed', side:false},
+  {id:'linkedin',     name:'LinkedIn',             icon:'🔗', color:'#eff6ff', side:false},
+  {id:'summary',      name:'Professional Summary', icon:'📝', color:'#f5f3ff', side:false},
+  {id:'skills',       name:'Technical Skills',     icon:'⚙️', color:'#ecfdf5', side:true},
+  {id:'softskills',   name:'Soft Skills',          icon:'🌟', color:'#fffbeb', side:true},
+  {id:'experience',   name:'Work Experience',      icon:'🏢', color:'#eff6ff', side:false},
+  {id:'projects',     name:'Projects',             icon:'🚀', color:'#f5f3ff', side:false},
+  {id:'education',    name:'Education',            icon:'🎓', color:'#f0fdf4', side:false},
+  {id:'certifications',name:'Certifications',      icon:'🏆', color:'#fff7ed', side:false},
+  {id:'languages',    name:'Languages',            icon:'🌐', color:'#fce7f3', side:true},
+  {id:'additional',   name:'Additional Info',      icon:'ℹ️', color:'#f7f7f7', side:false},
+];
+
+let cvData = {};
+let currentTemplate = 'classic';
+let uploadedPhoto = '';
+let isZoomed = false;
+
+// Build sections
+function buildSections(){
+  const container = document.getElementById('sectionsContainer');
+  container.innerHTML = '';
+  SECTIONS.forEach(s=>{
+    const el = document.createElement('div');
+    el.className='form-section';
+    el.dataset.id=s.id;
+    el.innerHTML=`
+      <div class="section-header" onclick="toggleSection('${s.id}')">
+        <span class="drag-handle">⠿</span>
+        <div class="section-title-wrap">
+          <div class="section-icon" style="background:${s.color}">${s.icon}</div>
+          <span class="section-name">${s.name}</span>
+        </div>
+        <button class="section-toggle" id="toggle_${s.id}">+</button>
+      </div>
+      <div class="section-body" id="body_${s.id}">
+        <div class="field-label">${s.name}</div>
+        <textarea class="field-textarea" id="input_${s.id}" placeholder="Enter ${s.name}..." 
+          oninput="onInput('${s.id}',this.value)" rows="${s.id==='summary'||s.id==='experience'||s.id==='projects'?5:3}">${cvData[s.id]||''}</textarea>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+  new Sortable(container,{handle:'.drag-handle',animation:150,onEnd:renderCV});
+}
+
+function toggleSection(id){
+  const body=document.getElementById('body_'+id);
+  const btn=document.getElementById('toggle_'+id);
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  btn.textContent=isOpen?'+':'−';
+}
+
+function onInput(id,val){
+  cvData[id]=val;
+  renderCV();
+}
+
+function switchTab(tab,el){
+  document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const body=document.getElementById('tabContent');
+  if(tab==='template'){
+    body.innerHTML=`
+      <div style="padding:4px 0 12px;font-size:13px;color:var(--text-mid);font-weight:500;">Choose a template style</div>
+      <div class="template-row">
+        ${['classic','modern','creative','executive'].map(t=>`
+          <div class="tpl-card tpl-${t} ${currentTemplate===t?'active':''}" onclick="setTemplate('${t}',this)">
+            <div class="tpl-swatch"></div>
+            <span>${t.charAt(0).toUpperCase()+t.slice(1)}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div style="margin-top:16px;font-size:13px;color:var(--text-mid);font-weight:500;margin-bottom:8px;">Current: <strong>${currentTemplate.charAt(0).toUpperCase()+currentTemplate.slice(1)}</strong></div>
+    `;
+  } else if(tab==='settings'){
+    body.innerHTML=`
+      <div style="padding:8px 0;">
+        <div class="field-label">Font Size</div>
+        <input type="range" min="10" max="16" value="12" style="width:100%;margin-bottom:16px;">
+        <div class="field-label">Page Colour</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+          ${['#ffffff','#fafaf8','#f0f4ff','#fff9f0'].map(c=>`
+            <div onclick="setBg('${c}')" style="width:32px;height:32px;border-radius:6px;background:${c};border:2px solid #ddd;cursor:pointer;"></div>
+          `).join('')}
+        </div>
+        <div class="field-label">API Backend</div>
+        <input class="field-input" value="${API}" id="apiInput" placeholder="https://your-backend.onrender.com">
+        <div style="font-size:11px;color:var(--text-light);margin-top:4px;">Your Render backend URL</div>
+      </div>
+    `;
+  } else {
+    buildSections();
+  }
+}
+
+function setTemplate(t, el){
+  currentTemplate=t;
+  document.querySelectorAll('.tpl-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderCV();
+}
+
+function setBg(c){
+  document.getElementById('cvPaper').style.background=c;
+}
+
+function toggleZoom(){
+  isZoomed=!isZoomed;
+  const paper=document.getElementById('cvPaper');
+  paper.classList.toggle('zoom-out',isZoomed);
+  document.querySelector('.zoom-btn').textContent=isZoomed?'⊕':'⊖';
+}
+
+// ═══ RENDER CV ═══
+function renderCV(){
+  const paper=document.getElementById('cvPaper');
+  paper.className=`cv-paper tpl-${currentTemplate}`;
+  const d=cvData;
+
+  const photoHtml=uploadedPhoto
+    ?`<div class="cv-photo-wrap"><img src="${uploadedPhoto}" style="width:100%;height:100%;object-fit:cover;"></div>`:'';
+
+  const contactItems=[
+    d.phone&&`<span class="cv-contact-item">📞 ${d.phone}</span>`,
+    d.email&&`<span class="cv-contact-item">✉ ${d.email}</span>`,
+    d.dob&&`<span class="cv-contact-item">📅 ${d.dob}</span>`,
+    d.location&&`<span class="cv-contact-item">📍 ${d.location}</span>`,
+    d.linkedin&&`<span class="cv-contact-item">🔗 ${d.linkedin}</span>`,
+  ].filter(Boolean).join('');
+
+  const mainSections=[
+    {key:'summary',label:'Professional Summary'},
+    {key:'experience',label:'Work Experience'},
+    {key:'projects',label:'Projects'},
+    {key:'education',label:'Education'},
+    {key:'certifications',label:'Certifications'},
+    {key:'additional',label:'Additional Information'},
+  ];
+  const sideSections=[
+    {key:'skills',label:'Technical Skills'},
+    {key:'softskills',label:'Soft Skills'},
+    {key:'languages',label:'Languages'},
+  ];
+
+  const mainHtml=mainSections.filter(s=>d[s.key]).map(s=>`
+    <div class="cv-section">
+      <div class="cv-section-title">${s.label}</div>
+      <div class="cv-section-content">${esc(d[s.key])}</div>
+    </div>
+  `).join('');
+
+  const sideHtml=sideSections.filter(s=>d[s.key]).map(s=>`
+    <div class="cv-sidebar-section">
+      <div class="cv-sidebar-title">${s.label}</div>
+      <div class="cv-sidebar-content">${esc(d[s.key])}</div>
+    </div>
+  `).join('');
+
+  if(currentTemplate==='classic'){
+    paper.innerHTML=`
+      <div class="cv-header">
+        ${photoHtml}
+        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
+        <div class="cv-jobtitle">${esc(d.title||'Professional Title')}</div>
+        <div class="cv-contact-bar">${contactItems}</div>
+      </div>
+      <div class="cv-body">${mainHtml}${sideSections.filter(s=>d[s.key]).map(s=>`
+        <div class="cv-section">
+          <div class="cv-section-title">${s.label}</div>
+          <div class="cv-section-content">${esc(d[s.key])}</div>
+        </div>`).join('')}
+      </div>
+    `;
+  } else if(currentTemplate==='modern'){
+    paper.innerHTML=`
+      <div class="cv-sidebar">
+        ${uploadedPhoto?`<div class="cv-photo-wrap"><img src="${uploadedPhoto}" style="width:100%;height:100%;object-fit:cover;"></div>`:''}
+        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
+        <div class="cv-jobtitle">${esc(d.title||'')}</div>
+        ${d.phone?`<div class="cv-sidebar-section"><div class="cv-sidebar-title">Phone</div><div class="cv-sidebar-content">${esc(d.phone)}</div></div>`:''}
+        ${d.email?`<div class="cv-sidebar-section"><div class="cv-sidebar-title">Email</div><div class="cv-sidebar-content">${esc(d.email)}</div></div>`:''}
+        ${d.location?`<div class="cv-sidebar-section"><div class="cv-sidebar-title">Location</div><div class="cv-sidebar-content">${esc(d.location)}</div></div>`:''}
+        ${sideHtml}
+      </div>
+      <div class="cv-main">
+        ${mainHtml}
+      </div>
+    `;
+  } else if(currentTemplate==='creative'){
+    paper.innerHTML=`
+      <div class="cv-header">
+        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
+        <div class="cv-jobtitle">${esc(d.title||'Professional Title')}</div>
+        <div class="cv-contact-bar">${contactItems}</div>
+      </div>
+      <div class="cv-body">${mainHtml}${sideSections.filter(s=>d[s.key]).map(s=>`
+        <div class="cv-section">
+          <div class="cv-section-title">${s.label}</div>
+          <div class="cv-section-content">${esc(d[s.key])}</div>
+        </div>`).join('')}
+      </div>
+    `;
+  } else if(currentTemplate==='executive'){
+    paper.innerHTML=`
+      <div class="cv-header">
+        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
+        <div class="cv-jobtitle">${esc(d.title||'Professional Title')}</div>
+        <div class="cv-divider"></div>
+        <div class="cv-contact-bar">${contactItems}</div>
+      </div>
+      <div class="cv-body">${mainHtml}${sideSections.filter(s=>d[s.key]).map(s=>`
+        <div class="cv-section">
+          <div class="cv-section-title">${s.label}</div>
+          <div class="cv-section-content">${esc(d[s.key])}</div>
+        </div>`).join('')}
+      </div>
+    `;
+  }
+}
+
+function esc(str){
+  if(!str)return'';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ═══ PHOTO ═══
+document.getElementById('photoInput').addEventListener('change',function(e){
+  const reader=new FileReader();
+  reader.onload=function(){
+    uploadedPhoto=reader.result;
+    const prev=document.getElementById('photoPreview');
+    prev.src=uploadedPhoto;prev.style.display='block';
+    document.getElementById('photoIcon').style.display='none';
+    renderCV();
+  };
+  reader.readAsDataURL(e.target.files[0]);
+});
+
+// ═══ PDF DOWNLOAD ═══
+async function downloadPDF(){
+  showToast('Generating your PDF…');
+  const paper=document.getElementById('cvPaper');
+  const saved=paper.style.transform;
+  paper.style.transform='none';
+  try{
+    const canvas=await html2canvas(paper,{scale:3,useCORS:true,backgroundColor:'#ffffff'});
+    const imgData=canvas.toDataURL('image/png');
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF('p','pt','a4');
+    const pgW=595;const pgH=842;
+    const ratio=canvas.height/canvas.width;
+    const h=Math.min(pgW*ratio,pgH);
+    pdf.addImage(imgData,'PNG',0,0,pgW,h);
+    const name=(cvData.fullName||'CV').replace(/\s+/g,'_');
+    pdf.save(`${name}_Yireh.pdf`);
+    showToast('PDF downloaded!');
+  }catch(e){showToast('Error generating PDF');}
+  paper.style.transform=saved;
+}
+
+// ═══ SAVE TO BACKEND ═══
+async function saveCV(){
+  const backendUrl=document.getElementById('apiInput')?.value||API;
+  try{
+    const res=await fetch(`${backendUrl}/api/cv/save`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({data:cvData,template:currentTemplate,photo:uploadedPhoto})
+    });
+    const json=await res.json();
+    if(json.id){
+      showToast(`Saved! ID: ${json.id}`);
+      localStorage.setItem('yireh_cv_id',json.id);
+    }
+  }catch(e){
+    // Fallback: save locally
+    localStorage.setItem('yireh_cv_data',JSON.stringify({data:cvData,template:currentTemplate}));
+    showToast('Saved locally (backend offline)');
+  }
+}
+
+// ═══ SHARE ═══
+async function shareCV(){
+  const savedId=localStorage.getItem('yireh_cv_id');
+  if(savedId){
+    const url=`${window.location.origin}/cv/${savedId}`;
+    navigator.clipboard.writeText(url).then(()=>showToast('Share link copied!'));
+  }else{
+    await saveCV();
+  }
+}
+
+function loginModal(){showToast('Sign in coming soon!');}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// Load saved data
+const saved=localStorage.getItem('yireh_cv_data');
+if(saved){try{const p=JSON.parse(saved);cvData=p.data||{};currentTemplate=p.template||'classic';}catch(e){}}
+
+buildSections();
+renderCV();
+</script>
 </body>
 </html>
