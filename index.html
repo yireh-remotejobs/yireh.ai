@@ -3,738 +3,863 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yireh CV Builder – Design Your Future</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta name="description" content="Yireh Careers — Build your professional CV, find remote jobs, internships and stay safe from scams. 100% free career tools.">
+<title>Yireh Careers — Design Your Future Professionally</title>
+<link rel="icon" href="logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#0b1d3a;
-  --navy2:#142547;
-  --gold:#c9a84c;
-  --gold2:#e6c87a;
-  --white:#ffffff;
-  --off:#f7f6f2;
-  --surface:#1a2e52;
-  --text-dark:#0b1d3a;
-  --text-mid:#4a5568;
-  --text-light:#8898aa;
-  --border:#d1d9e6;
-  --accent:#3a7bd5;
-  --success:#22c55e;
-  --radius:12px;
-  --radius-sm:8px;
-  --shadow:0 4px 24px rgba(11,29,58,0.10);
-  --shadow-md:0 8px 40px rgba(11,29,58,0.16);
+/* ═══════════════════════════════════════════
+   YIREH CAREERS — HOME PAGE v2.0
+   Design: Luxury Navy + Gold, Editorial Feel
+═══════════════════════════════════════════ */
+:root {
+  --navy:       #08152b;
+  --navy2:      #0e2044;
+  --navy3:      #162f5c;
+  --gold:       #c9a84c;
+  --gold2:      #e8cc80;
+  --gold3:      #f5e4b0;
+  --white:      #ffffff;
+  --off:        #f8f7f3;
+  --text:       #0d1b35;
+  --muted:      #6b7a99;
+  --border:     rgba(201,168,76,0.18);
+  --card-bg:    rgba(255,255,255,0.03);
+  --r:          14px;
+  --r-sm:       8px;
+  --shadow:     0 2px 20px rgba(8,21,43,0.18);
+  --shadow-lg:  0 12px 60px rgba(8,21,43,0.32);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;color:var(--text-dark);}
 
-/* ═══ NAVBAR ═══ */
-.navbar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;height:64px;
-  background:rgba(11,29,58,0.95);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(201,168,76,0.2);
-  position:sticky;top:0;z-index:100;
-}
-.nav-logo{display:flex;align-items:center;gap:10px;}
-.nav-logo img{height:36px;width:auto;object-fit:contain;}
-.nav-brand{font-family:'Playfair Display',serif;color:var(--gold);font-size:20px;letter-spacing:0.03em;}
-.nav-links{display:flex;align-items:center;gap:4px;}
-.nav-links a{
-  color:rgba(255,255,255,0.75);font-size:13px;font-weight:500;
-  text-decoration:none;padding:6px 14px;border-radius:30px;
-  transition:all 0.2s;
-}
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.1);}
-.nav-links a.active{color:var(--gold);background:rgba(201,168,76,0.12);}
-.nav-actions{display:flex;gap:8px;}
-.btn-ghost{
-  padding:6px 16px;border-radius:30px;border:1px solid rgba(201,168,76,0.4);
-  background:transparent;color:var(--gold);font-size:13px;font-family:'DM Sans',sans-serif;
-  cursor:pointer;transition:all 0.2s;font-weight:500;
-}
-.btn-ghost:hover{background:rgba(201,168,76,0.12);}
-.btn-primary-nav{
-  padding:7px 18px;border-radius:30px;border:none;
-  background:var(--gold);color:var(--navy);font-size:13px;font-family:'DM Sans',sans-serif;
-  cursor:pointer;font-weight:600;transition:all 0.2s;
-}
-.btn-primary-nav:hover{background:var(--gold2);transform:translateY(-1px);}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-/* ═══ HERO BANNER ═══ */
-.hero{
-  text-align:center;padding:48px 20px 36px;
-  background:linear-gradient(180deg,rgba(11,29,58,0) 0%,rgba(26,46,82,0.3) 100%);
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);
-  color:var(--gold);font-size:12px;font-weight:500;padding:4px 14px;
-  border-radius:30px;margin-bottom:16px;letter-spacing:0.04em;
-}
-.hero h1{
-  font-family:'Playfair Display',serif;font-size:42px;color:#fff;
-  line-height:1.2;margin-bottom:10px;
-}
-.hero h1 span{color:var(--gold);}
-.hero p{color:rgba(255,255,255,0.6);font-size:15px;max-width:500px;margin:0 auto;}
+html { scroll-behavior: smooth; }
 
-/* ═══ MAIN LAYOUT ═══ */
-.app-container{
-  display:grid;grid-template-columns:420px 1fr;
-  gap:20px;padding:0 20px 40px;max-width:1400px;margin:0 auto;
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
 }
-@media(max-width:1000px){.app-container{grid-template-columns:1fr;}}
 
-/* ═══ BUILDER PANEL ═══ */
-.builder-panel{
-  background:#fff;border-radius:var(--radius);
-  box-shadow:var(--shadow-md);overflow:hidden;
-  display:flex;flex-direction:column;
-  position:sticky;top:84px;height:calc(100vh - 104px);
-}
-.panel-tabs{
-  display:flex;border-bottom:1px solid var(--border);background:#fff;
-}
-.panel-tab{
-  flex:1;padding:14px 0;text-align:center;font-size:13px;font-weight:500;
-  color:var(--text-mid);cursor:pointer;transition:all 0.2s;
-  border-bottom:2px solid transparent;
-}
-.panel-tab.active{color:var(--navy);border-bottom-color:var(--gold);}
-.panel-tab:hover:not(.active){background:var(--off);}
-.panel-body{flex:1;overflow:auto;padding:20px;}
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--navy3); border-radius: 3px; }
 
-/* Photo Upload */
-.photo-zone{
-  text-align:center;padding:20px 0 16px;
+/* ─── ANIMATED BG GRID ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
 }
-.photo-ring{
-  width:90px;height:90px;border-radius:50%;margin:0 auto 12px;
-  background:var(--off);border:2px dashed var(--border);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  transition:all 0.2s;overflow:hidden;position:relative;
-}
-.photo-ring:hover{border-color:var(--gold);}
-.photo-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-.photo-ring .photo-icon{font-size:28px;color:var(--text-light);}
-.photo-hint{font-size:12px;color:var(--text-light);}
-#photoInput{display:none;}
 
-/* Template Selector */
-.template-row{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
-  margin-bottom:16px;
+/* ─── FLOATING ORB ─── */
+.orb {
+  position: fixed; border-radius: 50%;
+  filter: blur(80px); pointer-events: none; z-index: 0;
+  animation: drift 12s ease-in-out infinite;
 }
-.tpl-card{
-  border:2px solid var(--border);border-radius:var(--radius-sm);
-  padding:8px 4px;text-align:center;cursor:pointer;transition:all 0.2s;
+.orb-1 { width:500px;height:500px;background:rgba(201,168,76,0.06);top:-100px;right:-150px;animation-delay:0s; }
+.orb-2 { width:400px;height:400px;background:rgba(58,123,213,0.08);bottom:10%;left:-100px;animation-delay:-5s; }
+@keyframes drift {
+  0%,100% { transform: translate(0,0); }
+  33%  { transform: translate(30px,-20px); }
+  66%  { transform: translate(-20px,30px); }
 }
-.tpl-card.active{border-color:var(--gold);background:rgba(201,168,76,0.06);}
-.tpl-card:hover:not(.active){border-color:var(--accent);}
-.tpl-swatch{height:32px;border-radius:4px;margin-bottom:5px;}
-.tpl-classic .tpl-swatch{background:linear-gradient(135deg,#1a3a6e,#2a5298);}
-.tpl-modern .tpl-swatch{background:linear-gradient(135deg,#1d1d1d,#444);}
-.tpl-creative .tpl-swatch{background:linear-gradient(135deg,#6366f1,#8b5cf6);}
-.tpl-executive .tpl-swatch{background:linear-gradient(135deg,#c9a84c,#8b6914);}
-.tpl-card span{font-size:10px;color:var(--text-mid);font-weight:500;}
 
-/* Form Sections */
-.form-section{
-  border:1px solid var(--border);border-radius:var(--radius-sm);
-  margin-bottom:8px;overflow:hidden;transition:all 0.2s;
+/* ─── NAVBAR ─── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 68px;
+  background: rgba(8,21,43,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
 }
-.form-section:hover{border-color:#b0bfd6;}
-.section-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:10px 14px;cursor:pointer;background:#fff;
-  transition:background 0.15s;
+.navbar.scrolled {
+  height: 60px;
+  background: rgba(8,21,43,0.97);
+  box-shadow: var(--shadow);
 }
-.section-header:hover{background:var(--off);}
-.section-icon{
-  width:28px;height:28px;border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;flex-shrink:0;margin-right:10px;
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
 }
-.section-title-wrap{display:flex;align-items:center;flex:1;}
-.section-name{font-size:13px;font-weight:500;color:var(--text-dark);}
-.section-toggle{
-  font-size:11px;font-weight:600;color:var(--text-light);
-  background:var(--off);border:none;padding:4px 10px;
-  border-radius:20px;cursor:pointer;transition:all 0.15s;
+.nav-logo img {
+  height: 38px; width: auto;
+  filter: brightness(1.1);
 }
-.section-toggle:hover{background:var(--border);}
-.section-body{display:none;padding:12px 14px;border-top:1px solid var(--border);}
-.section-body.open{display:block;}
-.field-label{font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;}
-.field-input, .field-textarea{
-  width:100%;padding:9px 12px;border-radius:var(--radius-sm);
-  border:1px solid var(--border);font-family:'DM Sans',sans-serif;
-  font-size:13px;color:var(--text-dark);background:#fff;
-  transition:border-color 0.15s;outline:none;resize:none;
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.04em;
 }
-.field-input:focus,.field-textarea:focus{border-color:var(--accent);}
-.field-textarea{min-height:90px;line-height:1.5;}
+.nav-links {
+  display: flex; align-items: center; gap: 2px;
+}
+.nav-links a {
+  color: rgba(255,255,255,0.72);
+  font-size: 13.5px; font-weight: 500;
+  text-decoration: none;
+  padding: 7px 16px; border-radius: 30px;
+  transition: all 0.2s;
+  position: relative;
+}
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.nav-links a.highlight {
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+}
+.nav-links a.highlight:hover { background: rgba(201,168,76,0.1); }
+.nav-cta {
+  padding: 9px 22px; border-radius: 30px;
+  background: var(--gold); color: var(--navy);
+  font-size: 13.5px; font-weight: 700;
+  text-decoration: none;
+  transition: all 0.22s;
+  letter-spacing: 0.01em;
+}
+.nav-cta:hover { background: var(--gold2); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.35); }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 8px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--gold); border-radius: 2px; transition: all 0.3s;
+}
+.mobile-menu {
+  display: none; position: fixed;
+  top: 68px; left: 0; right: 0; z-index: 99;
+  background: rgba(8,21,43,0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px 28px;
+  flex-direction: column; gap: 4px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: rgba(255,255,255,0.8); text-decoration: none;
+  font-size: 15px; font-weight: 500;
+  padding: 12px 16px; border-radius: var(--r-sm);
+  transition: all 0.2s;
+}
+.mobile-menu a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.mobile-menu .m-cta {
+  margin-top: 8px;
+  background: var(--gold); color: var(--navy);
+  text-align: center; font-weight: 700; border-radius: 30px;
+}
 
-/* Action Buttons */
-.panel-footer{
-  padding:16px;border-top:1px solid var(--border);
-  display:flex;gap:8px;flex-wrap:wrap;
+/* ─── HERO ─── */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
 }
-.btn-download{
-  flex:1;padding:11px 0;background:var(--navy);color:#fff;
-  border:none;border-radius:var(--radius-sm);cursor:pointer;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
-  transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold2); font-size: 12.5px; font-weight: 500;
+  padding: 6px 18px; border-radius: 30px;
+  margin-bottom: 28px; letter-spacing: 0.05em;
+  animation: fadeUp 0.7s ease both;
 }
-.btn-download:hover{background:var(--surface);}
-.btn-save{
-  padding:11px 18px;background:var(--success);color:#fff;
-  border:none;border-radius:var(--radius-sm);cursor:pointer;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); animation: pulse 2s infinite;
 }
-.btn-save:hover{filter:brightness(1.1);}
-.btn-share{
-  padding:11px 18px;background:var(--gold);color:var(--navy);
-  border:none;border-radius:var(--radius-sm);cursor:pointer;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 800; line-height: 1.1;
+  color: #fff;
+  margin-bottom: 24px;
+  animation: fadeUp 0.7s 0.1s ease both;
 }
-.btn-share:hover{background:var(--gold2);}
+.hero h1 .gold { color: var(--gold); }
+.hero h1 .italic { font-style: italic; color: var(--gold2); }
+.hero-sub {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,0.6);
+  max-width: 560px; margin: 0 auto 40px;
+  font-weight: 300; line-height: 1.7;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-actions {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 15px 32px; border-radius: 50px;
+  background: var(--gold); color: var(--navy);
+  font-size: 15px; font-weight: 700;
+  text-decoration: none; transition: all 0.25s;
+  box-shadow: 0 4px 24px rgba(201,168,76,0.3);
+}
+.btn-hero-primary:hover {
+  background: var(--gold2); transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.45);
+}
+.btn-hero-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 30px; border-radius: 50px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.85);
+  font-size: 15px; font-weight: 500;
+  text-decoration: none; transition: all 0.25s;
+}
+.btn-hero-secondary:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff; background: rgba(255,255,255,0.06);
+}
+.hero-stats {
+  display: flex; gap: 48px; justify-content: center;
+  margin-top: 68px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 700; color: var(--gold);
+  line-height: 1;
+}
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.3); font-size: 11px; letter-spacing: 0.08em;
+  animation: bounce 2s infinite;
+}
+.hero-scroll::after {
+  content: ''; width: 1px; height: 32px;
+  background: linear-gradient(rgba(255,255,255,0.3), transparent);
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-/* ═══ PREVIEW PANEL ═══ */
-.preview-panel{
-  background:#e8ecf0;border-radius:var(--radius);
-  padding:24px;display:flex;flex-direction:column;gap:16px;
-  min-height:calc(100vh - 104px);
+/* ─── FEATURES / SERVICES ─── */
+.section {
+  position: relative; z-index: 1;
+  padding: 100px 24px;
+  max-width: 1200px; margin: 0 auto;
 }
-.preview-toolbar{
-  display:flex;align-items:center;justify-content:space-between;
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--gold); font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 14px;
 }
-.preview-label{color:rgba(255,255,255,0.6);font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;}
-.preview-actions{display:flex;gap:8px;}
-.zoom-btn{
-  width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.15);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;cursor:pointer;transition:all 0.15s;
+.section-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 700; color: #fff;
+  margin-bottom: 16px; line-height: 1.2;
 }
-.zoom-btn:hover{background:rgba(255,255,255,0.2);}
-.cv-paper-wrap{
-  flex:1;display:flex;align-items:flex-start;justify-content:center;
+.section-title .gold { color: var(--gold); }
+.section-sub {
+  font-size: 16px; color: rgba(255,255,255,0.55);
+  max-width: 520px; margin-bottom: 60px;
+  font-weight: 300;
 }
-.cv-paper{
-  background:#fff;width:595px;min-height:842px;
-  border-radius:4px;box-shadow:0 12px 48px rgba(0,0,0,0.25);
-  overflow:hidden;position:relative;
-  transition:transform 0.2s;
-}
-.cv-paper.zoom-out{transform:scale(0.85);transform-origin:top center;}
 
-/* ═══ CV TEMPLATE STYLES ═══ */
+/* ─── SERVICE CARDS ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.service-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r);
+  padding: 32px 28px;
+  text-decoration: none; color: inherit;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+  display: block;
+}
+.service-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.07), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.service-card:hover {
+  border-color: rgba(201,168,76,0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+}
+.service-card:hover::before { opacity: 1; }
+.service-card.featured {
+  border-color: rgba(201,168,76,0.3);
+  background: rgba(201,168,76,0.06);
+}
+.card-badge {
+  display: inline-block;
+  background: var(--gold); color: var(--navy);
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.card-icon {
+  width: 52px; height: 52px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.card-title {
+  font-size: 19px; font-weight: 600; color: #fff;
+  margin-bottom: 10px;
+}
+.card-desc {
+  font-size: 14px; color: rgba(255,255,255,0.55);
+  line-height: 1.65; margin-bottom: 24px;
+}
+.card-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--gold); font-size: 13px; font-weight: 600;
+  transition: gap 0.2s;
+}
+.service-card:hover .card-link { gap: 10px; }
 
-/* CLASSIC BLUE */
-.cv-paper.tpl-classic .cv-header{
-  background:linear-gradient(135deg,#1a3a6e,#2a5298);
-  padding:36px 40px 28px;color:#fff;position:relative;
+/* ─── HOW IT WORKS ─── */
+.steps-wrap { padding: 100px 0; }
+.steps-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0; position: relative;
 }
-.cv-paper.tpl-classic .cv-header::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,#c9a84c,#e6c87a,#c9a84c);
+.steps-grid::before {
+  content: '';
+  position: absolute; top: 32px; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
 }
-.cv-paper.tpl-classic .cv-photo-wrap{
-  position:absolute;top:28px;right:40px;
-  width:90px;height:90px;border-radius:50%;border:3px solid rgba(255,255,255,0.3);overflow:hidden;
+.step-item { text-align: center; padding: 0 24px; }
+.step-num {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700; color: var(--gold);
+  position: relative; z-index: 1;
+  transition: all 0.3s;
 }
-.cv-paper.tpl-classic .cv-name{font-size:26px;font-weight:700;margin-bottom:4px;}
-.cv-paper.tpl-classic .cv-jobtitle{font-size:13px;opacity:0.8;margin-bottom:14px;font-weight:300;}
-.cv-paper.tpl-classic .cv-contact-bar{display:flex;gap:20px;flex-wrap:wrap;}
-.cv-paper.tpl-classic .cv-contact-item{font-size:11px;opacity:0.85;display:flex;align-items:center;gap:5px;}
-.cv-paper.tpl-classic .cv-body{padding:28px 40px;}
-.cv-paper.tpl-classic .cv-section{margin-bottom:22px;}
-.cv-paper.tpl-classic .cv-section-title{
-  font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-  color:#2a5298;border-bottom:2px solid #c9a84c;padding-bottom:5px;margin-bottom:12px;
+.step-item:hover .step-num {
+  background: var(--gold); color: var(--navy);
+  box-shadow: 0 4px 24px rgba(201,168,76,0.4);
 }
-.cv-paper.tpl-classic .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+.step-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.step-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 
-/* MODERN DARK */
-.cv-paper.tpl-modern{display:flex;}
-.cv-paper.tpl-modern .cv-sidebar{
-  width:180px;min-height:842px;background:#1d1d1d;padding:32px 18px;
-  display:flex;flex-direction:column;flex-shrink:0;
+/* ─── TESTIMONIALS ─── */
+.testimonials-section {
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 100px 24px;
 }
-.cv-paper.tpl-modern .cv-photo-wrap{
-  width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 16px;
-  border:2px solid #444;
+.testimonials-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }
-.cv-paper.tpl-modern .cv-sidebar .cv-name{font-size:15px;font-weight:700;color:#fff;text-align:center;margin-bottom:4px;}
-.cv-paper.tpl-modern .cv-sidebar .cv-jobtitle{font-size:11px;color:#888;text-align:center;margin-bottom:20px;}
-.cv-paper.tpl-modern .cv-sidebar-section{margin-bottom:18px;}
-.cv-paper.tpl-modern .cv-sidebar-title{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#666;margin-bottom:8px;border-bottom:1px solid #333;padding-bottom:4px;}
-.cv-paper.tpl-modern .cv-sidebar-content{font-size:11px;color:#aaa;line-height:1.6;white-space:pre-wrap;}
-.cv-paper.tpl-modern .cv-main{flex:1;padding:32px 24px;}
-.cv-paper.tpl-modern .cv-section{margin-bottom:20px;}
-.cv-paper.tpl-modern .cv-section-title{
-  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
-  color:#1d1d1d;font-weight:700;border-left:3px solid #1d1d1d;padding-left:8px;margin-bottom:10px;
+.t-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r);
+  padding: 28px 24px;
+  transition: border-color 0.3s;
 }
-.cv-paper.tpl-modern .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+.t-card:hover { border-color: rgba(201,168,76,0.3); }
+.t-stars { color: var(--gold); font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+.t-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.t-author { display: flex; align-items: center; gap: 12px; }
+.t-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy3), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 600; color: #fff; flex-shrink: 0;
+}
+.t-name { font-size: 14px; font-weight: 600; color: #fff; }
+.t-role { font-size: 12px; color: rgba(255,255,255,0.45); }
 
-/* CREATIVE PURPLE */
-.cv-paper.tpl-creative .cv-header{
-  background:linear-gradient(135deg,#6366f1,#8b5cf6);
-  padding:32px 36px 24px;color:#fff;
+/* ─── SCAM ALERT STRIP ─── */
+.scam-strip {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  background: linear-gradient(135deg, rgba(220,53,69,0.12), rgba(220,53,69,0.06));
+  border: 1px solid rgba(220,53,69,0.25);
+  border-radius: var(--r);
+  padding: 32px 36px;
+  display: flex; gap: 24px; align-items: center;
 }
-.cv-paper.tpl-creative .cv-name{font-size:28px;font-weight:700;margin-bottom:2px;}
-.cv-paper.tpl-creative .cv-jobtitle{font-size:13px;opacity:0.8;margin-bottom:12px;}
-.cv-paper.tpl-creative .cv-contact-bar{display:flex;gap:14px;flex-wrap:wrap;}
-.cv-paper.tpl-creative .cv-contact-item{font-size:11px;opacity:0.85;background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;}
-.cv-paper.tpl-creative .cv-body{padding:26px 36px;}
-.cv-paper.tpl-creative .cv-section{margin-bottom:20px;}
-.cv-paper.tpl-creative .cv-section-title{
-  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
-  color:#6366f1;margin-bottom:10px;display:flex;align-items:center;gap:8px;
+.scam-icon { font-size: 40px; flex-shrink: 0; }
+.scam-content { flex: 1; }
+.scam-label {
+  font-size: 11px; font-weight: 700; color: #f87171;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
 }
-.cv-paper.tpl-creative .cv-section-title::after{content:'';flex:1;height:1px;background:#e5e7eb;}
-.cv-paper.tpl-creative .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+.scam-title { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+.scam-desc { font-size: 14px; color: rgba(255,255,255,0.6); }
+.btn-scam {
+  padding: 11px 22px; border-radius: 30px;
+  background: rgba(220,53,69,0.2);
+  border: 1px solid rgba(220,53,69,0.4);
+  color: #f87171; font-size: 13px; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.btn-scam:hover { background: rgba(220,53,69,0.3); }
 
-/* EXECUTIVE GOLD */
-.cv-paper.tpl-executive .cv-header{
-  border-top:6px solid #c9a84c;padding:32px 40px 24px;background:#fff;
+/* ─── CTA SECTION ─── */
+.cta-section {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 120px 24px;
+  overflow: hidden;
 }
-.cv-paper.tpl-executive .cv-name{font-size:28px;font-weight:700;color:#1a1a1a;font-family:'Playfair Display',serif;margin-bottom:4px;}
-.cv-paper.tpl-executive .cv-jobtitle{font-size:14px;color:#c9a84c;font-weight:500;margin-bottom:14px;letter-spacing:0.04em;}
-.cv-paper.tpl-executive .cv-divider{height:1px;background:linear-gradient(90deg,#c9a84c,transparent);margin-bottom:12px;}
-.cv-paper.tpl-executive .cv-contact-bar{display:flex;gap:20px;flex-wrap:wrap;}
-.cv-paper.tpl-executive .cv-contact-item{font-size:11px;color:#555;display:flex;align-items:center;gap:5px;}
-.cv-paper.tpl-executive .cv-body{padding:24px 40px;}
-.cv-paper.tpl-executive .cv-section{margin-bottom:22px;}
-.cv-paper.tpl-executive .cv-section-title{
-  font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;
-  color:#1a1a1a;border-bottom:1px solid #c9a84c;padding-bottom:6px;margin-bottom:12px;
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 800px 400px at 50% 50%, rgba(201,168,76,0.08), transparent);
+  pointer-events: none;
 }
-.cv-paper.tpl-executive .cv-section-content{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+.cta-section .section-title { max-width: 600px; margin: 0 auto 16px; }
+.cta-section .section-sub { margin: 0 auto 40px; }
 
-/* ═══ TOAST ═══ */
-.toast{
-  position:fixed;bottom:32px;right:32px;z-index:999;
-  background:var(--navy);color:#fff;padding:12px 20px;border-radius:var(--radius-sm);
-  font-size:13px;font-weight:500;box-shadow:var(--shadow-md);
-  transform:translateY(20px);opacity:0;pointer-events:none;transition:all 0.3s;
-  border-left:3px solid var(--gold);
+/* ─── FOOTER ─── */
+footer {
+  position: relative; z-index: 1;
+  background: rgba(0,0,0,0.4);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 60px 24px 32px;
 }
-.toast.show{transform:translateY(0);opacity:1;}
-.drag-handle{cursor:grab;color:var(--text-light);font-size:14px;margin-right:8px;}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px; flex-wrap: wrap;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 32px;
+}
+.footer-brand .nav-brand { font-size: 22px; display: block; margin-bottom: 10px; }
+.footer-tagline { font-size: 13px; color: rgba(255,255,255,0.45); max-width: 260px; line-height: 1.6; }
+.footer-col h4 { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+.footer-col a {
+  display: block; color: rgba(255,255,255,0.65); font-size: 14px;
+  text-decoration: none; margin-bottom: 8px; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+.footer-love { font-size: 12px; color: rgba(255,255,255,0.3); }
+.footer-love span { color: var(--gold); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .navbar { padding: 0 20px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-stats { gap: 28px; }
+  .stat-num { font-size: 26px; }
+  .steps-grid::before { display: none; }
+  .scam-strip { flex-direction: column; text-align: center; }
+  .footer-top { flex-direction: column; gap: 32px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; align-items: center; }
+  .hero-stats { flex-wrap: wrap; justify-content: center; }
+}
+
+/* ─── REVEAL ANIMATION ─── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  position: relative; z-index: 1;
+  overflow: hidden; padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.2);
+}
+.marquee-track {
+  display: flex; gap: 60px;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 10px;
+  color: rgba(255,255,255,0.3); font-size: 13px; font-weight: 500;
+  white-space: nowrap; letter-spacing: 0.04em;
+}
+.marquee-item .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-logo">
-    <img src="logo.png" alt="Yireh" onerror="this.style.display='none'">
+<!-- AMBIENT ORBS -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="logo.png" alt="Yireh Careers" onerror="this.style.display='none'">
     <span class="nav-brand">YIREH CAREERS</span>
-  </div>
+  </a>
+
   <div class="nav-links">
-    <a href="cv-builder.html" class="active">CV Builder</a>
+    <a href="cv-builder.html">CV Builder</a>
     <a href="jobs.html">Jobs</a>
     <a href="internships.html">Internships</a>
-    <a href="#">Scam Alerts</a>
+    <a href="#scam-alerts" class="highlight">⚠ Scam Alerts</a>
     <a href="mailto:yireh.remotejobs@gmail.com">Contact</a>
   </div>
-  <div class="nav-actions">
-    <button class="btn-ghost" onclick="loginModal()">Sign In</button>
-    <button class="btn-primary-nav" onclick="loginModal()">Save My CV</button>
+
+  <a href="cv-builder.html" class="nav-cta">Build My CV Free →</a>
+
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-tag">✦ Free Professional CV Builder</div>
-  <h1>Design Your Future <span>Professionally</span></h1>
-  <p>Build a stunning, ATS-optimized CV in minutes. Choose a template, fill in your details, download as PDF.</p>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="cv-builder.html">CV Builder</a>
+  <a href="jobs.html">Jobs</a>
+  <a href="internships.html">Internships</a>
+  <a href="#scam-alerts">⚠ Scam Alerts</a>
+  <a href="mailto:yireh.remotejobs@gmail.com">Contact</a>
+  <a href="cv-builder.html" class="m-cta">Build My CV Free →</a>
 </div>
 
-<!-- APP -->
-<div class="app-container">
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Free Career Platform for Everyone
+  </div>
 
-  <!-- LEFT: BUILDER PANEL -->
-  <div class="builder-panel">
-    <div class="panel-tabs">
-      <div class="panel-tab active" onclick="switchTab('content',this)">Content</div>
-      <div class="panel-tab" onclick="switchTab('template',this)">Template</div>
-      <div class="panel-tab" onclick="switchTab('settings',this)">Settings</div>
+  <h1>
+    Build a Career<br>
+    You're <span class="italic">Proud</span> Of
+  </h1>
+
+  <p class="hero-sub">
+    Professional CV builder, curated remote jobs, real internships — and the scam alerts that protect your future. All free, always.
+  </p>
+
+  <div class="hero-actions">
+    <a href="cv-builder.html" class="btn-hero-primary">
+      ✦ Build My CV — Free
+    </a>
+    <a href="jobs.html" class="btn-hero-secondary">
+      Browse Remote Jobs →
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">12K+</div>
+      <div class="stat-label">CVs Created</div>
     </div>
-
-    <div class="panel-body" id="tabContent">
-
-      <!-- Photo upload -->
-      <div class="photo-zone">
-        <div class="photo-ring" onclick="document.getElementById('photoInput').click()">
-          <img id="photoPreview" src="" style="display:none;">
-          <span class="photo-icon" id="photoIcon">📷</span>
-        </div>
-        <div class="photo-hint">Click to upload photo (optional)</div>
-        <input type="file" id="photoInput" accept="image/*">
-      </div>
-
-      <!-- Sections -->
-      <div id="sectionsContainer"></div>
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Pro Templates</div>
     </div>
-
-    <div class="panel-footer">
-      <button class="btn-download" onclick="downloadPDF()">
-        <span>⬇</span> Download PDF
-      </button>
-      <button class="btn-save" onclick="saveCV()">💾 Save</button>
-      <button class="btn-share" onclick="shareCV()">🔗 Share</button>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Free Forever</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Scam Alerts</div>
     </div>
   </div>
 
-  <!-- RIGHT: PREVIEW PANEL -->
-  <div class="preview-panel">
-    <div class="preview-toolbar">
-      <span class="preview-label">Live Preview</span>
-      <div class="preview-actions">
-        <button class="zoom-btn" onclick="toggleZoom()" title="Toggle zoom">⊖</button>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <!-- doubled for seamless loop -->
+    <span class="marquee-item"><span class="dot"></span>CV Builder</span>
+    <span class="marquee-item"><span class="dot"></span>Remote Jobs</span>
+    <span class="marquee-item"><span class="dot"></span>Internships</span>
+    <span class="marquee-item"><span class="dot"></span>Scam Protection</span>
+    <span class="marquee-item"><span class="dot"></span>ATS-Optimized CVs</span>
+    <span class="marquee-item"><span class="dot"></span>Career Growth</span>
+    <span class="marquee-item"><span class="dot"></span>Free Tools</span>
+    <span class="marquee-item"><span class="dot"></span>Professional Templates</span>
+    <span class="marquee-item"><span class="dot"></span>PDF Export</span>
+    <span class="marquee-item"><span class="dot"></span>CV Builder</span>
+    <span class="marquee-item"><span class="dot"></span>Remote Jobs</span>
+    <span class="marquee-item"><span class="dot"></span>Internships</span>
+    <span class="marquee-item"><span class="dot"></span>Scam Protection</span>
+    <span class="marquee-item"><span class="dot"></span>ATS-Optimized CVs</span>
+    <span class="marquee-item"><span class="dot"></span>Career Growth</span>
+    <span class="marquee-item"><span class="dot"></span>Free Tools</span>
+    <span class="marquee-item"><span class="dot"></span>Professional Templates</span>
+    <span class="marquee-item"><span class="dot"></span>PDF Export</span>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<div class="section reveal">
+  <div class="section-tag">What We Offer</div>
+  <h2 class="section-title">Everything You Need to<br><span class="gold">Launch Your Career</span></h2>
+  <p class="section-sub">Four powerful tools, built for job seekers at every stage — completely free.</p>
+
+  <div class="services-grid">
+
+    <a href="cv-builder.html" class="service-card featured">
+      <span class="card-badge">Most Popular</span>
+      <div class="card-icon">📄</div>
+      <div class="card-title">CV Builder</div>
+      <div class="card-desc">Create a stunning, ATS-friendly CV in minutes. Choose from 4 professional templates, customise every section, and download as a high-quality PDF — no sign-up needed.</div>
+      <span class="card-link">Start Building →</span>
+    </a>
+
+    <a href="jobs.html" class="service-card">
+      <div class="card-icon">💼</div>
+      <div class="card-title">Remote Jobs</div>
+      <div class="card-desc">Curated remote and hybrid job listings updated regularly. Filter by industry, type, and location. Only verified, legitimate opportunities — no spam.</div>
+      <span class="card-link">Browse Jobs →</span>
+    </a>
+
+    <a href="internships.html" class="service-card">
+      <div class="card-icon">🎓</div>
+      <div class="card-title">Internships</div>
+      <div class="card-desc">Real internship placements for students and fresh graduates. Build experience with reputable companies while growing your professional portfolio.</div>
+      <span class="card-link">Find Internships →</span>
+    </a>
+
+    <a href="#scam-alerts" class="service-card">
+      <div class="card-icon">🛡️</div>
+      <div class="card-title">Scam Alerts</div>
+      <div class="card-desc">We name and expose fake job offers, phishing schemes, and fraudulent employers targeting job seekers. Stay informed, stay safe.</div>
+      <span class="card-link">View Alerts →</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<div class="steps-wrap reveal">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div class="section-tag">Simple Process</div>
+    <h2 class="section-title">Your CV in <span class="gold">4 Easy Steps</span></h2>
+    <p class="section-sub">From blank page to polished PDF in under 10 minutes.</p>
+
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-title">Choose a Template</div>
+        <div class="step-desc">Pick from Classic, Modern, Creative, or Executive — each designed to impress recruiters.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-title">Fill Your Details</div>
+        <div class="step-desc">Add your experience, skills, education and more. Drag to reorder sections as you like.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-title">Preview Live</div>
+        <div class="step-desc">See your CV update in real time as you type. No surprises when you export.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-title">Download PDF</div>
+        <div class="step-desc">Export a crisp, print-ready A4 PDF — perfect for job applications and email attachments.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<div class="testimonials-section reveal">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag" style="display:inline-flex;">Real Users</div>
+    <h2 class="section-title" style="margin-bottom:14px;">What Job Seekers <span class="gold">Say</span></h2>
+    <p class="section-sub">Thousands of careers launched from Yireh.</p>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"I built my CV in 15 minutes and got called for an interview the next day. The templates look so professional — nobody could tell it was free."</p>
+      <div class="t-author">
+        <div class="t-avatar">AM</div>
+        <div>
+          <div class="t-name">Amara M.</div>
+          <div class="t-role">Marketing Coordinator, Lagos</div>
+        </div>
       </div>
     </div>
 
-    <div class="cv-paper-wrap">
-      <div class="cv-paper tpl-classic" id="cvPaper">
-        <!-- Rendered by JS -->
-        <div style="display:flex;align-items:center;justify-content:center;height:200px;color:#aaa;font-size:13px;">
-          Start filling in your details to see your CV here
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"The scam alerts section saved me from a fake job offer that looked completely real. Every job seeker needs this resource."</p>
+      <div class="t-author">
+        <div class="t-avatar">KO</div>
+        <div>
+          <div class="t-name">Kwame O.</div>
+          <div class="t-role">Software Developer, Accra</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Found my first remote internship through Yireh. The listings are properly vetted and the application process was smooth. Highly recommend!"</p>
+      <div class="t-author">
+        <div class="t-avatar">PN</div>
+        <div>
+          <div class="t-name">Priya N.</div>
+          <div class="t-role">Data Analyst Intern, Remote</div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+<!-- ═══ SCAM ALERTS ═══ -->
+<div class="section reveal" id="scam-alerts">
+  <div class="scam-strip">
+    <div class="scam-icon">🚨</div>
+    <div class="scam-content">
+      <div class="scam-label">Safety First</div>
+      <div class="scam-title">Scam Alert: Protect Yourself from Fake Job Offers</div>
+      <div class="scam-desc">Fraudsters target job seekers with fake remote jobs requiring upfront payments or personal data. We track, expose, and report these schemes so you don't have to learn the hard way.</div>
+    </div>
+    <a href="#" class="btn-scam">View All Alerts →</a>
+  </div>
+</div>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta-section reveal">
+  <div class="section-tag" style="justify-content:center;">Get Started Today</div>
+  <h2 class="section-title" style="max-width:600px;margin:0 auto 16px;">
+    Your Next Opportunity<br>Starts With a <span class="gold">Great CV</span>
+  </h2>
+  <p class="section-sub" style="max-width:460px;margin:0 auto 40px;">
+    Join thousands of professionals who built their career with Yireh. Free, forever. No card required.
+  </p>
+  <div class="hero-actions" style="justify-content:center;">
+    <a href="cv-builder.html" class="btn-hero-primary">✦ Build My CV Free</a>
+    <a href="mailto:yireh.remotejobs@gmail.com" class="btn-hero-secondary">✉ Contact Us</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-brand">YIREH CAREERS</span>
+        <p class="footer-tagline">Empowering job seekers with free, professional career tools — from CV building to scam protection.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="cv-builder.html">CV Builder</a>
+        <a href="jobs.html">Job Listings</a>
+        <a href="internships.html">Internships</a>
+        <a href="#">Scam Alerts</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Templates</h4>
+        <a href="cv-builder.html">Classic Blue</a>
+        <a href="cv-builder.html">Modern Dark</a>
+        <a href="cv-builder.html">Creative Purple</a>
+        <a href="cv-builder.html">Executive Gold</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:yireh.remotejobs@gmail.com">yireh.remotejobs@gmail.com</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Yireh Careers. All rights reserved. yireh.site</p>
+      <p class="footer-love">Made with <span>♥</span> for job seekers everywhere</p>
+    </div>
+  </div>
+</footer>
 
 <script>
-const API = 'https://yireh-backend-1.onrender.com'; // Update to your Render backend URL
-
-const SECTIONS = [
-  {id:'fullName',     name:'Full Name',           icon:'👤', color:'#e8f4fd', side:false},
-  {id:'title',        name:'Professional Title',   icon:'💼', color:'#fdf6e3', side:false},
-  {id:'phone',        name:'Phone',                icon:'📞', color:'#f0fdf4', side:false},
-  {id:'email',        name:'Email',                icon:'✉️', color:'#fdf6e3', side:false},
-  {id:'dob',          name:'Date of Birth',        icon:'📅', color:'#fce7f3', side:false},
-  {id:'location',     name:'Location',             icon:'📍', color:'#fff7ed', side:false},
-  {id:'linkedin',     name:'LinkedIn',             icon:'🔗', color:'#eff6ff', side:false},
-  {id:'summary',      name:'Professional Summary', icon:'📝', color:'#f5f3ff', side:false},
-  {id:'skills',       name:'Technical Skills',     icon:'⚙️', color:'#ecfdf5', side:true},
-  {id:'softskills',   name:'Soft Skills',          icon:'🌟', color:'#fffbeb', side:true},
-  {id:'experience',   name:'Work Experience',      icon:'🏢', color:'#eff6ff', side:false},
-  {id:'projects',     name:'Projects',             icon:'🚀', color:'#f5f3ff', side:false},
-  {id:'education',    name:'Education',            icon:'🎓', color:'#f0fdf4', side:false},
-  {id:'certifications',name:'Certifications',      icon:'🏆', color:'#fff7ed', side:false},
-  {id:'languages',    name:'Languages',            icon:'🌐', color:'#fce7f3', side:true},
-  {id:'additional',   name:'Additional Info',      icon:'ℹ️', color:'#f7f7f7', side:false},
-];
-
-let cvData = {};
-let currentTemplate = 'classic';
-let uploadedPhoto = '';
-let isZoomed = false;
-
-// Build sections
-function buildSections(){
-  const container = document.getElementById('sectionsContainer');
-  container.innerHTML = '';
-  SECTIONS.forEach(s=>{
-    const el = document.createElement('div');
-    el.className='form-section';
-    el.dataset.id=s.id;
-    el.innerHTML=`
-      <div class="section-header" onclick="toggleSection('${s.id}')">
-        <span class="drag-handle">⠿</span>
-        <div class="section-title-wrap">
-          <div class="section-icon" style="background:${s.color}">${s.icon}</div>
-          <span class="section-name">${s.name}</span>
-        </div>
-        <button class="section-toggle" id="toggle_${s.id}">+</button>
-      </div>
-      <div class="section-body" id="body_${s.id}">
-        <div class="field-label">${s.name}</div>
-        <textarea class="field-textarea" id="input_${s.id}" placeholder="Enter ${s.name}..." 
-          oninput="onInput('${s.id}',this.value)" rows="${s.id==='summary'||s.id==='experience'||s.id==='projects'?5:3}">${cvData[s.id]||''}</textarea>
-      </div>
-    `;
-    container.appendChild(el);
-  });
-  new Sortable(container,{handle:'.drag-handle',animation:150,onEnd:renderCV});
-}
-
-function toggleSection(id){
-  const body=document.getElementById('body_'+id);
-  const btn=document.getElementById('toggle_'+id);
-  const isOpen=body.classList.contains('open');
-  body.classList.toggle('open',!isOpen);
-  btn.textContent=isOpen?'+':'−';
-}
-
-function onInput(id,val){
-  cvData[id]=val;
-  renderCV();
-}
-
-function switchTab(tab,el){
-  document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  const body=document.getElementById('tabContent');
-  if(tab==='template'){
-    body.innerHTML=`
-      <div style="padding:4px 0 12px;font-size:13px;color:var(--text-mid);font-weight:500;">Choose a template style</div>
-      <div class="template-row">
-        ${['classic','modern','creative','executive'].map(t=>`
-          <div class="tpl-card tpl-${t} ${currentTemplate===t?'active':''}" onclick="setTemplate('${t}',this)">
-            <div class="tpl-swatch"></div>
-            <span>${t.charAt(0).toUpperCase()+t.slice(1)}</span>
-          </div>
-        `).join('')}
-      </div>
-      <div style="margin-top:16px;font-size:13px;color:var(--text-mid);font-weight:500;margin-bottom:8px;">Current: <strong>${currentTemplate.charAt(0).toUpperCase()+currentTemplate.slice(1)}</strong></div>
-    `;
-  } else if(tab==='settings'){
-    body.innerHTML=`
-      <div style="padding:8px 0;">
-        <div class="field-label">Font Size</div>
-        <input type="range" min="10" max="16" value="12" style="width:100%;margin-bottom:16px;">
-        <div class="field-label">Page Colour</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
-          ${['#ffffff','#fafaf8','#f0f4ff','#fff9f0'].map(c=>`
-            <div onclick="setBg('${c}')" style="width:32px;height:32px;border-radius:6px;background:${c};border:2px solid #ddd;cursor:pointer;"></div>
-          `).join('')}
-        </div>
-        <div class="field-label">API Backend</div>
-        <input class="field-input" value="${API}" id="apiInput" placeholder="https://your-backend.onrender.com">
-        <div style="font-size:11px;color:var(--text-light);margin-top:4px;">Your Render backend URL</div>
-      </div>
-    `;
-  } else {
-    buildSections();
-  }
-}
-
-function setTemplate(t, el){
-  currentTemplate=t;
-  document.querySelectorAll('.tpl-card').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  renderCV();
-}
-
-function setBg(c){
-  document.getElementById('cvPaper').style.background=c;
-}
-
-function toggleZoom(){
-  isZoomed=!isZoomed;
-  const paper=document.getElementById('cvPaper');
-  paper.classList.toggle('zoom-out',isZoomed);
-  document.querySelector('.zoom-btn').textContent=isZoomed?'⊕':'⊖';
-}
-
-// ═══ RENDER CV ═══
-function renderCV(){
-  const paper=document.getElementById('cvPaper');
-  paper.className=`cv-paper tpl-${currentTemplate}`;
-  const d=cvData;
-
-  const photoHtml=uploadedPhoto
-    ?`<div class="cv-photo-wrap"><img src="${uploadedPhoto}" style="width:100%;height:100%;object-fit:cover;"></div>`:'';
-
-  const contactItems=[
-    d.phone&&`<span class="cv-contact-item">📞 ${d.phone}</span>`,
-    d.email&&`<span class="cv-contact-item">✉ ${d.email}</span>`,
-    d.dob&&`<span class="cv-contact-item">📅 ${d.dob}</span>`,
-    d.location&&`<span class="cv-contact-item">📍 ${d.location}</span>`,
-    d.linkedin&&`<span class="cv-contact-item">🔗 ${d.linkedin}</span>`,
-  ].filter(Boolean).join('');
-
-  const mainSections=[
-    {key:'summary',label:'Professional Summary'},
-    {key:'experience',label:'Work Experience'},
-    {key:'projects',label:'Projects'},
-    {key:'education',label:'Education'},
-    {key:'certifications',label:'Certifications'},
-    {key:'additional',label:'Additional Information'},
-  ];
-  const sideSections=[
-    {key:'skills',label:'Technical Skills'},
-    {key:'softskills',label:'Soft Skills'},
-    {key:'languages',label:'Languages'},
-  ];
-
-  const mainHtml=mainSections.filter(s=>d[s.key]).map(s=>`
-    <div class="cv-section">
-      <div class="cv-section-title">${s.label}</div>
-      <div class="cv-section-content">${esc(d[s.key])}</div>
-    </div>
-  `).join('');
-
-  const sideHtml=sideSections.filter(s=>d[s.key]).map(s=>`
-    <div class="cv-sidebar-section">
-      <div class="cv-sidebar-title">${s.label}</div>
-      <div class="cv-sidebar-content">${esc(d[s.key])}</div>
-    </div>
-  `).join('');
-
-  if(currentTemplate==='classic'){
-    paper.innerHTML=`
-      <div class="cv-header">
-        ${photoHtml}
-        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
-        <div class="cv-jobtitle">${esc(d.title||'Professional Title')}</div>
-        <div class="cv-contact-bar">${contactItems}</div>
-      </div>
-      <div class="cv-body">${mainHtml}${sideSections.filter(s=>d[s.key]).map(s=>`
-        <div class="cv-section">
-          <div class="cv-section-title">${s.label}</div>
-          <div class="cv-section-content">${esc(d[s.key])}</div>
-        </div>`).join('')}
-      </div>
-    `;
-  } else if(currentTemplate==='modern'){
-    paper.innerHTML=`
-      <div class="cv-sidebar">
-        ${uploadedPhoto?`<div class="cv-photo-wrap"><img src="${uploadedPhoto}" style="width:100%;height:100%;object-fit:cover;"></div>`:''}
-        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
-        <div class="cv-jobtitle">${esc(d.title||'')}</div>
-        ${d.phone?`<div class="cv-sidebar-section"><div class="cv-sidebar-title">Phone</div><div class="cv-sidebar-content">${esc(d.phone)}</div></div>`:''}
-        ${d.email?`<div class="cv-sidebar-section"><div class="cv-sidebar-title">Email</div><div class="cv-sidebar-content">${esc(d.email)}</div></div>`:''}
-        ${d.location?`<div class="cv-sidebar-section"><div class="cv-sidebar-title">Location</div><div class="cv-sidebar-content">${esc(d.location)}</div></div>`:''}
-        ${sideHtml}
-      </div>
-      <div class="cv-main">
-        ${mainHtml}
-      </div>
-    `;
-  } else if(currentTemplate==='creative'){
-    paper.innerHTML=`
-      <div class="cv-header">
-        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
-        <div class="cv-jobtitle">${esc(d.title||'Professional Title')}</div>
-        <div class="cv-contact-bar">${contactItems}</div>
-      </div>
-      <div class="cv-body">${mainHtml}${sideSections.filter(s=>d[s.key]).map(s=>`
-        <div class="cv-section">
-          <div class="cv-section-title">${s.label}</div>
-          <div class="cv-section-content">${esc(d[s.key])}</div>
-        </div>`).join('')}
-      </div>
-    `;
-  } else if(currentTemplate==='executive'){
-    paper.innerHTML=`
-      <div class="cv-header">
-        <div class="cv-name">${esc(d.fullName||'Your Name')}</div>
-        <div class="cv-jobtitle">${esc(d.title||'Professional Title')}</div>
-        <div class="cv-divider"></div>
-        <div class="cv-contact-bar">${contactItems}</div>
-      </div>
-      <div class="cv-body">${mainHtml}${sideSections.filter(s=>d[s.key]).map(s=>`
-        <div class="cv-section">
-          <div class="cv-section-title">${s.label}</div>
-          <div class="cv-section-content">${esc(d[s.key])}</div>
-        </div>`).join('')}
-      </div>
-    `;
-  }
-}
-
-function esc(str){
-  if(!str)return'';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ═══ PHOTO ═══
-document.getElementById('photoInput').addEventListener('change',function(e){
-  const reader=new FileReader();
-  reader.onload=function(){
-    uploadedPhoto=reader.result;
-    const prev=document.getElementById('photoPreview');
-    prev.src=uploadedPhoto;prev.style.display='block';
-    document.getElementById('photoIcon').style.display='none';
-    renderCV();
-  };
-  reader.readAsDataURL(e.target.files[0]);
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// ═══ PDF DOWNLOAD ═══
-async function downloadPDF(){
-  showToast('Generating your PDF…');
-  const paper=document.getElementById('cvPaper');
-  const saved=paper.style.transform;
-  paper.style.transform='none';
-  try{
-    const canvas=await html2canvas(paper,{scale:3,useCORS:true,backgroundColor:'#ffffff'});
-    const imgData=canvas.toDataURL('image/png');
-    const {jsPDF}=window.jspdf;
-    const pdf=new jsPDF('p','pt','a4');
-    const pgW=595;const pgH=842;
-    const ratio=canvas.height/canvas.width;
-    const h=Math.min(pgW*ratio,pgH);
-    pdf.addImage(imgData,'PNG',0,0,pgW,h);
-    const name=(cvData.fullName||'CV').replace(/\s+/g,'_');
-    pdf.save(`${name}_Yireh.pdf`);
-    showToast('PDF downloaded!');
-  }catch(e){showToast('Error generating PDF');}
-  paper.style.transform=saved;
+// Mobile menu
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
 }
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-menu a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+});
 
-// ═══ SAVE TO BACKEND ═══
-async function saveCV(){
-  const backendUrl=document.getElementById('apiInput')?.value||API;
-  try{
-    const res=await fetch(`${backendUrl}/api/cv/save`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({data:cvData,template:currentTemplate,photo:uploadedPhoto})
-    });
-    const json=await res.json();
-    if(json.id){
-      showToast(`Saved! ID: ${json.id}`);
-      localStorage.setItem('yireh_cv_id',json.id);
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
     }
-  }catch(e){
-    // Fallback: save locally
-    localStorage.setItem('yireh_cv_data',JSON.stringify({data:cvData,template:currentTemplate}));
-    showToast('Saved locally (backend offline)');
-  }
-}
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ═══ SHARE ═══
-async function shareCV(){
-  const savedId=localStorage.getItem('yireh_cv_id');
-  if(savedId){
-    const url=`${window.location.origin}/cv/${savedId}`;
-    navigator.clipboard.writeText(url).then(()=>showToast('Share link copied!'));
-  }else{
-    await saveCV();
-  }
-}
-
-function loginModal(){showToast('Sign in coming soon!');}
-
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
-}
-
-// Load saved data
-const saved=localStorage.getItem('yireh_cv_data');
-if(saved){try{const p=JSON.parse(saved);cvData=p.data||{};currentTemplate=p.template||'classic';}catch(e){}}
-
-buildSections();
-renderCV();
+// Stagger service cards
+const cards = document.querySelectorAll('.service-card');
+cards.forEach((card, i) => {
+  card.style.transitionDelay = `${i * 80}ms`;
+});
 </script>
 </body>
 </html>
