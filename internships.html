@@ -3,332 +3,578 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yireh Internships | Worldwide Opportunities</title>
+<title>Internships — Yireh Careers</title>
+<meta name="description" content="Find verified internships worldwide on Yireh Careers. Remote, on-site and hybrid opportunities for students and fresh graduates.">
+<link rel="icon" href="logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#08152b; --navy2:#0e2044; --navy3:#162f5c;
+  --gold:#c9a84c; --gold2:#e8cc80;
+  --white:#fff; --off:#f8f7f3;
+  --text:#0d1b35; --muted:#6b7a99;
+  --border-dark:rgba(201,168,76,0.18); --border-light:#e2e8f0;
+  --card:#fff;
+  --success:#16a34a; --info:#2563eb; --warn:#d97706; --purple:#7c3aed;
+  --r:12px; --r-sm:8px;
+  --shadow:0 2px 16px rgba(8,21,43,.10); --shadow-md:0 8px 40px rgba(8,21,43,.14);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#f1f4f9;color:var(--text);}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:#f1f4f9;}
+::-webkit-scrollbar-thumb{background:#c9d4e3;border-radius:3px;}
 
-<style>.logo img{
-  height:100px;
-  width:auto;
-  display:block;
-}
+/* ── NAVBAR ── */
+.navbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(8,21,43,.97);border-bottom:1px solid var(--border-dark);backdrop-filter:blur(16px);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo img{height:34px;width:auto;}
+.nav-brand{font-family:'Playfair Display',serif;color:var(--gold);font-size:18px;font-weight:700;}
+.nav-links{display:flex;align-items:center;gap:2px;}
+.nav-links a{color:rgba(255,255,255,.7);font-size:13px;font-weight:500;text-decoration:none;padding:6px 14px;border-radius:30px;transition:all .2s;}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08);}
+.nav-links a.active{color:var(--gold);}
+.nav-cta{padding:8px 20px;border-radius:30px;background:var(--gold);color:var(--navy);font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;}
+.nav-cta:hover{background:var(--gold2);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--gold);border-radius:2px;}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:rgba(8,21,43,.98);border-bottom:1px solid var(--border-dark);padding:16px 20px 24px;flex-direction:column;gap:4px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:rgba(255,255,255,.8);text-decoration:none;font-size:15px;font-weight:500;padding:11px 14px;border-radius:var(--r-sm);transition:all .2s;}
+.mobile-menu a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.mobile-menu .m-cta{margin-top:6px;background:var(--gold);color:var(--navy);text-align:center;font-weight:700;border-radius:30px;}
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1a1060 50%,var(--navy3) 100%);padding:56px 24px 48px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.35);color:#c4b5fd;font-size:12px;font-weight:500;padding:5px 16px;border-radius:30px;margin-bottom:20px;letter-spacing:.05em;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,54px);font-weight:800;color:#fff;margin-bottom:10px;line-height:1.15;}
+.hero h1 span{color:var(--gold);}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);margin-bottom:32px;font-weight:300;}
 
-body{
-  background: linear-gradient(135deg,#1e3c72,#2a5298,#6dd5fa);
-  color:#333;
+.search-wrap{display:flex;gap:10px;max-width:820px;margin:0 auto 28px;flex-wrap:wrap;justify-content:center;}
+.s-field{flex:1;min-width:180px;position:relative;}
+.s-field .s-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;}
+.search-input{width:100%;padding:12px 14px 12px 40px;border-radius:var(--r);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:all .2s;}
+.search-input::placeholder{color:rgba(255,255,255,.4);}
+.search-input:focus{border-color:rgba(201,168,76,.5);background:rgba(255,255,255,.12);}
+.search-select{padding:12px 16px;border-radius:var(--r);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;cursor:pointer;}
+.search-select option{background:var(--navy2);color:#fff;}
+.btn-search{padding:12px 28px;border-radius:var(--r);background:var(--gold);color:var(--navy);border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-search:hover{background:var(--gold2);}
+.hero-stats{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;}
+.h-stat{text-align:center;}
+.h-stat-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);}
+.h-stat-label{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.06em;text-transform:uppercase;}
 
-/* ===== HEADER ===== */
-.navbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 40px;
-  background:#111;
-  color:#fff;
-}
-.logo img{ height:55px; }
-.nav-links a{
-  color:#fff; margin:0 12px; text-decoration:none; font-weight:500; transition:0.3s;
-}
-.nav-links a:hover{ color:#ffd700; }
+/* ── MAIN LAYOUT ── */
+.main{display:grid;grid-template-columns:1fr 350px;gap:24px;max-width:1240px;margin:32px auto;padding:0 20px;}
+@media(max-width:1024px){.main{grid-template-columns:1fr;}}
 
-.search-btn{
-  padding:6px 12px; background:#ffd700; border:none; border-radius:20px; cursor:pointer;
-}
+/* ── FILTERS BAR ── */
+.filters-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--card);border-radius:var(--r);padding:14px 20px;box-shadow:var(--shadow);margin-bottom:16px;border:1px solid var(--border-light);}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.chip{padding:6px 14px;border-radius:30px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border-light);color:var(--muted);background:#fff;transition:all .2s;}
+.chip.active,.chip:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.results-count{font-size:13px;color:var(--muted);}
+.results-count b{color:var(--text);}
 
-/* HERO */
-.hero{
-  background:linear-gradient(135deg,#0d6efd,#00c6ff);
-  color:white;
-  text-align:center;
-  padding:60px 20px;
-}
-.hero h1{
-  margin-bottom:20px;
-}
-.search-bar{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-}
-.search-bar input,
-.search-bar select{
-  padding:10px;
-  border:none;
-  border-radius:5px;
-}
-.search-bar button{
-  padding:10px 20px;
-  border:none;
-  border-radius:5px;
-  background:#ffc107;
-  cursor:pointer;
-  font-weight:bold;
-}
+/* ── INTERNSHIP CARD ── */
+.int-card{background:var(--card);border:1px solid var(--border-light);border-radius:var(--r);padding:22px 24px;margin-bottom:14px;transition:all .25s;display:flex;gap:16px;align-items:flex-start;cursor:pointer;}
+.int-card:hover{border-color:#b0c0da;box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.int-card.featured{border-color:rgba(124,58,237,.3);background:linear-gradient(135deg,rgba(124,58,237,.03),#fff);}
+.int-logo{width:52px;height:52px;border-radius:10px;flex-shrink:0;background:var(--off);display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--border-light);overflow:hidden;}
+.int-logo img{width:100%;height:100%;object-fit:cover;}
+.int-body{flex:1;min-width:0;}
+.int-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+.featured-tag{background:var(--purple);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;}
+.new-tag{background:#dcfce7;color:var(--success);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;}
+.int-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.int-company{font-size:13px;color:var(--muted);margin-bottom:10px;}
+.int-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.int-tag{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:500;background:#f1f4f9;color:var(--muted);border:1px solid #e2e8f0;}
+.int-tag.remote{background:#eff6ff;color:var(--info);border-color:#bfdbfe;}
+.int-tag.onsite{background:#f0fdf4;color:var(--success);border-color:#bbf7d0;}
+.int-tag.hybrid{background:#fdf4ff;color:var(--purple);border-color:#e9d5ff;}
+.int-tag.paid{background:#f0fdf4;color:var(--success);border-color:#bbf7d0;}
+.int-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+.btn-apply{padding:9px 20px;background:var(--purple);color:#fff;border:none;border-radius:30px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-apply:hover{background:#6d28d9;}
+.int-duration{font-size:12px;font-weight:600;color:var(--warn);}
+.int-date{font-size:11px;color:var(--muted);}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted);}
+.empty-state .e-icon{font-size:48px;margin-bottom:12px;}
+.empty-state h3{font-size:18px;font-weight:600;color:var(--text);margin-bottom:6px;}
 
-/* LAYOUT */
-.container{
-  width:95%;
-  max-width:1200px;
-  margin:auto;
-  padding:30px 0;
-  display:flex;
-  gap:30px;
-}
+/* ── SIDEBAR ── */
+.sidebar-panel{background:var(--card);border:1px solid var(--border-light);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;position:sticky;top:84px;max-height:calc(100vh - 104px);overflow-y:auto;}
+.sidebar-head{background:linear-gradient(135deg,#1a1060,var(--purple));padding:20px 22px;}
+.sidebar-head h3{font-family:'Playfair Display',serif;font-size:18px;color:#fff;margin-bottom:4px;}
+.sidebar-head p{font-size:12px;color:rgba(255,255,255,.55);}
+.sidebar-body{padding:20px 22px;}
+.field-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+.field-input,.field-select,.field-textarea{width:100%;padding:10px 12px;border-radius:var(--r-sm);border:1px solid var(--border-light);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;transition:border-color .15s;margin-bottom:12px;}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:#7ba3d4;}
+.field-textarea{resize:none;min-height:72px;line-height:1.5;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.field-group{margin-bottom:4px;}
+.upload-zone{border:1.5px dashed var(--border-light);border-radius:var(--r-sm);padding:12px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:12px;}
+.upload-zone:hover{border-color:var(--purple);background:rgba(124,58,237,.03);}
+.upload-zone input{display:none;}
+.upload-hint{font-size:11px;color:var(--muted);margin-top:3px;}
+.btn-post{width:100%;padding:12px;border-radius:var(--r-sm);background:var(--purple);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-post:hover{background:#6d28d9;}
 
-/* LIST */
-.internship-list{
-  flex:70%;
-}
+/* ── APPLY MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(8,21,43,.7);z-index:200;justify-content:center;align-items:center;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:var(--r);width:90%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25);animation:slideUp .25s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.modal-head{background:linear-gradient(135deg,#1a1060,var(--purple));padding:22px 24px;display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;}
+.modal-head h3{font-family:'Playfair Display',serif;font-size:19px;color:#fff;margin-bottom:3px;}
+.modal-head p{font-size:12px;color:rgba(255,255,255,.55);}
+.modal-close{background:rgba(255,255,255,.12);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-close:hover{background:rgba(255,255,255,.22);}
+.modal-body{padding:24px;}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;}
+.btn-submit{width:100%;padding:13px;border-radius:var(--r-sm);background:var(--purple);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;transition:all .2s;}
+.btn-submit:hover{background:#6d28d9;}
 
-.card{
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-  margin-bottom:20px;
-}
-.card h3{
-  margin-top:0;
-}
-.card button{
-  background:#0d6efd;
-  color:white;
-  border:none;
-  padding:8px 15px;
-  border-radius:5px;
-  cursor:pointer;
-}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;right:28px;z-index:999;background:var(--navy);color:#fff;padding:12px 20px;border-radius:var(--r-sm);font-size:13px;font-weight:500;box-shadow:var(--shadow-md);transform:translateY(20px);opacity:0;transition:all .3s;border-left:3px solid var(--gold);pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.skeleton{background:linear-gradient(90deg,#f0f4f9 25%,#e2e8f0 50%,#f0f4f9 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:6px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* SIDEBAR */
-.sidebar{
-  flex:30%;
-  position:sticky;
-  top:20px;
-}
-.sidebar form{
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-.sidebar input,
-.sidebar textarea,
-.sidebar select{
-  width:100%;
-  padding:8px;
-  margin-bottom:10px;
-}
+/* ── FOOTER ── */
+footer{background:var(--navy);color:rgba(255,255,255,.45);text-align:center;padding:28px 20px;font-size:13px;margin-top:60px;border-top:1px solid var(--border-dark);}
+footer span{color:var(--gold);}
 
-/* APPLY MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.6);
-  justify-content:center;
-  align-items:center;
-}
-.modal-content{
-  background:white;
-  width:90%;
-  max-width:600px;
-  padding:20px;
-  border-radius:10px;
-  max-height:90vh;
-  overflow-y:auto;
-}
-.close{
-  float:right;
-  cursor:pointer;
-  font-size:20px;
-  font-weight:bold;
-}
-
-/* FOOTER */
-footer{
-  background:#0d6efd;
-  color:white;
-  text-align:center;
-  padding:20px;
-  margin-top:40px;
+@media(max-width:768px){
+  .navbar{padding:0 16px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:44px 16px 36px;}
+  .main{padding:0 12px;}
+  .int-card{flex-direction:column;}
+  .int-actions{flex-direction:row;width:100%;}
+  .modal-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
-
 <body>
 
-<!-- COMMON HEADER -->
-<div class="navbar">
-  <div class="logo">
-    <a href="index.html">
-      <img src="logo.png" alt="Yireh Careers Logo">
-    </a>
-  </div>
-
-  <div class="heading">YIREH CAREERS</div>
-
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Yireh" onerror="this.style.display='none'">
+    <span class="nav-brand">YIREH CAREERS</span>
+  </a>
   <div class="nav-links">
+    <a href="index.html">Home</a>
     <a href="cv-builder.html">CV Builder</a>
     <a href="jobs.html">Jobs</a>
-    <a href="internships.html">Internships</a>
-    <a href="#">Scam Alerts</a>
+    <a href="internships.html" class="active">Internships</a>
+    <a href="index.html#scam-alerts">⚠ Scam Alerts</a>
     <a href="mailto:yireh.remotejobs@gmail.com">Contact</a>
   </div>
-
-  <div class="support-buttons">
-    <button class="paypal">PayPal</button>
-    <button class="gpay">Google Pay</button>
-  </div>
+  <a href="cv-builder.html" class="nav-cta">Build My CV →</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="cv-builder.html">CV Builder</a>
+  <a href="jobs.html">Jobs</a>
+  <a href="internships.html">Internships</a>
+  <a href="index.html#scam-alerts">⚠ Scam Alerts</a>
+  <a href="mailto:yireh.remotejobs@gmail.com">Contact</a>
+  <a href="cv-builder.html" class="m-cta">Build My CV →</a>
 </div>
-</script>
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Find Internships Worldwide</h1>
-  <div class="search-bar">
-    <input type="text" id="keyword" placeholder="Keyword">
-    <input type="text" id="location" placeholder="Country">
-    <select id="type">
-      <option value="">Internship Type</option>
-      <option>Remote</option>
-      <option>On-site</option>
-      <option>Hybrid</option>
+  <div class="hero-tag">🎓 For Students & Fresh Graduates</div>
+  <h1>Launch Your Career With a<br><span>Real Internship</span></h1>
+  <p class="hero-sub">Verified remote, on-site and hybrid internships worldwide. Build your experience with trusted companies.</p>
+
+  <div class="search-wrap">
+    <div class="s-field">
+      <span class="s-icon">🔍</span>
+      <input class="search-input" id="searchKeyword" type="text" placeholder="Role or keyword…" oninput="filterInternships()">
+    </div>
+    <div class="s-field" style="max-width:180px;">
+      <span class="s-icon">📍</span>
+      <input class="search-input" id="searchLocation" type="text" placeholder="Country…" oninput="filterInternships()">
+    </div>
+    <select class="search-select" id="searchType" onchange="filterInternships()">
+      <option value="">All Types</option>
+      <option>Remote</option><option>On-site</option><option>Hybrid</option>
     </select>
-    <select id="category">
-      <option value="">Category</option>
-      <option>IT</option>
-      <option>Marketing</option>
-      <option>Engineering</option>
-      <option>Business</option>
+    <select class="search-select" id="searchCategory" onchange="filterInternships()">
+      <option value="">All Fields</option>
+      <option>IT</option><option>Marketing</option><option>Engineering</option>
+      <option>Business</option><option>Design</option><option>Finance</option>
     </select>
-    <button onclick="searchInternships()">Search</button>
+    <button class="btn-search" onclick="filterInternships()">Search</button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="h-stat"><div class="h-stat-num" id="totalInts">—</div><div class="h-stat-label">Open Roles</div></div>
+    <div class="h-stat"><div class="h-stat-num">Verified</div><div class="h-stat-label">Companies Only</div></div>
+    <div class="h-stat"><div class="h-stat-num">Free</div><div class="h-stat-label">To Apply</div></div>
   </div>
 </section>
 
-<div class="container">
+<!-- MAIN -->
+<div class="main">
 
-  <!-- LEFT LIST -->
-  <div class="internship-list" id="internshipList"></div>
-
-  <!-- RIGHT POST FORM -->
-  <div class="sidebar">
-    <form id="postForm">
-      <h3>Post Internship</h3>
-      <input type="text" placeholder="Company Name" required>
-      <input type="url" placeholder="Website">
-      <input type="email" placeholder="HR Email" required>
-      <input type="text" placeholder="Internship Title" required>
-      <input type="text" placeholder="Location" required>
-      <input type="text" placeholder="Duration">
-      <input type="text" placeholder="Stipend">
-      <select>
-        <option>Remote</option>
-        <option>On-site</option>
-        <option>Hybrid</option>
-      </select>
-      <textarea placeholder="Skills Required"></textarea>
-      <textarea placeholder="Description" required></textarea>
-      <input type="date" required>
-      <input type="file" accept="image/*">
-      <button type="submit">Submit Internship</button>
-    </form>
+  <!-- LEFT: LISTINGS -->
+  <div>
+    <div class="filters-bar">
+      <div class="filter-chips">
+        <span class="chip active" onclick="setChip(this,'all')">All</span>
+        <span class="chip" onclick="setChip(this,'Remote')">🌐 Remote</span>
+        <span class="chip" onclick="setChip(this,'On-site')">🏢 On-site</span>
+        <span class="chip" onclick="setChip(this,'Hybrid')">⚡ Hybrid</span>
+        <span class="chip" onclick="setChip(this,'paid')">💰 Paid</span>
+      </div>
+      <span class="results-count" id="resultsCount">Loading…</span>
+    </div>
+    <div id="internshipList"></div>
   </div>
 
+  <!-- RIGHT: POST FORM -->
+  <div>
+    <div class="sidebar-panel">
+      <div class="sidebar-head">
+        <h3>Post an Internship</h3>
+        <p>Connect with students & fresh graduates globally</p>
+      </div>
+      <div class="sidebar-body">
+        <form id="postForm">
+          <div class="field-group">
+            <div class="field-label">Company Name *</div>
+            <input class="field-input" id="pCompany" placeholder="e.g. Tech Global" required>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <div class="field-label">HR Email *</div>
+              <input class="field-input" id="pEmail" type="email" placeholder="hr@company.com" required>
+            </div>
+            <div class="field-group">
+              <div class="field-label">Website</div>
+              <input class="field-input" id="pWebsite" type="url" placeholder="https://…">
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Internship Title *</div>
+            <input class="field-input" id="pTitle" placeholder="e.g. Marketing Intern" required>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <div class="field-label">Location *</div>
+              <input class="field-input" id="pLocation" placeholder="Country / City" required>
+            </div>
+            <div class="field-group">
+              <div class="field-label">Type</div>
+              <select class="field-select" id="pType">
+                <option>Remote</option><option>On-site</option><option>Hybrid</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <div class="field-label">Duration</div>
+              <input class="field-input" id="pDuration" placeholder="e.g. 3 Months">
+            </div>
+            <div class="field-group">
+              <div class="field-label">Stipend</div>
+              <input class="field-input" id="pStipend" placeholder="e.g. $800/mo">
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Category</div>
+            <select class="field-select" id="pCategory">
+              <option>IT</option><option>Marketing</option><option>Engineering</option>
+              <option>Business</option><option>Design</option><option>Finance</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Skills Required</div>
+            <textarea class="field-textarea" id="pSkills" placeholder="e.g. Python, Excel, Communication…"></textarea>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Description *</div>
+            <textarea class="field-textarea" id="pDesc" placeholder="Describe the internship role and responsibilities…" required></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <div class="field-label">Deadline</div>
+              <input class="field-input" id="pDeadline" type="date">
+            </div>
+            <div class="field-group">
+              <div class="field-label">Company Logo</div>
+              <div class="upload-zone" onclick="document.getElementById('pLogo').click()">
+                <input type="file" id="pLogo" accept="image/*">
+                <div id="pLogoLabel" style="font-size:12px;">📎 Upload logo</div>
+                <div class="upload-hint">PNG/JPG, max 2MB</div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn-post">Submit Internship →</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- APPLY MODAL -->
-<div class="modal" id="applyModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h3>Apply for Internship</h3>
-    <form id="applyForm">
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="tel" placeholder="Phone Number" required>
-      <input type="text" placeholder="Country">
-      <input type="text" placeholder="University / College">
-      <input type="text" placeholder="Degree">
-      <input type="text" placeholder="Graduation Year">
-      <input type="url" placeholder="LinkedIn">
-      <input type="url" placeholder="Portfolio">
-      <textarea placeholder="Cover Letter"></textarea>
-      <input type="file" accept=".pdf,.doc,.docx" required>
-      <button type="submit">Submit Application</button>
-    </form>
+<div class="modal-overlay" id="applyModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3>Apply for Internship</h3>
+        <p id="applyIntTitle">—</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="applyForm">
+        <div class="modal-grid">
+          <div class="field-group">
+            <div class="field-label">Full Name *</div>
+            <input class="field-input" id="aName" placeholder="Your full name" required>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Email *</div>
+            <input class="field-input" id="aEmail" type="email" placeholder="you@email.com" required>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Phone Number</div>
+            <input class="field-input" id="aPhone" type="tel" placeholder="+1 234 567 890">
+          </div>
+          <div class="field-group">
+            <div class="field-label">Country</div>
+            <input class="field-input" id="aCountry" placeholder="Your country">
+          </div>
+          <div class="field-group">
+            <div class="field-label">University / College</div>
+            <input class="field-input" id="aUniversity" placeholder="Institution name">
+          </div>
+          <div class="field-group">
+            <div class="field-label">Degree</div>
+            <input class="field-input" id="aDegree" placeholder="e.g. BSc Computer Science">
+          </div>
+          <div class="field-group">
+            <div class="field-label">Graduation Year</div>
+            <input class="field-input" id="aGradYear" placeholder="e.g. 2025">
+          </div>
+          <div class="field-group">
+            <div class="field-label">LinkedIn (optional)</div>
+            <input class="field-input" id="aLinkedin" type="url" placeholder="linkedin.com/in/…">
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Portfolio / Website (optional)</div>
+          <input class="field-input" id="aPortfolio" type="url" placeholder="https://yourportfolio.com">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Cover Letter</div>
+          <textarea class="field-textarea" id="aCover" style="min-height:90px;" placeholder="Why are you interested in this internship?…"></textarea>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Upload CV / Resume *</div>
+          <div class="upload-zone" onclick="document.getElementById('aCV').click()">
+            <input type="file" id="aCV" accept=".pdf,.doc,.docx" required>
+            <div id="aCVLabel">📎 Click to upload CV</div>
+            <div class="upload-hint">PDF, DOC, DOCX — max 5MB</div>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Submit Application →</button>
+      </form>
+    </div>
   </div>
 </div>
 
-<footer>
-  © 2026 Yireh Global Careers | Connecting Students Worldwide
-</footer>
+<footer>© 2025 <span>Yireh Careers</span> · Connecting Students Worldwide · yireh.site</footer>
+<div class="toast" id="toast"></div>
 
 <script>
+const API = 'https://yireh-backend-1.onrender.com/api';
+let allInts = [];
+let activeChip = 'all';
+let selectedIntId = null;
 
-// Sample demo data
-let internships = [
-  {
-    title:"Software Developer Intern",
-    company:"Tech Global",
-    location:"USA",
-    type:"Remote",
-    duration:"6 Months",
-    stipend:"Paid",
-    description:"Work with development team building modern web applications."
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── LOAD
+async function loadInternships(){
+  const list = document.getElementById('internshipList');
+  list.innerHTML = '<div class="int-card"><div class="skeleton" style="width:52px;height:52px;border-radius:10px;flex-shrink:0;"></div><div style="flex:1"><div class="skeleton" style="height:18px;width:55%;margin-bottom:8px;"></div><div class="skeleton" style="height:13px;width:35%;"></div></div></div>'.repeat(3);
+
+  try {
+    const res = await fetch(`${API}/internships`);
+    allInts = await res.json();
+  } catch {
+    allInts = [
+      {_id:'i1', title:'Software Developer Intern', company:'Tech Global', location:'USA', type:'Remote', duration:'6 Months', stipend:'$800/mo', category:'IT', description:'Work with our development team building modern web applications using React and Node.js.', isNew:true},
+      {_id:'i2', title:'Marketing Intern', company:'BrandCo', location:'UK', type:'Hybrid', duration:'3 Months', stipend:'£600/mo', category:'Marketing', description:'Assist with social media campaigns, content creation and market research.', featured:true},
+      {_id:'i3', title:'Data Science Intern', company:'Analytics Hub', location:'Remote', type:'Remote', duration:'4 Months', stipend:'$700/mo', category:'IT', description:'Analyse datasets and build predictive models with Python and SQL.'},
+      {_id:'i4', title:'Business Development Intern', company:'StartupX', location:'Singapore', type:'On-site', duration:'6 Months', stipend:'S$1,200/mo', category:'Business', description:'Support BD team with research, outreach and partnership development.'},
+      {_id:'i5', title:'UX/UI Design Intern', company:'Creative Studio', location:'Germany', type:'Hybrid', duration:'3 Months', stipend:'€700/mo', category:'Design', description:'Create wireframes, prototypes and conduct user research for digital products.'},
+    ];
   }
-];
 
-function loadInternships(){
-  const list = document.getElementById("internshipList");
-  list.innerHTML="";
-  internships.forEach((i,index)=>{
-    list.innerHTML+=`
-      <div class="card">
-        <h3>${i.title}</h3>
-        <p><strong>${i.company}</strong> | ${i.location}</p>
-        <p>${i.type} | ${i.duration} | ${i.stipend}</p>
-        <p>${i.description}</p>
-        <button onclick="openModal()">Apply</button>
+  document.getElementById('totalInts').textContent = allInts.length;
+  renderInternships(allInts);
+}
+
+function renderInternships(list){
+  const wrap = document.getElementById('internshipList');
+  document.getElementById('resultsCount').innerHTML = `<b>${list.length}</b> internship${list.length!==1?'s':''} found`;
+
+  if(!list.length){
+    wrap.innerHTML = `<div class="empty-state"><div class="e-icon">🎓</div><h3>No internships found</h3><p>Try adjusting your search or filters</p></div>`;
+    return;
+  }
+
+  const typeClass = {Remote:'remote','On-site':'onsite',Hybrid:'hybrid'};
+
+  wrap.innerHTML = list.map(i => `
+    <div class="int-card ${i.featured?'featured':''}" onclick="openApply('${i._id}','${esc(i.title)}')">
+      <div class="int-logo">
+        ${i.logo ? `<img src="${i.logo}" alt="${esc(i.company)}">` : logoInitial(i.company)}
       </div>
-    `;
+      <div class="int-body">
+        <div class="int-meta-row">
+          ${i.featured ? '<span class="featured-tag">⭐ Featured</span>' : ''}
+          ${i.isNew ? '<span class="new-tag">New</span>' : ''}
+          ${i.category ? `<span class="int-tag">${i.category}</span>` : ''}
+        </div>
+        <div class="int-title">${esc(i.title)}</div>
+        <div class="int-company">🏢 ${esc(i.company)} · 📍 ${esc(i.location||'')}</div>
+        <div class="int-tags">
+          ${i.type ? `<span class="int-tag ${typeClass[i.type]||''}">${i.type}</span>` : ''}
+          ${i.duration ? `<span class="int-tag">⏱ ${esc(i.duration)}</span>` : ''}
+          ${i.stipend ? `<span class="int-tag paid">💰 ${esc(i.stipend)}</span>` : '<span class="int-tag">Unpaid</span>'}
+        </div>
+      </div>
+      <div class="int-actions">
+        <button class="btn-apply" onclick="event.stopPropagation();openApply('${i._id}','${esc(i.title)}')">Apply Now</button>
+        ${i.deadline ? `<span class="int-date">Closes ${esc(i.deadline)}</span>` : '<span class="int-date">Open</span>'}
+      </div>
+    </div>
+  `).join('');
+}
+
+function logoInitial(name){
+  const initials = (name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#1a1060;color:#c4b5fd;font-size:15px;font-weight:700;">${initials}</div>`;
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── CHIPS & FILTER
+function setChip(el, filter){
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active'); activeChip = filter; filterInternships();
+}
+
+function filterInternships(){
+  const kw = document.getElementById('searchKeyword').value.toLowerCase();
+  const loc = document.getElementById('searchLocation').value.toLowerCase();
+  const type = document.getElementById('searchType').value;
+  const cat = document.getElementById('searchCategory').value;
+
+  let filtered = allInts.filter(i => {
+    const matchKw = !kw || (i.title+i.company+i.description+i.category).toLowerCase().includes(kw);
+    const matchLoc = !loc || (i.location||'').toLowerCase().includes(loc);
+    const matchType = !type || i.type === type;
+    const matchCat = !cat || i.category === cat;
+    const matchChip = activeChip === 'all' || (activeChip === 'paid' ? i.stipend : i.type === activeChip);
+    return matchKw && matchLoc && matchType && matchCat && matchChip;
   });
+
+  renderInternships(filtered);
 }
 
-function openModal(){
-  document.getElementById("applyModal").style.display="flex";
-}
-
-function closeModal(){
-  document.getElementById("applyModal").style.display="none";
-}
-
-function searchInternships(){
-  alert("Search system ready for backend integration.");
-}
-
-document.getElementById("postForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  alert("Internship submitted (Admin approval required).");
+// ── POST
+let pLogoBase64 = '';
+document.getElementById('pLogo').addEventListener('change', e => {
+  if(!e.target.files[0]) return;
+  const r = new FileReader();
+  r.onload = () => { pLogoBase64 = r.result; document.getElementById('pLogoLabel').textContent = '✅ ' + e.target.files[0].name; };
+  r.readAsDataURL(e.target.files[0]);
 });
 
-document.getElementById("applyForm").addEventListener("submit",function(e){
+document.getElementById('postForm').addEventListener('submit', async e => {
   e.preventDefault();
-  alert("Application submitted successfully.");
-  closeModal();
+  const btn = e.target.querySelector('.btn-post');
+  btn.textContent = 'Submitting…'; btn.disabled = true;
+  try {
+    await fetch(`${API}/internships`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        company: document.getElementById('pCompany').value,
+        email: document.getElementById('pEmail').value,
+        title: document.getElementById('pTitle').value,
+        location: document.getElementById('pLocation').value,
+        type: document.getElementById('pType').value,
+        duration: document.getElementById('pDuration').value,
+        stipend: document.getElementById('pStipend').value,
+        category: document.getElementById('pCategory').value,
+        description: document.getElementById('pDesc').value,
+        logo: pLogoBase64
+      })
+    });
+  } catch {}
+  toast('Internship submitted! Under review. ✅');
+  e.target.reset(); pLogoBase64 = '';
+  document.getElementById('pLogoLabel').textContent = '📎 Upload logo';
+  btn.textContent = 'Submit Internship →'; btn.disabled = false;
+  loadInternships();
+});
+
+// ── APPLY
+function openApply(id, title){
+  selectedIntId = id;
+  document.getElementById('applyIntTitle').textContent = title;
+  document.getElementById('applyModal').classList.add('open');
+}
+function closeModal(){ document.getElementById('applyModal').classList.remove('open'); }
+document.getElementById('applyModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal(); });
+document.getElementById('aCV').addEventListener('change', e => { if(e.target.files[0]) document.getElementById('aCVLabel').textContent = '✅ ' + e.target.files[0].name; });
+
+document.getElementById('applyForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-submit');
+  btn.textContent = 'Submitting…'; btn.disabled = true;
+  try {
+    await fetch(`${API}/apply`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        internshipId: selectedIntId,
+        name: document.getElementById('aName').value,
+        email: document.getElementById('aEmail').value,
+        phone: document.getElementById('aPhone').value,
+        university: document.getElementById('aUniversity').value,
+      })
+    });
+  } catch {}
+  toast('Application submitted! Good luck! 🎉');
+  closeModal(); e.target.reset();
+  document.getElementById('aCVLabel').textContent = '📎 Click to upload CV';
+  btn.textContent = 'Submit Application →'; btn.disabled = false;
 });
 
 loadInternships();
-
 </script>
-
 </body>
 </html>
