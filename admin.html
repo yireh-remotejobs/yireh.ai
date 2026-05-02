@@ -275,7 +275,7 @@ tr:hover td{background:#fafbfc;}
     <div class="login-sub">Admin Dashboard — Secure Login</div>
     <div class="login-field">
       <label class="login-label">Username</label>
-      <input class="login-input" id="loginUser" type="text" placeholder="admin" autocomplete="username">
+      <input class="login-input" id="loginUser" type="text" placeholder="Yireh" autocomplete="username">
     </div>
     <div class="login-field">
       <label class="login-label">Password</label>
@@ -283,7 +283,7 @@ tr:hover td{background:#fafbfc;}
     </div>
     <div class="login-err" id="loginErr">Incorrect username or password.</div>
     <button class="btn-login" onclick="doLogin()">Sign In to Dashboard</button>
-    <div class="login-hint">Default: admin / yireh2025 (change in Settings)</div>
+    <div class="login-hint">Use your Yireh admin credentials to sign in</div>
   </div>
 </div>
 
@@ -528,7 +528,7 @@ tr:hover td{background:#fafbfc;}
       <div class="settings-card">
         <h4>🔐 Admin Credentials</h4>
         <label style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:5px;">New Username</label>
-        <input class="field-input" id="newUser" placeholder="admin">
+        <input class="field-input" id="newUser" placeholder="Yireh">
         <label style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:5px;">New Password</label>
         <input class="field-input" id="newPass" type="password" placeholder="••••••••">
         <button class="btn-save-settings" onclick="saveCredentials()">Save Credentials</button>
@@ -593,7 +593,7 @@ tr:hover td{background:#fafbfc;}
 
 <script>
 const API = localStorage.getItem('yireh_api') || 'https://yireh-backend-1.onrender.com/api';
-let CREDS = JSON.parse(localStorage.getItem('yireh_creds') || '{"u":"admin","p":"yireh2025"}');
+let CREDS = JSON.parse(localStorage.getItem('yireh_creds') || '{"u":"Yireh","p":"Vs5002190?"}');
 
 let allJobs = [], allInts = [], allApps = [], allScams = [];
 
